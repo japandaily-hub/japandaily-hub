@@ -1,11 +1,14 @@
 import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
 
-// SITE_URL と BASE_PATH は GitHub Actions が自動で注入します。
-// ローカル開発時はフォールバック値が使われます。
+// https://astro.build/config
 export default defineConfig({
-  site: process.env.SITE_URL  ?? 'http://localhost:4321',
-  base: process.env.BASE_PATH ?? '/',
+  // あなたのGitHubユーザー名が japandaily-hub である場合の正確な設定
+  site: 'https://japandaily-hub.github.io',
+  base: '/japandaily-hub',
   integrations: [tailwind()],
   output: 'static',
+  build: {
+    format: 'directory',
+  },
 });
