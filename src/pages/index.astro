@@ -1,13 +1,35 @@
 ---
-// index.astro
+import { getCollection } from 'astro:content';
+const products = await getCollection('products');
 ---
 <html lang="ja">
   <head>
     <meta charset="utf-8" />
-    <title>JapanDaily Hub</title>
+    <meta name="viewport" content="width=device-width" />
+    <title>JapanDaily Hub - お得な商品一覧</title>
+    <script src="https://cdn.tailwindcss.com"></script>
   </head>
-  <body>
-    <h1>JapanDaily Hub</h1>
-    <p>自動更新ショップを作成中です。</p>
+  <body class="bg-gray-50 text-gray-900">
+    <header class="bg-white border-b p-4 text-center">
+      <h1 class="text-2xl font-bold">JapanDaily Hub</h1>
+    </header>
+    <main class="max-w-4xl mx-auto p-6">
+      {products.length === 0 ? (
+        <p class="text-center text-gray-500">現在、商品は準備中です。</p>
+      ) : (
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {products.map((item) => (
+            <div class="bg-white p-4 rounded-lg shadow border">
+              <img src={item.data.imageUrl} alt={item.data.title} class="w-full h-48 object-contain mb-4" />
+              <h2 class="text-lg font-bold mb-2">{item.data.title}</h2>
+              <p class="text-red-600 font-bold text-xl mb-4">¥{item.data.price.toLocaleString()}</p>
+              <a href={item.data.amazonUrl} class="block bg-orange-500 text-white text-center py-2 rounded font-bold hover:bg-orange-600">
+                Amazonで詳細を見る
+              </a>
+            </div>
+          ))}
+        </div>
+      )}
+    </main>
   </body>
 </html>
