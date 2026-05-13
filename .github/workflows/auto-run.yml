@@ -2,44 +2,40 @@ name: JapanDaily Auto-Sync & Deploy
 
 on:
   schedule:
-    - cron: '0 * * * *' # 1時間おき
-  workflow_dispatch: # 手動実行ボタン
+    - cron: '0 * * * *'
+  workflow_dispatch:
 
 permissions:
-  contents: write # これが最重要：書き込み権限
+  contents: write
   pages: write
   id-token: write
 
 jobs:
-  sync-build-deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-
       - name: Install dependencies
-        run: npm install || echo "No dependencies"
+        run: npm install
+      - name: Build Astro
+        run: npm run build
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist
 
-      - name: Run Sync Script
-        env:
-          AMAZON_ACCESS_KEY: ${{ secrets.AMAZON_ACCESS_KEY }}
-          AMAZON_SECRET_KEY: ${{ secrets.AMAZON_SECRET_KEY }}
-          AMAZON_TAG: ${{ secrets.AMAZON_TAG }}
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-        run: node scripts/sync.js || echo "Sync skipped (no API keys)"
-
-      - name: Commit and Push changes
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git add .
-          git commit -m "Update products" || echo "No changes"
-          git push origin main || echo "Push failed"
-
-      - name: Build and Deploy
-        uses: withastro/action@v2
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
