@@ -410,7 +410,7 @@ const products = [
   <header>
     <div class="header-inner">
       <div class="logo">Japan<em>Daily</em> Hub</div>
-        <select class="lang-select" id="lang-select" onchange="setLang(this.value)">
+        <select class="lang-select" id="lang-select">
         <option value="en">🌐 English</option>
         <option value="ja">🇯🇵 日本語</option>
         <option value="zh">🇨🇳 简体中文</option>
@@ -692,7 +692,6 @@ const products = [
     function setLang(lang) {
       if (!LANGS.includes(lang)) lang = 'en';
       document.querySelectorAll('[data-en]').forEach(el => {
-        // dataset key: data-zhtw → el.dataset.zhtw
         const text = el.dataset[lang] || el.dataset['en'];
         if (text) el.innerHTML = text;
       });
@@ -701,17 +700,12 @@ const products = [
       try { localStorage.setItem('jdh-lang', lang); } catch(e) {}
     }
 
+    // selectのchangeイベントをスクリプト内でバインド（Astroモジュールスコープ対応）
+    const langSel = document.getElementById('lang-select');
+    if (langSel) langSel.addEventListener('change', (e) => setLang(e.target.value));
+
     // ページ読み込み時に保存済み言語を復元
     (function() {
       try {
         const saved = localStorage.getItem('jdh-lang');
-        if (saved && LANGS.includes(saved)) setLang(saved);
-      } catch(e) {}
-    })();
-
-    loadRates();
-    setInterval(loadRates, 5 * 60 * 1000);
-  </script>
-
-</body>
-</html>
+    
