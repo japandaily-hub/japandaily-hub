@@ -1,297 +1,608 @@
 ---
-import { getCollection } from 'astro:content';
-import YenAdvantage from '../components/YenAdvantage.astro';
-import LangSwitch from '../components/LangSwitch.astro';
-import ForexTicker from '../components/ForexTicker.astro';
-const products = await getCollection('products');
-const base = '/japandaily-hub';
+const products = [
+  {
+    id: 'item-01',
+    title: 'テスト用おすすめガジェット',
+    price: 5000,
+    imageUrl: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500',
+    amazonUrl: 'https://www.amazon.co.jp/',
+    category: 'Daily Goods',
+  },
+  {
+    id: 'product-1',
+    title: 'KURA - Minimalist Waxed Canvas Backpack',
+    price: 38500,
+    imageUrl: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500',
+    amazonUrl: 'https://www.amazon.co.jp/dp/EXAMPLE123',
+    category: 'Fashion',
+  },
+];
 ---
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Japan Daily Hub | Authentic Japanese Products</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet" />
-    <style>
-      :root { --ink:#12100e; --gold:#b8963e; --gold-l:#d4af5a; --washi:#f6f1e9; }
-      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Japan Daily Hub | Authentic Japanese Products</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400&family=Cormorant+Garamond:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #12100e;
+      --gold: #b8963e;
+      --gold-l: #d4af5a;
+      --washi: #f6f1e9;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--washi);
+      color: var(--ink);
+      font-family: 'Noto Serif JP', serif;
+    }
 
-      body {
-        background: var(--washi);
-        color: var(--ink);
-        font-family: 'Noto Serif JP','Hiragino Mincho ProN', serif;
-        overflow-x: hidden;
-      }
+    /* TICKER */
+    .ticker {
+      background: var(--ink);
+      color: rgba(255,255,255,.6);
+      font-size: .6rem;
+      letter-spacing: .18em;
+      padding: .4rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .ticker-lbl { color: var(--gold); }
+    .ticker-rate { color: #fff; }
+    .ticker-save { color: #4ade80; margin-left: auto; }
 
-      /* HEADER */
-      header {
-        position: sticky; top: 0; z-index: 100;
-        background: rgba(246,241,233,.92);
-        backdrop-filter: blur(14px);
-        border-bottom: 1px solid rgba(184,150,62,.25);
-      }
-      .header-inner {
-        max-width: 1200px; margin: 0 auto;
-        padding: 0 1.5rem; height: 64px;
-        display: flex; align-items: center; justify-content: space-between;
-      }
-      .site-name {
-        font-family: 'Cormorant Garamond', serif;
-        font-size: 1.3rem; font-weight: 300;
-        letter-spacing: .22em; text-transform: uppercase; color: var(--ink);
-      }
-      .site-name em { color: var(--gold); font-style: normal; }
+    /* HEADER */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(246,241,233,.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(184,150,62,.25);
+    }
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      font-weight: 300;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--ink);
+    }
+    .logo em { color: var(--gold); font-style: normal; }
+    .lang-btns { display: flex; gap: .5rem; align-items: center; }
+    .lang-btn {
+      background: none;
+      border: none;
+      font-size: .65rem;
+      letter-spacing: .18em;
+      cursor: pointer;
+      color: rgba(18,16,14,.4);
+      padding: .2rem .4rem;
+      font-family: inherit;
+    }
+    .lang-btn.active { color: var(--gold); font-weight: 700; }
+    .lang-sep { color: rgba(18,16,14,.2); font-size: .6rem; }
 
-      /* TAB NAV */
-      .tab-nav {
-        background: rgba(246,241,233,.98);
-        border-bottom: 1px solid rgba(184,150,62,.2);
-        position: sticky; top: 64px; z-index: 90;
-      }
-      .tab-list {
-        max-width: 1200px; margin: 0 auto;
-        padding: 0 1.5rem;
-        display: flex; overflow-x: auto; scrollbar-width: none;
-      }
-      .tab-list::-webkit-scrollbar { display: none; }
-      .tab-btn {
-        flex-shrink: 0; padding: .8rem 1.5rem;
-        font-size: .72rem; letter-spacing: .22em;
-        color: rgba(18,16,14,.45);
-        border: none; background: none; cursor: pointer;
-        border-bottom: 2px solid transparent;
-        transition: color .2s, border-color .2s;
-        font-family: inherit; white-space: nowrap;
-      }
-      .tab-btn:hover { color: var(--ink); }
-      .tab-btn.active { color: var(--gold); border-bottom-color: var(--gold); }
+    /* HERO */
+    .hero {
+      background: var(--ink);
+      color: #fff;
+      text-align: center;
+      padding: 6rem 1.5rem 5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background: url('https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=1600&q=60') center/cover no-repeat;
+      opacity: .15;
+    }
+    .hero-inner { position: relative; z-index: 1; }
+    .hero-eye {
+      font-size: .68rem;
+      letter-spacing: .5em;
+      color: var(--gold-l);
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 5vw, 4rem);
+      font-weight: 300;
+      letter-spacing: .12em;
+      line-height: 1.3;
+    }
+    .hero-line {
+      width: 44px; height: 1px;
+      background: var(--gold);
+      margin: 1.8rem auto;
+    }
+    .hero-desc {
+      font-size: .82rem;
+      line-height: 2;
+      color: rgba(255,255,255,.55);
+      letter-spacing: .08em;
+    }
 
-      /* HERO */
-      .hero {
-        position: relative; overflow: hidden;
-        background: var(--ink); color: #fff;
-        text-align: center; padding: 6rem 1.5rem 5rem;
-      }
-      .hero::before {
-        content: ''; position: absolute; inset: 0;
-        background: url('https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=1600&q=60') center/cover no-repeat;
-        opacity: .15;
-      }
-      .hero-inner { position: relative; z-index: 1; }
-      .hero-eyebrow {
-        font-size: .68rem; letter-spacing: .5em;
-        color: var(--gold-l); text-transform: uppercase; margin-bottom: 1rem;
-      }
-      .hero-title {
-        font-family: 'Cormorant Garamond', serif;
-        font-size: clamp(2rem, 5vw, 4rem);
-        font-weight: 300; letter-spacing: .12em; line-height: 1.3; margin-bottom: 1rem;
-      }
-      .hero-rule { width: 44px; height: 1px; background: var(--gold); margin: 1.6rem auto; }
-      .hero-desc {
-        font-size: .82rem; line-height: 2.1;
-        color: rgba(255,255,255,.55); letter-spacing: .08em;
-      }
+    /* YEN SECTION */
+    .yen-section {
+      background: #1a1510;
+      color: #fff;
+      padding: 4rem 1.5rem;
+      text-align: center;
+    }
+    .yen-eye {
+      font-size: .65rem;
+      letter-spacing: .45em;
+      color: var(--gold-l);
+      text-transform: uppercase;
+      margin-bottom: .8rem;
+    }
+    .yen-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.6rem, 3.5vw, 2.8rem);
+      font-weight: 300;
+      letter-spacing: .1em;
+      margin-bottom: 2rem;
+    }
+    .rate-cards {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 2.5rem;
+    }
+    .rate-card {
+      border: 1px solid rgba(184,150,62,.25);
+      border-radius: 4px;
+      padding: 1.2rem 1.5rem;
+      min-width: 130px;
+      text-align: center;
+    }
+    .rate-flag { font-size: 1.6rem; margin-bottom: .3rem; }
+    .rate-cur { font-size: .6rem; letter-spacing: .3em; color: rgba(255,255,255,.4); margin-bottom: .4rem; }
+    .rate-val {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.7rem;
+      color: #fff;
+    }
+    .rate-badge {
+      font-size: .62rem;
+      color: var(--gold-l);
+      margin-top: .4rem;
+      letter-spacing: .06em;
+    }
+    .calc-box {
+      max-width: 520px;
+      margin: 0 auto;
+      border: 1px solid rgba(184,150,62,.25);
+      border-radius: 4px;
+      padding: 1.8rem;
+      text-align: left;
+    }
+    .calc-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      font-weight: 300;
+      letter-spacing: .1em;
+      margin-bottom: 1rem;
+    }
+    .calc-row { display: flex; gap: .75rem; margin-bottom: 1.2rem; flex-wrap: wrap; }
+    .calc-input {
+      flex: 1;
+      min-width: 120px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(184,150,62,.3);
+      color: #fff;
+      padding: .6rem .8rem;
+      font-size: .9rem;
+      font-family: 'Cormorant Garamond', serif;
+      outline: none;
+      border-radius: 2px;
+    }
+    .calc-select {
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(184,150,62,.3);
+      color: #fff;
+      padding: .6rem .8rem;
+      font-size: .85rem;
+      outline: none;
+      cursor: pointer;
+      border-radius: 2px;
+    }
+    .calc-result {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .calc-col { flex: 1; min-width: 100px; }
+    .calc-col-lbl { font-size: .58rem; letter-spacing: .2em; color: rgba(255,255,255,.35); text-transform: uppercase; margin-bottom: .3rem; }
+    .calc-now { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; }
+    .calc-was { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; color: rgba(255,255,255,.35); text-decoration: line-through; }
+    .calc-save { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; color: #4ade80; }
+    .calc-save-pct { font-size: .7rem; color: rgba(74,222,128,.7); letter-spacing: .1em; }
 
-      /* SECTION */
-      .section-wrap { max-width: 1200px; margin: 0 auto; padding: 4rem 1.5rem 5rem; }
-      .section-head { display: flex; align-items: center; gap: 1.2rem; margin-bottom: 2.5rem; }
-      .section-head .lbl {
-        font-size: .68rem; letter-spacing: .45em;
-        color: var(--gold); text-transform: uppercase; white-space: nowrap;
-      }
-      .section-head .rule {
-        flex: 1; height: 1px;
-        background: linear-gradient(to right, rgba(184,150,62,.4), transparent);
-      }
+    /* TABS */
+    .tab-nav {
+      background: rgba(246,241,233,.98);
+      border-bottom: 1px solid rgba(184,150,62,.2);
+      position: sticky;
+      top: 64px;
+      z-index: 90;
+    }
+    .tab-list {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      display: flex;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .tab-list::-webkit-scrollbar { display: none; }
+    .tab-btn {
+      flex-shrink: 0;
+      padding: .85rem 1.5rem;
+      font-size: .72rem;
+      letter-spacing: .2em;
+      color: rgba(18,16,14,.45);
+      border: none;
+      background: none;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: color .2s, border-color .2s;
+      font-family: inherit;
+      white-space: nowrap;
+    }
+    .tab-btn:hover { color: var(--ink); }
+    .tab-btn.active { color: var(--gold); border-bottom-color: var(--gold); }
 
-      /* PRODUCT GRID */
-      .product-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-        gap: 1.8rem;
-      }
-      .product-card {
-        background: #fff;
-        border: 1px solid rgba(184,150,62,.12);
-        display: flex; flex-direction: column;
-        transition: box-shadow .3s, transform .3s;
-      }
-      .product-card:hover {
-        box-shadow: 0 16px 48px rgba(18,16,14,.1);
-        transform: translateY(-4px);
-      }
-      .product-img { aspect-ratio: 4/3; overflow: hidden; background: #f0ece4; }
-      .product-img img {
-        width: 100%; height: 100%; object-fit: contain; padding: 1rem;
-        transition: transform .5s ease;
-      }
-      .product-card:hover .product-img img { transform: scale(1.05); }
-      .product-body { padding: 1.3rem 1.3rem 1.5rem; display: flex; flex-direction: column; flex: 1; }
-      .product-cat { font-size: .58rem; letter-spacing: .35em; color: var(--gold); text-transform: uppercase; margin-bottom: .5rem; }
-      .product-name { font-size: .85rem; line-height: 1.8; letter-spacing: .04em; color: var(--ink); flex: 1; margin-bottom: .9rem; }
-      .yen-badge {
-        display: inline-block; font-size: .58rem; letter-spacing: .1em;
-        padding: .2rem .6rem; margin-bottom: .9rem;
-        background: rgba(74,222,128,.1); color: #16a34a;
-        border: 1px solid rgba(74,222,128,.3);
-      }
-      .product-price {
-        font-family: 'Cormorant Garamond', serif;
-        font-size: 1.55rem; letter-spacing: .05em; color: var(--ink); margin-bottom: 1.1rem;
-      }
-      .product-price small { font-size: .85rem; color: rgba(18,16,14,.5); }
-      .btn-buy {
-        display: block; text-align: center; padding: .8rem;
-        background: var(--ink); color: #fff; text-decoration: none;
-        font-size: .62rem; letter-spacing: .38em; text-transform: uppercase;
-        transition: background .22s;
-      }
-      .btn-buy:hover { background: var(--gold); }
+    /* PRODUCTS */
+    .section-wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 4rem 1.5rem 5rem;
+    }
+    .section-head {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      margin-bottom: 2.5rem;
+    }
+    .section-lbl {
+      font-size: .68rem;
+      letter-spacing: .45em;
+      color: var(--gold);
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .section-rule {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, rgba(184,150,62,.4), transparent);
+    }
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1.8rem;
+    }
+    .product-card {
+      background: #fff;
+      border: 1px solid rgba(184,150,62,.12);
+      display: flex;
+      flex-direction: column;
+      transition: box-shadow .3s, transform .3s;
+    }
+    .product-card:hover {
+      box-shadow: 0 16px 48px rgba(18,16,14,.1);
+      transform: translateY(-4px);
+    }
+    .product-img-wrap {
+      aspect-ratio: 4/3;
+      overflow: hidden;
+      background: #f0ece4;
+      display: block;
+      text-decoration: none;
+    }
+    .product-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 1rem;
+      transition: transform .5s ease;
+    }
+    .product-card:hover .product-img-wrap img { transform: scale(1.05); }
+    .product-body {
+      padding: 1.3rem;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+    .product-cat {
+      font-size: .58rem;
+      letter-spacing: .35em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: .5rem;
+    }
+    .product-name {
+      font-size: .85rem;
+      line-height: 1.8;
+      color: var(--ink);
+      flex: 1;
+      margin-bottom: .8rem;
+      text-decoration: none;
+    }
+    .yen-badge {
+      font-size: .58rem;
+      padding: .2rem .6rem;
+      background: rgba(74,222,128,.1);
+      color: #16a34a;
+      border: 1px solid rgba(74,222,128,.3);
+      display: inline-block;
+      margin-bottom: .8rem;
+      letter-spacing: .06em;
+    }
+    .product-price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.55rem;
+      color: var(--ink);
+      margin-bottom: 1rem;
+    }
+    .product-price small { font-size: .85rem; color: rgba(18,16,14,.5); }
+    .btn-buy {
+      display: block;
+      text-align: center;
+      padding: .8rem;
+      background: var(--ink);
+      color: #fff;
+      text-decoration: none;
+      font-size: .62rem;
+      letter-spacing: .38em;
+      text-transform: uppercase;
+      transition: background .22s;
+    }
+    .btn-buy:hover { background: var(--gold); }
 
-      /* EMPTY */
-      .empty {
-        grid-column: 1/-1; text-align: center; padding: 5rem 0;
-        font-size: .82rem; letter-spacing: .2em; color: rgba(18,16,14,.3);
-      }
+    /* PANEL */
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
 
-      /* FOOTER */
-      footer {
-        border-top: 1px solid rgba(184,150,62,.18);
-        padding: 2.2rem 1.5rem; text-align: center;
-        font-size: .62rem; letter-spacing: .35em;
-        color: rgba(18,16,14,.3); text-transform: uppercase;
-      }
+    /* FOOTER */
+    footer {
+      border-top: 1px solid rgba(184,150,62,.18);
+      padding: 2.2rem 1.5rem;
+      text-align: center;
+      font-size: .62rem;
+      letter-spacing: .35em;
+      color: rgba(18,16,14,.3);
+      text-transform: uppercase;
+    }
+  </style>
+</head>
+<body>
 
-      /* TAB PANEL */
-      .tab-panel { display: none; }
-      .tab-panel.active { display: block; }
-    </style>
-  </head>
-  <body>
+  <!-- FOREX TICKER -->
+  <div class="ticker">
+    <span class="ticker-lbl">LIVE RATE</span>
+    <span>USD <span class="ticker-rate" id="t-usd">…</span></span>
+    <span>EUR <span class="ticker-rate" id="t-eur">…</span></span>
+    <span>GBP <span class="ticker-rate" id="t-gbp">…</span></span>
+    <span>AUD <span class="ticker-rate" id="t-aud">…</span></span>
+    <span class="ticker-save" id="t-save">↓ weak yen = you save</span>
+  </div>
 
-    <ForexTicker />
-
-    <header>
-      <div class="header-inner">
-        <div class="site-name">Japan<em>Daily</em> Hub</div>
-        <LangSwitch />
-      </div>
-    </header>
-
-    <nav class="tab-nav">
-      <div class="tab-list" role="tablist">
-        <button class="tab-btn active" data-tab="all"      data-en="All Products" data-ja="すべて">All Products</button>
-        <button class="tab-btn"        data-tab="food"     data-en="Food & Drink"  data-ja="飲食・食品">Food & Drink</button>
-        <button class="tab-btn"        data-tab="daily"    data-en="Daily Goods"   data-ja="日用雑貨">Daily Goods</button>
-        <button class="tab-btn"        data-tab="fashion"  data-en="Fashion"       data-ja="衣料品">Fashion</button>
-        <button class="tab-btn"        data-tab="featured" data-en="Featured"      data-ja="注目商品">Featured</button>
-      </div>
-    </nav>
-
-    <section class="hero">
-      <div class="hero-inner">
-        <p class="hero-eyebrow" data-en="Curated from Japan" data-ja="日本から厳選">Curated from Japan</p>
-        <h1 class="hero-title" data-en="Japanese Beauty, Into Your Life" data-ja="日本の美しさを、あなたの暮らしへ">
-          Japanese Beauty,<br />Into Your Life
-        </h1>
-        <div class="hero-rule"></div>
-        <p class="hero-desc" data-en="Handpicked Japanese products — where tradition meets craftsmanship." data-ja="伝統と職人技が交差する日本の逸品を厳選。">
-          Handpicked Japanese products — where tradition meets craftsmanship.
-        </p>
-      </div>
-    </section>
-
-    <YenAdvantage />
-
-    <!-- ALL -->
-    <div class="tab-panel active" id="panel-all">
-      <div class="section-wrap">
-        <div class="section-head">
-          <span class="lbl" data-en="All Products" data-ja="すべての商品">All Products</span>
-          <span class="rule"></span>
-        </div>
-        <div class="product-grid">
-          {products.length === 0
-            ? <div class="empty" data-en="Products coming soon" data-ja="商品を準備中です">Products coming soon</div>
-            : products.map(item => (
-              <article class="product-card">
-                <a href={`${base}/products/${item.id}`} style="display:block;text-decoration:none;">
-                  <div class="product-img">
-                    <img src={item.data.imageUrl ?? 'https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=500&q=60'} alt={item.data.title} loading="lazy" />
-                  </div>
-                </a>
-                <div class="product-body">
-                  <div class="product-cat">{item.data.category ?? 'Japan Select'}</div>
-                  <a href={`${base}/products/${item.id}`} style="text-decoration:none;color:inherit;">
-                    <div class="product-name">{item.data.title}</div>
-                  </a>
-                  <div class="yen-badge">↓ ~25% cheaper due to weak yen</div>
-                  <div class="product-price"><small>¥</small>{(item.data.price ?? 0).toLocaleString()}</div>
-                  <a href={item.data.amazonUrl ?? item.data.amazon_url ?? '#'} class="btn-buy" target="_blank" rel="noopener" data-en="Buy on Amazon" data-ja="Amazonで購入">Buy on Amazon</a>
-                </div>
-              </article>
-            ))
-          }
-        </div>
+  <!-- HEADER -->
+  <header>
+    <div class="header-inner">
+      <div class="logo">Japan<em>Daily</em> Hub</div>
+      <div class="lang-btns">
+        <button class="lang-btn active" onclick="setLang('en')">EN</button>
+        <span class="lang-sep">|</span>
+        <button class="lang-btn" onclick="setLang('ja')">日本語</button>
       </div>
     </div>
+  </header>
 
-    <!-- FOOD -->
-    <div class="tab-panel" id="panel-food">
-      <div class="section-wrap">
-        <div class="section-head"><span class="lbl" data-en="Food & Drink" data-ja="飲食・食品">Food & Drink</span><span class="rule"></span></div>
-        <div class="product-grid">
-          {(() => { const items = products.filter(p => p.data.category === 'food'); return items.length === 0 ? <div class="empty" data-en="Coming soon" data-ja="準備中">Coming soon</div> : items.map(item => (<article class="product-card"><a href={`${base}/products/${item.id}`} style="display:block;text-decoration:none;"><div class="product-img"><img src={item.data.imageUrl ?? ''} alt={item.data.title} loading="lazy" /></div></a><div class="product-body"><div class="product-cat" data-en="Food & Drink" data-ja="飲食・食品">Food & Drink</div><div class="product-name">{item.data.title}</div><div class="yen-badge">↓ ~25% cheaper due to weak yen</div><div class="product-price"><small>¥</small>{(item.data.price ?? 0).toLocaleString()}</div><a href={item.data.amazonUrl ?? item.data.amazon_url ?? '#'} class="btn-buy" target="_blank" rel="noopener" data-en="Buy on Amazon" data-ja="Amazonで購入">Buy on Amazon</a></div></article>)); })()}
-        </div>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-inner">
+      <p class="hero-eye" data-en="Curated from Japan" data-ja="日本から厳選">Curated from Japan</p>
+      <h1 class="hero-title" data-en="Japanese Beauty,<br/>Into Your Life" data-ja="日本の美しさを、<br/>あなたの暮らしへ">
+        Japanese Beauty,<br/>Into Your Life
+      </h1>
+      <div class="hero-line"></div>
+      <p class="hero-desc" data-en="Handpicked Japanese products — where tradition meets craftsmanship." data-ja="伝統と職人技が交差する日本の逸品を厳選。">
+        Handpicked Japanese products — where tradition meets craftsmanship.
+      </p>
+    </div>
+  </section>
+
+  <!-- YEN ADVANTAGE -->
+  <section class="yen-section">
+    <p class="yen-eye" data-en="Why buy from Japan now?" data-ja="今、日本から買うべき理由">Why buy from Japan now?</p>
+    <h2 class="yen-title" data-en="The Weak Yen Advantage" data-ja="円安で得するチャンス">The Weak Yen Advantage</h2>
+    <div class="rate-cards">
+      <div class="rate-card"><div class="rate-flag">🇺🇸</div><div class="rate-cur">USD</div><div class="rate-val" id="r-usd">…</div><div class="rate-badge" id="b-usd"></div></div>
+      <div class="rate-card"><div class="rate-flag">🇪🇺</div><div class="rate-cur">EUR</div><div class="rate-val" id="r-eur">…</div><div class="rate-badge" id="b-eur"></div></div>
+      <div class="rate-card"><div class="rate-flag">🇬🇧</div><div class="rate-cur">GBP</div><div class="rate-val" id="r-gbp">…</div><div class="rate-badge" id="b-gbp"></div></div>
+      <div class="rate-card"><div class="rate-flag">🇦🇺</div><div class="rate-cur">AUD</div><div class="rate-val" id="r-aud">…</div><div class="rate-badge" id="b-aud"></div></div>
+    </div>
+    <div class="calc-box">
+      <div class="calc-title" data-en="Savings Calculator" data-ja="節約額シミュレーター">Savings Calculator</div>
+      <div class="calc-row">
+        <input class="calc-input" id="calc-price" type="number" value="10000" min="100" step="100" />
+        <select class="calc-select" id="calc-cur">
+          <option value="USD">USD $</option>
+          <option value="EUR">EUR €</option>
+          <option value="GBP">GBP £</option>
+          <option value="AUD">AUD A$</option>
+        </select>
+      </div>
+      <div class="calc-result">
+        <div class="calc-col"><div class="calc-col-lbl" data-en="You pay now" data-ja="現在の支払額">You pay now</div><div class="calc-now" id="c-now">—</div></div>
+        <div style="color:rgba(255,255,255,.2)">→</div>
+        <div class="calc-col"><div class="calc-col-lbl" data-en="Was in 2021" data-ja="2021年なら">Was in 2021</div><div class="calc-was" id="c-was">—</div></div>
+        <div class="calc-col" style="text-align:center"><div class="calc-col-lbl" data-en="You save" data-ja="節約額">You save</div><div class="calc-save" id="c-save">—</div><div class="calc-save-pct" id="c-pct"></div></div>
       </div>
     </div>
+  </section>
 
-    <!-- DAILY -->
-    <div class="tab-panel" id="panel-daily">
-      <div class="section-wrap">
-        <div class="section-head"><span class="lbl" data-en="Daily Goods" data-ja="日用雑貨">Daily Goods</span><span class="rule"></span></div>
-        <div class="product-grid">
-          {(() => { const items = products.filter(p => p.data.category === 'daily'); return items.length === 0 ? <div class="empty" data-en="Coming soon" data-ja="準備中">Coming soon</div> : items.map(item => (<article class="product-card"><a href={`${base}/products/${item.id}`} style="display:block;text-decoration:none;"><div class="product-img"><img src={item.data.imageUrl ?? ''} alt={item.data.title} loading="lazy" /></div></a><div class="product-body"><div class="product-cat" data-en="Daily Goods" data-ja="日用雑貨">Daily Goods</div><div class="product-name">{item.data.title}</div><div class="yen-badge">↓ ~25% cheaper due to weak yen</div><div class="product-price"><small>¥</small>{(item.data.price ?? 0).toLocaleString()}</div><a href={item.data.amazonUrl ?? item.data.amazon_url ?? '#'} class="btn-buy" target="_blank" rel="noopener" data-en="Buy on Amazon" data-ja="Amazonで購入">Buy on Amazon</a></div></article>)); })()}
-        </div>
+  <!-- TABS -->
+  <nav class="tab-nav">
+    <div class="tab-list">
+      <button class="tab-btn active" data-tab="all"      data-en="All Products" data-ja="すべて">All Products</button>
+      <button class="tab-btn"        data-tab="food"     data-en="Food & Drink"  data-ja="飲食・食品">Food & Drink</button>
+      <button class="tab-btn"        data-tab="daily"    data-en="Daily Goods"   data-ja="日用雑貨">Daily Goods</button>
+      <button class="tab-btn"        data-tab="fashion"  data-en="Fashion"       data-ja="衣料品">Fashion</button>
+    </div>
+  </nav>
+
+  <!-- PANEL: ALL -->
+  <div class="tab-panel active" id="panel-all">
+    <div class="section-wrap">
+      <div class="section-head">
+        <span class="section-lbl" data-en="All Products" data-ja="すべての商品">All Products</span>
+        <span class="section-rule"></span>
+      </div>
+      <div class="product-grid">
+        {products.map(p => (
+          <article class="product-card">
+            <a class="product-img-wrap" href={`/japandaily-hub/products/${p.id}`}>
+              <img src={p.imageUrl} alt={p.title} loading="lazy" />
+            </a>
+            <div class="product-body">
+              <div class="product-cat">{p.category}</div>
+              <div class="product-name">{p.title}</div>
+              <div class="yen-badge">↓ ~25% cheaper due to weak yen</div>
+              <div class="product-price"><small>¥</small>{p.price.toLocaleString()}</div>
+              <a class="btn-buy" href={p.amazonUrl} target="_blank" rel="noopener"
+                data-en="Buy on Amazon" data-ja="Amazonで購入">Buy on Amazon</a>
+            </div>
+          </article>
+        ))}
       </div>
     </div>
+  </div>
 
-    <!-- FASHION -->
-    <div class="tab-panel" id="panel-fashion">
-      <div class="section-wrap">
-        <div class="section-head"><span class="lbl" data-en="Fashion" data-ja="衣料品">Fashion</span><span class="rule"></span></div>
-        <div class="product-grid">
-          {(() => { const items = products.filter(p => p.data.category === 'fashion'); return items.length === 0 ? <div class="empty" data-en="Coming soon" data-ja="準備中">Coming soon</div> : items.map(item => (<article class="product-card"><a href={`${base}/products/${item.id}`} style="display:block;text-decoration:none;"><div class="product-img"><img src={item.data.imageUrl ?? ''} alt={item.data.title} loading="lazy" /></div></a><div class="product-body"><div class="product-cat" data-en="Fashion" data-ja="衣料品">Fashion</div><div class="product-name">{item.data.title}</div><div class="yen-badge">↓ ~25% cheaper due to weak yen</div><div class="product-price"><small>¥</small>{(item.data.price ?? 0).toLocaleString()}</div><a href={item.data.amazonUrl ?? item.data.amazon_url ?? '#'} class="btn-buy" target="_blank" rel="noopener" data-en="Buy on Amazon" data-ja="Amazonで購入">Buy on Amazon</a></div></article>)); })()}
-        </div>
-      </div>
+  <div class="tab-panel" id="panel-food">
+    <div class="section-wrap"><div class="section-head"><span class="section-lbl">Food & Drink</span><span class="section-rule"></span></div>
+      <p style="color:rgba(18,16,14,.35);font-size:.85rem;letter-spacing:.15em;padding:3rem 0;text-align:center;" data-en="Products coming soon" data-ja="準備中">Products coming soon</p>
     </div>
-
-    <!-- FEATURED -->
-    <div class="tab-panel" id="panel-featured">
-      <div class="section-wrap">
-        <div class="section-head"><span class="lbl" data-en="Featured" data-ja="注目商品">Featured</span><span class="rule"></span></div>
-        <div class="product-grid">
-          {(() => { const items = products.filter(p => p.data.featured); return items.length === 0 ? <div class="empty" data-en="Coming soon" data-ja="準備中">Coming soon</div> : items.map(item => (<article class="product-card"><a href={`${base}/products/${item.id}`} style="display:block;text-decoration:none;"><div class="product-img"><img src={item.data.imageUrl ?? ''} alt={item.data.title} loading="lazy" /></div></a><div class="product-body"><div class="product-cat" data-en="Featured" data-ja="注目商品">Featured</div><div class="product-name">{item.data.title}</div><div class="yen-badge">↓ ~25% cheaper due to weak yen</div><div class="product-price"><small>¥</small>{(item.data.price ?? 0).toLocaleString()}</div><a href={item.data.amazonUrl ?? item.data.amazon_url ?? '#'} class="btn-buy" target="_blank" rel="noopener" data-en="Buy on Amazon" data-ja="Amazonで購入">Buy on Amazon</a></div></article>)); })()}
-        </div>
-      </div>
+  </div>
+  <div class="tab-panel" id="panel-daily">
+    <div class="section-wrap"><div class="section-head"><span class="section-lbl">Daily Goods</span><span class="section-rule"></span></div>
+      <p style="color:rgba(18,16,14,.35);font-size:.85rem;letter-spacing:.15em;padding:3rem 0;text-align:center;" data-en="Products coming soon" data-ja="準備中">Products coming soon</p>
     </div>
+  </div>
+  <div class="tab-panel" id="panel-fashion">
+    <div class="section-wrap"><div class="section-head"><span class="section-lbl">Fashion</span><span class="section-rule"></span></div>
+      <p style="color:rgba(18,16,14,.35);font-size:.85rem;letter-spacing:.15em;padding:3rem 0;text-align:center;" data-en="Products coming soon" data-ja="準備中">Products coming soon</p>
+    </div>
+  </div>
 
-    <footer>
-      &copy; 2025 Japan Daily Hub &nbsp;|&nbsp;
-      <span data-en="Authentic Japanese Products, Delivered Worldwide" data-ja="日本の逸品、世界へ">Authentic Japanese Products, Delivered Worldwide</span>
-    </footer>
+  <footer>
+    &copy; 2025 Japan Daily Hub &nbsp;|&nbsp; Authentic Japanese Products, Delivered Worldwide
+  </footer>
 
-    <script>
-      document.querySelectorAll<HTMLButtonElement>('.tab-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-          document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-          btn.classList.add('active');
-          document.getElementById('panel-' + btn.dataset.tab)?.classList.add('active');
+  <script>
+    // ── 為替レート ──
+    const BASE = { USD: 108, EUR: 128, GBP: 142, AUD: 80 };
+    const SYM  = { USD: '$', EUR: '€', GBP: '£', AUD: 'A$' };
+    let rates  = {};
+
+    async function loadRates() {
+      try {
+        const res  = await fetch('https://open.er-api.com/v6/latest/JPY');
+        const data = await res.json();
+        rates = {
+          USD: Math.round(1 / data.rates.USD),
+          EUR: Math.round(1 / data.rates.EUR),
+          GBP: Math.round(1 / data.rates.GBP),
+          AUD: Math.round(1 / data.rates.AUD),
+        };
+        // ticker
+        document.getElementById('t-usd').textContent = '¥' + rates.USD;
+        document.getElementById('t-eur').textContent = '¥' + rates.EUR;
+        document.getElementById('t-gbp').textContent = '¥' + rates.GBP;
+        document.getElementById('t-aud').textContent = '¥' + rates.AUD;
+
+        // rate cards
+        const pct = Math.round(((rates.USD - BASE.USD) / rates.USD) * 100);
+        ['USD','EUR','GBP','AUD'].forEach(c => {
+          const rEl = document.getElementById('r-' + c.toLowerCase());
+          const bEl = document.getElementById('b-' + c.toLowerCase());
+          if (rEl) rEl.textContent = '¥' + rates[c];
+          const p = Math.round(((rates[c] - BASE[c]) / rates[c]) * 100);
+          if (bEl) bEl.textContent = p > 0 ? '↓ ' + p + '% cheaper than 2021' : '';
         });
+
+        document.getElementById('t-save').textContent = '↓ USD buyers save ~' + pct + '% vs 2021';
+        calcSavings();
+      } catch(e) {
+        rates = { USD: 155, EUR: 168, GBP: 196, AUD: 100 };
+        calcSavings();
+      }
+    }
+
+    function calcSavings() {
+      const price = parseFloat(document.getElementById('calc-price').value) || 10000;
+      const cur   = document.getElementById('calc-cur').value;
+      const sym   = SYM[cur];
+      const now   = rates[cur] || 155;
+      const base  = BASE[cur] || 108;
+      const amtNow = (price / now).toFixed(2);
+      const amtWas = (price / base).toFixed(2);
+      const saved  = (amtWas - amtNow).toFixed(2);
+      const pct    = Math.round(((amtWas - amtNow) / amtWas) * 100);
+      document.getElementById('c-now').textContent  = sym + amtNow;
+      document.getElementById('c-was').textContent  = sym + amtWas;
+      document.getElementById('c-save').textContent = sym + saved;
+      document.getElementById('c-pct').textContent  = pct + '% off vs 2021';
+    }
+
+    document.getElementById('calc-price').addEventListener('input', calcSavings);
+    document.getElementById('calc-cur').addEventListener('change', calcSavings);
+
+    // ── タブ ──
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById('panel-' + btn.dataset.tab).classList.add('active');
       });
-    </script>
-  </body>
+    });
+
+    // ── 言語切替 ──
+    function setLang(lang) {
+      document.querySelectorAll('[data-en]').forEach(el => {
+        const text = el.dataset[lang];
+        if (text) el.innerHTML = text;
+      });
+      document.querySelectorAll('.lang-btn').forEach(b => {
+        b.classList.toggle('active', b.getAttribute('onclick').includes(lang));
+      });
+    }
+
+    loadRates();
+    setInterval(loadRates, 5 * 60 * 1000);
+  </script>
+
+</body>
 </html>
