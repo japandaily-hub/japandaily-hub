@@ -1,0 +1,107 @@
+---
+/**
+ * ForexTicker — ヘッダー上部に表示するリアルタイム為替ティッカー
+ * open.er-api.com を使用（無料・APIキー不要）
+ */
+---
+
+<div class="ticker-bar" role="complementary" aria-label="Live exchange rates">
+  <div class="ticker-inner">
+    <span class="ticker-label">LIVE RATE</span>
+    <div class="ticker-rates" id="ticker-rates">
+      <span class="ticker-item">USD <span id="t-usd">…</span></span>
+      <span class="ticker-sep">·</span>
+      <span class="ticker-item">EUR <span id="t-eur">…</span></span>
+      <span class="ticker-sep">·</span>
+      <span class="ticker-item">GBP <span id="t-gbp">…</span></span>
+      <span class="ticker-sep">·</span>
+      <span class="ticker-item">AUD <span id="t-aud">…</span></span>
+    </div>
+    <span class="ticker-badge" id="ticker-badge">↓ weak yen = you save</span>
+  </div>
+</div>
+
+<style>
+  .ticker-bar {
+    background: var(--ink);
+    color: rgba(255,255,255,.6);
+    font-size: .6rem;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    padding: .38rem 1.5rem;
+  }
+
+  .ticker-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+  }
+
+  .ticker-label {
+    color: var(--gold);
+    font-size: .55rem;
+    letter-spacing: .3em;
+    white-space: nowrap;
+  }
+
+  .ticker-rates {
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+    flex: 1;
+    flex-wrap: wrap;
+  }
+
+  .ticker-item {
+    color: rgba(255,255,255,.5);
+  }
+
+  .ticker-item span {
+    color: #fff;
+    font-weight: 400;
+    margin-left: .2rem;
+  }
+
+  .ticker-sep {
+    color: rgba(255,255,255,.2);
+  }
+
+  .ticker-badge {
+    white-space: nowrap;
+    color: #4ade80;
+    font-size: .55rem;
+    letter-spacing: .18em;
+  }
+</style>
+
+<script>
+  async function loadTicker() {
+    try {
+      const res  = await fetch('https://open.er-api.com/v6/latest/JPY');
+      const data = await res.json();
+      const r    = data.rates;
+
+      const fmt = (raw: number) => (1 / raw).toFixed(1);
+
+      const el = (id: string) => document.getElementById(id);
+      el('t-usd')!.textContent = `¥${fmt(r.USD)}`;
+      el('t-eur')!.textContent = `¥${fmt(r.EUR)}`;
+      el('t-gbp')!.textContent = `¥${fmt(r.GBP)}`;
+      el('t-aud')!.textContent = `¥${fmt(r.AUD)}`;
+
+      // 2021年基準との比較でバッジ更新
+      const usdNow  = 1 / r.USD;
+      const savings = Math.round(((usdNow - 108) / usdNow) * 100);
+      if (savings > 0) {
+        el('ticker-badge')!.textContent = `↓ USD buyers save ~${savings}% vs 2021`;
+      }
+    } catch {
+      // フェールサイレント
+    }
+  }
+
+  loadTicker();
+  setInterval(loadTicker, 5 * 60 * 1000);
+</script>
