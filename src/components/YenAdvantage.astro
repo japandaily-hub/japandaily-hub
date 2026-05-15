@@ -1,0 +1,513 @@
+---
+/**
+ * YenAdvantage コンポーネント
+ * リアルタイム為替レートを取得し、円安による購買メリットを可視化する
+ * API: open.er-api.com (無料・キー不要)
+ * 基準レート: 2020-2021年平均（円高時代）との比較
+ */
+---
+
+<section class="yen-section" id="yen-advantage" aria-label="Yen advantage calculator">
+
+  <!-- ヘッダー -->
+  <div class="yen-header">
+    <p class="yen-eyebrow" data-en="Why buy from Japan now?" data-ja="今、日本から買うべき理由">Why buy from Japan now?</p>
+    <h2 class="yen-title" data-en="The Weak Yen Advantage" data-ja="円安で得するチャンス">The Weak Yen Advantage</h2>
+    <p class="yen-desc" data-en="Due to the weak yen, Japanese products are significantly cheaper for overseas buyers than just a few years ago." data-ja="円安により、日本製品は数年前と比べて海外の方にとって大幅にお得になっています。">
+      Due to the weak yen, Japanese products are significantly cheaper for overseas buyers than just a few years ago.
+    </p>
+  </div>
+
+  <!-- レート表示カード -->
+  <div class="rate-cards" id="rate-cards">
+    <div class="rate-card" data-currency="USD">
+      <div class="flag">🇺🇸</div>
+      <div class="currency-label">USD</div>
+      <div class="rate-now"><span class="rate-val" id="rate-usd">—</span> <span class="rate-unit">¥ / $1</span></div>
+      <div class="savings-badge" id="badge-usd">Loading…</div>
+    </div>
+    <div class="rate-card" data-currency="EUR">
+      <div class="flag">🇪🇺</div>
+      <div class="currency-label">EUR</div>
+      <div class="rate-now"><span class="rate-val" id="rate-eur">—</span> <span class="rate-unit">¥ / €1</span></div>
+      <div class="savings-badge" id="badge-eur">Loading…</div>
+    </div>
+    <div class="rate-card" data-currency="GBP">
+      <div class="flag">🇬🇧</div>
+      <div class="currency-label">GBP</div>
+      <div class="rate-now"><span class="rate-val" id="rate-gbp">—</span> <span class="rate-unit">¥ / £1</span></div>
+      <div class="savings-badge" id="badge-gbp">Loading…</div>
+    </div>
+    <div class="rate-card" data-currency="AUD">
+      <div class="flag">🇦🇺</div>
+      <div class="currency-label">AUD</div>
+      <div class="rate-now"><span class="rate-val" id="rate-aud">—</span> <span class="rate-unit">¥ / A$1</span></div>
+      <div class="savings-badge" id="badge-aud">Loading…</div>
+    </div>
+  </div>
+
+  <!-- メーター -->
+  <div class="meter-wrap">
+    <div class="meter-labels">
+      <span data-en="Strong ¥" data-ja="円高">Strong ¥</span>
+      <span class="meter-center-label" data-en="Yen Strength" data-ja="円の強さ">Yen Strength</span>
+      <span data-en="Weak ¥ (Now)" data-ja="円安（現在）">Weak ¥ (Now)</span>
+    </div>
+    <div class="meter-track">
+      <div class="meter-fill" id="meter-fill"></div>
+      <div class="meter-thumb" id="meter-thumb"></div>
+      <div class="meter-baseline-marker" title="2020-2021 avg"></div>
+    </div>
+    <p class="meter-caption" id="meter-caption" data-en="Fetching live rate…" data-ja="レート取得中…">Fetching live rate…</p>
+  </div>
+
+  <!-- 節約額シミュレーター -->
+  <div class="calc-wrap">
+    <p class="calc-title" data-en="Savings Calculator" data-ja="節約額シミュレーター">Savings Calculator</p>
+    <p class="calc-sub" data-en="Enter a price in yen to see how much you save vs. 2021 rates." data-ja="円建て価格を入力して、2021年比の節約額を確認できます。">
+      Enter a price in yen to see how much you save vs. 2021 rates.
+    </p>
+    <div class="calc-row">
+      <div class="calc-input-wrap">
+        <span class="calc-prefix">¥</span>
+        <input type="number" id="calc-price" value="10000" min="100" step="100" aria-label="Price in yen" />
+      </div>
+      <select id="calc-currency" aria-label="Your currency">
+        <option value="USD">USD $</option>
+        <option value="EUR">EUR €</option>
+        <option value="GBP">GBP £</option>
+        <option value="AUD">AUD A$</option>
+      </select>
+    </div>
+    <div class="calc-result" id="calc-result">
+      <div class="calc-col">
+        <div class="calc-col-label" data-en="You pay now" data-ja="現在の支払額">You pay now</div>
+        <div class="calc-amount now" id="calc-now">—</div>
+      </div>
+      <div class="calc-arrow">→</div>
+      <div class="calc-col">
+        <div class="calc-col-label" data-en="Would have cost in 2021" data-ja="2021年なら">Would have cost in 2021</div>
+        <div class="calc-amount was" id="calc-was">—</div>
+      </div>
+      <div class="calc-saving-wrap">
+        <div class="calc-saving-label" data-en="You save" data-ja="節約額">You save</div>
+        <div class="calc-saving" id="calc-saving">—</div>
+        <div class="calc-saving-pct" id="calc-saving-pct"></div>
+      </div>
+    </div>
+    <p class="calc-note" id="rate-timestamp" data-en="Live rate loading…" data-ja="レート取得中…">Live rate loading…</p>
+  </div>
+
+</section>
+
+<style>
+  .yen-section {
+    background: var(--ink);
+    color: #fff;
+    padding: 5rem 1.5rem;
+  }
+
+  .yen-header { text-align: center; max-width: 640px; margin: 0 auto 3.5rem; }
+
+  .yen-eyebrow {
+    font-size: .7rem;
+    letter-spacing: .5em;
+    color: var(--gold-l);
+    text-transform: uppercase;
+    margin-bottom: .9rem;
+  }
+
+  .yen-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    font-weight: 300;
+    letter-spacing: .1em;
+    margin-bottom: 1rem;
+    color: #fff;
+  }
+
+  .yen-desc {
+    font-size: .85rem;
+    line-height: 2;
+    color: rgba(255,255,255,.55);
+    letter-spacing: .04em;
+  }
+
+  /* ── Rate cards ── */
+  .rate-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    max-width: 760px;
+    margin: 0 auto 3rem;
+  }
+
+  .rate-card {
+    border: 1px solid rgba(184,150,62,.25);
+    border-radius: 4px;
+    padding: 1.4rem 1rem 1.2rem;
+    text-align: center;
+    background: rgba(255,255,255,.04);
+    transition: border-color .25s;
+  }
+  .rate-card:hover { border-color: rgba(184,150,62,.6); }
+
+  .flag { font-size: 1.8rem; margin-bottom: .4rem; }
+
+  .currency-label {
+    font-size: .65rem;
+    letter-spacing: .35em;
+    color: rgba(255,255,255,.4);
+    text-transform: uppercase;
+    margin-bottom: .5rem;
+  }
+
+  .rate-now {
+    font-family: 'Cormorant Garamond', serif;
+    display: flex; align-items: baseline; justify-content: center; gap: .25rem;
+    margin-bottom: .7rem;
+  }
+
+  .rate-val { font-size: 1.9rem; font-weight: 400; color: #fff; }
+  .rate-unit { font-size: .7rem; color: rgba(255,255,255,.4); }
+
+  .savings-badge {
+    font-size: .7rem;
+    padding: .3rem .7rem;
+    border-radius: 100px;
+    background: rgba(184,150,62,.15);
+    color: var(--gold-l);
+    letter-spacing: .08em;
+    display: inline-block;
+  }
+
+  /* ── Meter ── */
+  .meter-wrap {
+    max-width: 640px;
+    margin: 0 auto 3.5rem;
+  }
+
+  .meter-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: .65rem;
+    letter-spacing: .15em;
+    color: rgba(255,255,255,.35);
+    margin-bottom: .6rem;
+  }
+
+  .meter-center-label { color: rgba(255,255,255,.2); }
+
+  .meter-track {
+    position: relative;
+    height: 8px;
+    background: rgba(255,255,255,.1);
+    border-radius: 100px;
+    overflow: visible;
+  }
+
+  .meter-fill {
+    position: absolute; left: 0; top: 0; bottom: 0;
+    background: linear-gradient(to right, #4ade80, #facc15, var(--gold), #ef4444);
+    border-radius: 100px;
+    width: 0%;
+    transition: width 1.2s cubic-bezier(.22,1,.36,1);
+  }
+
+  .meter-thumb {
+    position: absolute; top: 50%;
+    transform: translate(-50%, -50%);
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    background: #fff;
+    border: 3px solid var(--gold);
+    left: 0%;
+    transition: left 1.2s cubic-bezier(.22,1,.36,1);
+    box-shadow: 0 0 0 4px rgba(184,150,62,.2);
+  }
+
+  .meter-baseline-marker {
+    position: absolute; top: -4px; bottom: -4px;
+    left: 20%;
+    width: 1px;
+    background: rgba(255,255,255,.2);
+  }
+  .meter-baseline-marker::after {
+    content: '2021';
+    position: absolute; top: -18px; left: 50%;
+    transform: translateX(-50%);
+    font-size: .55rem;
+    color: rgba(255,255,255,.3);
+    white-space: nowrap;
+  }
+
+  .meter-caption {
+    text-align: center;
+    font-size: .75rem;
+    color: rgba(255,255,255,.4);
+    margin-top: .8rem;
+    letter-spacing: .08em;
+  }
+
+  /* ── Calculator ── */
+  .calc-wrap {
+    max-width: 640px;
+    margin: 0 auto;
+    border: 1px solid rgba(184,150,62,.25);
+    border-radius: 4px;
+    padding: 2rem;
+    background: rgba(255,255,255,.03);
+  }
+
+  .calc-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 300;
+    letter-spacing: .12em;
+    margin-bottom: .4rem;
+  }
+
+  .calc-sub {
+    font-size: .78rem;
+    color: rgba(255,255,255,.45);
+    letter-spacing: .05em;
+    line-height: 1.8;
+    margin-bottom: 1.4rem;
+  }
+
+  .calc-row {
+    display: flex; gap: .75rem; margin-bottom: 1.5rem; flex-wrap: wrap;
+  }
+
+  .calc-input-wrap {
+    display: flex; align-items: center;
+    border: 1px solid rgba(184,150,62,.35);
+    border-radius: 2px;
+    overflow: hidden;
+    flex: 1; min-width: 130px;
+  }
+
+  .calc-prefix {
+    padding: .6rem .75rem;
+    background: rgba(184,150,62,.1);
+    color: var(--gold-l);
+    font-size: .9rem;
+    border-right: 1px solid rgba(184,150,62,.25);
+  }
+
+  .calc-input-wrap input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #fff;
+    padding: .6rem .75rem;
+    font-size: .95rem;
+    font-family: 'Cormorant Garamond', serif;
+  }
+
+  .calc-row select {
+    background: rgba(255,255,255,.05);
+    border: 1px solid rgba(184,150,62,.35);
+    border-radius: 2px;
+    color: #fff;
+    padding: .6rem .9rem;
+    font-size: .85rem;
+    outline: none;
+    cursor: pointer;
+  }
+
+  .calc-result {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+  }
+
+  .calc-col { flex: 1; min-width: 110px; }
+
+  .calc-col-label {
+    font-size: .62rem;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.35);
+    margin-bottom: .35rem;
+  }
+
+  .calc-amount {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    font-weight: 400;
+  }
+  .calc-amount.now { color: #fff; }
+  .calc-amount.was { color: rgba(255,255,255,.4); text-decoration: line-through; }
+
+  .calc-arrow { color: rgba(255,255,255,.2); font-size: 1.2rem; }
+
+  .calc-saving-wrap { text-align: center; }
+  .calc-saving-label {
+    font-size: .62rem;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.35);
+    margin-bottom: .35rem;
+  }
+  .calc-saving {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    font-weight: 400;
+    color: #4ade80;
+  }
+  .calc-saving-pct {
+    font-size: .75rem;
+    color: rgba(74,222,128,.7);
+    letter-spacing: .1em;
+    margin-top: .15rem;
+  }
+
+  .calc-note {
+    font-size: .65rem;
+    color: rgba(255,255,255,.25);
+    letter-spacing: .08em;
+    text-align: right;
+  }
+</style>
+
+<script>
+  // 2020-2021年平均レート（基準：円高時代）
+  const BASELINE: Record<string, number> = {
+    USD: 108,
+    EUR: 128,
+    GBP: 142,
+    AUD: 80,
+  };
+
+  const SYMBOLS: Record<string, string> = {
+    USD: '$', EUR: '€', GBP: '£', AUD: 'A$',
+  };
+
+  let liveRates: Record<string, number> = {};
+  let lastUpdated = '';
+
+  async function fetchRates() {
+    try {
+      const res  = await fetch('https://open.er-api.com/v6/latest/JPY');
+      const data = await res.json();
+
+      // open.er-api は JPY基準なので rates.USD = JPYあたりのUSD量
+      // 逆数にして「1外貨 = X円」に変換
+      liveRates = {
+        USD: Math.round(1 / data.rates.USD),
+        EUR: Math.round(1 / data.rates.EUR),
+        GBP: Math.round(1 / data.rates.GBP),
+        AUD: Math.round(1 / data.rates.AUD),
+      };
+
+      const now = new Date();
+      lastUpdated = `Rate updated: ${now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })} (live)`;
+
+      renderRates();
+      renderMeter();
+      renderCalc();
+    } catch {
+      document.getElementById('rate-timestamp')!.textContent = 'Rate update failed — using estimates';
+      // フォールバック
+      liveRates = { USD: 155, EUR: 168, GBP: 196, AUD: 100 };
+      renderRates();
+      renderMeter();
+      renderCalc();
+    }
+  }
+
+  function savingsPct(currency: string): number {
+    const base    = BASELINE[currency];
+    const current = liveRates[currency];
+    if (!base || !current) return 0;
+    return Math.round(((current - base) / current) * 100);
+  }
+
+  function renderRates() {
+    const map: Record<string, string> = {
+      USD: 'usd', EUR: 'eur', GBP: 'gbp', AUD: 'aud',
+    };
+
+    for (const [cur, id] of Object.entries(map)) {
+      const rateEl = document.getElementById(`rate-${id}`);
+      const badgeEl = document.getElementById(`badge-${id}`);
+      if (!rateEl || !badgeEl) continue;
+
+      const rate = liveRates[cur];
+      const pct  = savingsPct(cur);
+
+      rateEl.textContent  = rate?.toString() ?? '—';
+      badgeEl.textContent = pct > 0 ? `↓ ${pct}% cheaper than 2021` : 'Loading…';
+    }
+  }
+
+  function renderMeter() {
+    // USD基準でメーター表示（100円=最強、200円=最弱）
+    const MIN_RATE = 80;   // 円の最強想定
+    const MAX_RATE = 200;  // 円の最弱想定
+    const BASE_RATE = BASELINE['USD']; // 108円
+
+    const current = liveRates['USD'] ?? 155;
+    const pct     = Math.min(100, Math.max(0, ((current - MIN_RATE) / (MAX_RATE - MIN_RATE)) * 100));
+    const basePct = ((BASE_RATE - MIN_RATE) / (MAX_RATE - MIN_RATE)) * 100;
+
+    const fill  = document.getElementById('meter-fill');
+    const thumb = document.getElementById('meter-thumb');
+    const marker = document.querySelector<HTMLElement>('.meter-baseline-marker');
+    const caption = document.getElementById('meter-caption');
+
+    if (fill)   fill.style.width = `${pct}%`;
+    if (thumb)  thumb.style.left = `${pct}%`;
+    if (marker) marker.style.left = `${basePct}%`;
+
+    const pctSaving = savingsPct('USD');
+    if (caption) {
+      caption.textContent = `1 USD = ¥${current} (vs ¥${BASELINE['USD']} in 2021) — USD buyers save ~${pctSaving}%`;
+    }
+  }
+
+  function renderCalc() {
+    const priceEl    = document.getElementById('calc-price') as HTMLInputElement;
+    const currencyEl = document.getElementById('calc-currency') as HTMLSelectElement;
+    const nowEl      = document.getElementById('calc-now');
+    const wasEl      = document.getElementById('calc-was');
+    const savingEl   = document.getElementById('calc-saving');
+    const savingPct  = document.getElementById('calc-saving-pct');
+    const tsEl       = document.getElementById('rate-timestamp');
+
+    if (!priceEl || !currencyEl || !nowEl || !wasEl || !savingEl) return;
+
+    const price    = parseFloat(priceEl.value) || 10000;
+    const currency = currencyEl.value;
+    const symbol   = SYMBOLS[currency] ?? '$';
+    const live     = liveRates[currency];
+    const base     = BASELINE[currency];
+
+    if (!live || !base) return;
+
+    const amtNow  = price / live;
+    const amtWas  = price / base;
+    const saved   = amtWas - amtNow;
+    const pct     = Math.round((saved / amtWas) * 100);
+
+    nowEl.textContent    = `${symbol}${amtNow.toFixed(2)}`;
+    wasEl.textContent    = `${symbol}${amtWas.toFixed(2)}`;
+    savingEl.textContent = `${symbol}${saved.toFixed(2)}`;
+    if (savingPct) savingPct.textContent = `${pct}% off vs 2021`;
+    if (tsEl) tsEl.textContent = lastUpdated;
+  }
+
+  // イベントリスナー
+  document.getElementById('calc-price')?.addEventListener('input', renderCalc);
+  document.getElementById('calc-currency')?.addEventListener('change', renderCalc);
+
+  // 初回取得
+  fetchRates();
+
+  // 5分ごとに更新
+  setInterval(fetchRates, 5 * 60 * 1000);
+</script>

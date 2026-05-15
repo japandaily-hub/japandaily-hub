@@ -1,0 +1,77 @@
+---
+/**
+ * LangSwitch コンポーネント
+ * EN / JA の切替。data-en / data-ja 属性を持つ要素を動的に書き換える
+ */
+---
+
+<div class="lang-switch" role="group" aria-label="Language selector">
+  <button class="lang-btn active" data-lang="en" aria-pressed="true">EN</button>
+  <span class="lang-divider">|</span>
+  <button class="lang-btn" data-lang="ja" aria-pressed="false">日本語</button>
+</div>
+
+<style>
+  .lang-switch {
+    display: flex;
+    align-items: center;
+    gap: .4rem;
+  }
+
+  .lang-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: .65rem;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: rgba(18,16,14,.4);
+    padding: .2rem .4rem;
+    font-family: inherit;
+    transition: color .2s;
+  }
+
+  .lang-btn.active { color: var(--gold); font-weight: 700; }
+  .lang-btn:hover  { color: var(--ink); }
+
+  .lang-divider {
+    font-size: .6rem;
+    color: rgba(18,16,14,.2);
+  }
+</style>
+
+<script>
+  type Lang = 'en' | 'ja';
+
+  function applyLang(lang: Lang) {
+    // data-en / data-ja 属性を持つ全要素のテキストを差し替え
+    document.querySelectorAll<HTMLElement>('[data-en]').forEach(el => {
+      const text = el.dataset[lang];
+      if (text !== undefined) el.textContent = text;
+    });
+
+    // ボタンのアクティブ状態を更新
+    document.querySelectorAll<HTMLButtonElement>('.lang-btn').forEach(btn => {
+      const isActive = btn.dataset.lang === lang;
+      btn.classList.toggle('active', isActive);
+      btn.setAttribute('aria-pressed', String(isActive));
+    });
+
+    // html属性とlocalStorageに保存
+    document.documentElement.setAttribute('lang', lang === 'ja' ? 'ja' : 'en');
+    try { localStorage.setItem('jdh-lang', lang); } catch {}
+  }
+
+  // クリックイベント
+  document.querySelectorAll<HTMLButtonElement>('.lang-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      applyLang((btn.dataset.lang ?? 'en') as Lang);
+    });
+  });
+
+  // 前回の言語を復元
+  try {
+    const saved = localStorage.getItem('jdh-lang') as Lang | null;
+    if (saved === 'ja') applyLang('ja');
+  } catch {}
+</script>

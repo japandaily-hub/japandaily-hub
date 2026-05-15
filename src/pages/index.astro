@@ -1,6 +1,8 @@
 ---
 import { getCollection } from 'astro:content';
 import JapanImage from '../components/JapanImage.astro';
+import YenAdvantage from '../components/YenAdvantage.astro';
+import LangSwitch from '../components/LangSwitch.astro';
 const products = await getCollection('products');
 ---
 <html lang="ja">
@@ -357,30 +359,35 @@ const products = await getCollection('products');
       <header>
         <div class="header-inner">
           <div class="site-name">Japan<span>Daily</span> Hub</div>
-          <div style="font-size:.65rem; letter-spacing:.3em; color:rgba(18,16,14,.4);">日本の逸品、世界へ</div>
+          <LangSwitch />
         </div>
       </header>
 
       <!-- Tab Nav -->
       <nav class="tab-nav">
         <div class="tab-list" role="tablist">
-          <button class="tab-btn active" role="tab" data-tab="all">すべて</button>
-          <button class="tab-btn" role="tab" data-tab="food">飲食・食品</button>
-          <button class="tab-btn" role="tab" data-tab="daily">日用雑貨</button>
-          <button class="tab-btn" role="tab" data-tab="fashion">衣料品</button>
-          <button class="tab-btn" role="tab" data-tab="featured">注目商品</button>
+          <button class="tab-btn active" role="tab" data-tab="all" data-en="All" data-ja="すべて">All</button>
+          <button class="tab-btn" role="tab" data-tab="food" data-en="Food & Drink" data-ja="飲食・食品">Food & Drink</button>
+          <button class="tab-btn" role="tab" data-tab="daily" data-en="Daily Goods" data-ja="日用雑貨">Daily Goods</button>
+          <button class="tab-btn" role="tab" data-tab="fashion" data-en="Fashion" data-ja="衣料品">Fashion</button>
+          <button class="tab-btn" role="tab" data-tab="featured" data-en="Featured" data-ja="注目商品">Featured</button>
         </div>
       </nav>
 
       <!-- Hero -->
       <section class="hero">
         <div class="hero-inner">
-          <p class="hero-sub">Curated from Japan</p>
-          <h2 class="hero-title">日本の美しさを、<br/>あなたの暮らしへ</h2>
+          <p class="hero-sub" data-en="Curated from Japan" data-ja="日本厳選">Curated from Japan</p>
+          <h2 class="hero-title" data-en="Japanese Beauty,<br/>Into Your Life" data-ja="日本の美しさを、<br/>あなたの暮らしへ">Japanese Beauty,<br/>Into Your Life</h2>
           <div class="hero-divider"></div>
-          <p class="hero-desc">伝統と革新が交差する日本の逸品を厳選。<br/>本物の品質と美意識をお届けします。</p>
+          <p class="hero-desc" data-en="Handpicked Japanese products where tradition meets innovation.<br/>Authentic quality, delivered worldwide." data-ja="伝統と革新が交差する日本の逸品を厳選。<br/>本物の品質と美意識をお届けします。">
+            Handpicked Japanese products where tradition meets innovation.<br/>Authentic quality, delivered worldwide.
+          </p>
         </div>
       </section>
+
+      <!-- Yen Advantage -->
+      <YenAdvantage />
 
       <!-- ── TAB: ALL ── -->
       <div class="tab-panel active" id="panel-all">
