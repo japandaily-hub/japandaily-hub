@@ -83,19 +83,19 @@ const products = [
       color: var(--ink);
     }
     .logo em { color: var(--gold); font-style: normal; }
-    .lang-btns { display: flex; gap: .5rem; align-items: center; }
-    .lang-btn {
-      background: none;
-      border: none;
-      font-size: .65rem;
-      letter-spacing: .18em;
-      cursor: pointer;
-      color: rgba(18,16,14,.4);
-      padding: .2rem .4rem;
+    .lang-select {
+      background: transparent;
+      border: 1px solid rgba(184,150,62,.35);
+      color: var(--ink);
+      padding: .35rem .7rem;
+      font-size: .72rem;
       font-family: inherit;
+      cursor: pointer;
+      border-radius: 2px;
+      outline: none;
+      letter-spacing: .05em;
     }
-    .lang-btn.active { color: var(--gold); font-weight: 700; }
-    .lang-sep { color: rgba(18,16,14,.2); font-size: .6rem; }
+    .lang-select:hover { border-color: var(--gold); }
 
     /* HERO */
     .hero {
@@ -410,11 +410,16 @@ const products = [
   <header>
     <div class="header-inner">
       <div class="logo">Japan<em>Daily</em> Hub</div>
-      <div class="lang-btns">
-        <button class="lang-btn active" onclick="setLang('en')">EN</button>
-        <span class="lang-sep">|</span>
-        <button class="lang-btn" onclick="setLang('ja')">日本語</button>
-      </div>
+        <select class="lang-select" id="lang-select" onchange="setLang(this.value)">
+        <option value="en">🌐 English</option>
+        <option value="ja">🇯🇵 日本語</option>
+        <option value="zh">🇨🇳 简体中文</option>
+        <option value="zhtw">🇹🇼 繁體中文</option>
+        <option value="ko">🇰🇷 한국어</option>
+        <option value="fr">🇫🇷 Français</option>
+        <option value="de">🇩🇪 Deutsch</option>
+        <option value="es">🇪🇸 Español</option>
+      </select>
     </div>
   </header>
 
@@ -422,12 +427,32 @@ const products = [
   <section class="hero">
     <div class="hero-bg"></div>
     <div class="hero-inner">
-      <p class="hero-eye" data-en="Curated from Japan" data-ja="日本から厳選">Curated from Japan</p>
-      <h1 class="hero-title" data-en="Japanese Beauty,<br/>Into Your Life" data-ja="日本の美しさを、<br/>あなたの暮らしへ">
+      <p class="hero-eye"
+        data-en="Curated from Japan" data-ja="日本から厳選"
+        data-zh="日本精选" data-zhtw="日本精選"
+        data-ko="일본에서 엄선" data-fr="Sélectionné du Japon"
+        data-de="Kuratiert aus Japan" data-es="Seleccionado de Japón">Curated from Japan</p>
+      <h1 class="hero-title"
+        data-en="Japanese Beauty,<br/>Into Your Life"
+        data-ja="日本の美しさを、<br/>あなたの暮らしへ"
+        data-zh="日本之美，<br/>融入您的生活"
+        data-zhtw="日本之美，<br/>融入您的生活"
+        data-ko="일본의 아름다움을<br/>당신의 삶으로"
+        data-fr="La Beauté Japonaise,<br/>Dans Votre Vie"
+        data-de="Japanische Schönheit<br/>in Ihrem Leben"
+        data-es="La Belleza Japonesa,<br/>en Tu Vida">
         Japanese Beauty,<br/>Into Your Life
       </h1>
       <div class="hero-line"></div>
-      <p class="hero-desc" data-en="Handpicked Japanese products — where tradition meets craftsmanship." data-ja="伝統と職人技が交差する日本の逸品を厳選。">
+      <p class="hero-desc"
+        data-en="Handpicked Japanese products — where tradition meets craftsmanship."
+        data-ja="伝統と職人技が交差する日本の逸品を厳選。"
+        data-zh="精选日本商品——传统与工艺的完美融合。"
+        data-zhtw="精選日本商品——傳統與工藝的完美融合。"
+        data-ko="전통과 장인정신이 만나는 일본 상품을 엄선했습니다."
+        data-fr="Des produits japonais soigneusement sélectionnés — où la tradition rencontre le savoir-faire."
+        data-de="Handverlesene japanische Produkte — wo Tradition auf Handwerkskunst trifft."
+        data-es="Productos japoneses seleccionados — donde la tradición se encuentra con la artesanía.">
         Handpicked Japanese products — where tradition meets craftsmanship.
       </p>
     </div>
@@ -435,8 +460,16 @@ const products = [
 
   <!-- YEN ADVANTAGE -->
   <section class="yen-section">
-    <p class="yen-eye" data-en="Why buy from Japan now?" data-ja="今、日本から買うべき理由">Why buy from Japan now?</p>
-    <h2 class="yen-title" data-en="The Weak Yen Advantage" data-ja="円安で得するチャンス">The Weak Yen Advantage</h2>
+    <p class="yen-eye"
+      data-en="Why buy from Japan now?" data-ja="今、日本から買うべき理由"
+      data-zh="为什么现在要从日本购买？" data-zhtw="為什麼現在要從日本購買？"
+      data-ko="지금 일본에서 구매해야 하는 이유" data-fr="Pourquoi acheter du Japon maintenant ?"
+      data-de="Warum jetzt aus Japan kaufen?" data-es="¿Por qué comprar de Japón ahora?">Why buy from Japan now?</p>
+    <h2 class="yen-title"
+      data-en="The Weak Yen Advantage" data-ja="円安で得するチャンス"
+      data-zh="日元贬值带来的优势" data-zhtw="日圓貶值帶來的優勢"
+      data-ko="엔화 약세의 이점" data-fr="L'Avantage du Yen Faible"
+      data-de="Der Vorteil des schwachen Yen" data-es="La Ventaja del Yen Débil">The Weak Yen Advantage</h2>
     <div class="rate-cards">
       <div class="rate-card"><div class="rate-flag">🇺🇸</div><div class="rate-cur">USD</div><div class="rate-val" id="r-usd">…</div><div class="rate-badge" id="b-usd"></div></div>
       <div class="rate-card"><div class="rate-flag">🇪🇺</div><div class="rate-cur">EUR</div><div class="rate-val" id="r-eur">…</div><div class="rate-badge" id="b-eur"></div></div>
@@ -444,7 +477,11 @@ const products = [
       <div class="rate-card"><div class="rate-flag">🇦🇺</div><div class="rate-cur">AUD</div><div class="rate-val" id="r-aud">…</div><div class="rate-badge" id="b-aud"></div></div>
     </div>
     <div class="calc-box">
-      <div class="calc-title" data-en="Savings Calculator" data-ja="節約額シミュレーター">Savings Calculator</div>
+      <div class="calc-title"
+        data-en="Savings Calculator" data-ja="節約額シミュレーター"
+        data-zh="节省金额计算器" data-zhtw="節省金額計算器"
+        data-ko="절약 계산기" data-fr="Calculateur d'Économies"
+        data-de="Sparrechner" data-es="Calculadora de Ahorros">Savings Calculator</div>
       <div class="calc-row">
         <input class="calc-input" id="calc-price" type="number" value="10000" min="100" step="100" />
         <select class="calc-select" id="calc-cur">
@@ -455,10 +492,22 @@ const products = [
         </select>
       </div>
       <div class="calc-result">
-        <div class="calc-col"><div class="calc-col-lbl" data-en="You pay now" data-ja="現在の支払額">You pay now</div><div class="calc-now" id="c-now">—</div></div>
+        <div class="calc-col"><div class="calc-col-lbl"
+          data-en="You pay now" data-ja="現在の支払額"
+          data-zh="现在您支付" data-zhtw="現在您支付"
+          data-ko="지금 지불 금액" data-fr="Vous payez maintenant"
+          data-de="Sie zahlen jetzt" data-es="Usted paga ahora">You pay now</div><div class="calc-now" id="c-now">—</div></div>
         <div style="color:rgba(255,255,255,.2)">→</div>
-        <div class="calc-col"><div class="calc-col-lbl" data-en="Was in 2021" data-ja="2021年なら">Was in 2021</div><div class="calc-was" id="c-was">—</div></div>
-        <div class="calc-col" style="text-align:center"><div class="calc-col-lbl" data-en="You save" data-ja="節約額">You save</div><div class="calc-save" id="c-save">—</div><div class="calc-save-pct" id="c-pct"></div></div>
+        <div class="calc-col"><div class="calc-col-lbl"
+          data-en="Was in 2021" data-ja="2021年なら"
+          data-zh="2021年的价格" data-zhtw="2021年的價格"
+          data-ko="2021년 가격" data-fr="C'était en 2021"
+          data-de="War 2021" data-es="Era en 2021">Was in 2021</div><div class="calc-was" id="c-was">—</div></div>
+        <div class="calc-col" style="text-align:center"><div class="calc-col-lbl"
+          data-en="You save" data-ja="節約額"
+          data-zh="您节省" data-zhtw="您節省"
+          data-ko="절약 금액" data-fr="Vous économisez"
+          data-de="Sie sparen" data-es="Usted ahorra">You save</div><div class="calc-save" id="c-save">—</div><div class="calc-save-pct" id="c-pct"></div></div>
       </div>
     </div>
   </section>
@@ -466,10 +515,26 @@ const products = [
   <!-- TABS -->
   <nav class="tab-nav">
     <div class="tab-list">
-      <button class="tab-btn active" data-tab="all"      data-en="All Products" data-ja="すべて">All Products</button>
-      <button class="tab-btn"        data-tab="food"     data-en="Food & Drink"  data-ja="飲食・食品">Food & Drink</button>
-      <button class="tab-btn"        data-tab="daily"    data-en="Daily Goods"   data-ja="日用雑貨">Daily Goods</button>
-      <button class="tab-btn"        data-tab="fashion"  data-en="Fashion"       data-ja="衣料品">Fashion</button>
+      <button class="tab-btn active" data-tab="all"
+        data-en="All Products" data-ja="すべて"
+        data-zh="全部商品" data-zhtw="全部商品"
+        data-ko="전체 상품" data-fr="Tous les Produits"
+        data-de="Alle Produkte" data-es="Todos los Productos">All Products</button>
+      <button class="tab-btn" data-tab="food"
+        data-en="Food &amp; Drink" data-ja="飲食・食品"
+        data-zh="食品饮料" data-zhtw="食品飲料"
+        data-ko="식품·음료" data-fr="Alimentation"
+        data-de="Essen &amp; Trinken" data-es="Comida y Bebida">Food &amp; Drink</button>
+      <button class="tab-btn" data-tab="daily"
+        data-en="Daily Goods" data-ja="日用雑貨"
+        data-zh="日用品" data-zhtw="日用品"
+        data-ko="생활용품" data-fr="Articles Quotidiens"
+        data-de="Alltagswaren" data-es="Artículos Diarios">Daily Goods</button>
+      <button class="tab-btn" data-tab="fashion"
+        data-en="Fashion" data-ja="衣料品"
+        data-zh="时尚" data-zhtw="時尚"
+        data-ko="패션" data-fr="Mode"
+        data-de="Mode" data-es="Moda">Fashion</button>
     </div>
   </nav>
 
@@ -477,7 +542,11 @@ const products = [
   <div class="tab-panel active" id="panel-all">
     <div class="section-wrap">
       <div class="section-head">
-        <span class="section-lbl" data-en="All Products" data-ja="すべての商品">All Products</span>
+        <span class="section-lbl"
+          data-en="All Products" data-ja="すべての商品"
+          data-zh="全部商品" data-zhtw="全部商品"
+          data-ko="전체 상품" data-fr="Tous les Produits"
+          data-de="Alle Produkte" data-es="Todos los Productos">All Products</span>
         <span class="section-rule"></span>
       </div>
       <div class="product-grid">
@@ -489,10 +558,17 @@ const products = [
             <div class="product-body">
               <div class="product-cat">{p.category}</div>
               <div class="product-name">{p.title}</div>
-              <div class="yen-badge">↓ ~25% cheaper due to weak yen</div>
+              <div class="yen-badge"
+                data-en="↓ ~25% cheaper due to weak yen" data-ja="↓ 円安で約25%お得"
+                data-zh="↓ 因日元贬值便宜约25%" data-zhtw="↓ 因日圓貶值便宜約25%"
+                data-ko="↓ 엔화 약세로 약 25% 저렴" data-fr="↓ ~25% moins cher grâce au yen faible"
+                data-de="↓ ~25% günstiger durch schwachen Yen" data-es="↓ ~25% más barato por el yen débil">↓ ~25% cheaper due to weak yen</div>
               <div class="product-price"><small>¥</small>{p.price.toLocaleString()}</div>
               <a class="btn-buy" href={p.amazonUrl} target="_blank" rel="noopener"
-                data-en="Buy on Amazon" data-ja="Amazonで購入">Buy on Amazon</a>
+                data-en="Buy on Amazon" data-ja="Amazonで購入"
+                data-zh="在亚马逊购买" data-zhtw="在亞馬遜購買"
+                data-ko="아마존에서 구매" data-fr="Acheter sur Amazon"
+                data-de="Auf Amazon kaufen" data-es="Comprar en Amazon">Buy on Amazon</a>
             </div>
           </article>
         ))}
@@ -502,22 +578,43 @@ const products = [
 
   <div class="tab-panel" id="panel-food">
     <div class="section-wrap"><div class="section-head"><span class="section-lbl">Food & Drink</span><span class="section-rule"></span></div>
-      <p style="color:rgba(18,16,14,.35);font-size:.85rem;letter-spacing:.15em;padding:3rem 0;text-align:center;" data-en="Products coming soon" data-ja="準備中">Products coming soon</p>
+      <p style="color:rgba(18,16,14,.35);font-size:.85rem;letter-spacing:.15em;padding:3rem 0;text-align:center;"
+        data-en="Products coming soon" data-ja="準備中"
+        data-zh="产品即将推出" data-zhtw="產品即將推出"
+        data-ko="상품 준비 중" data-fr="Produits bientôt disponibles"
+        data-de="Produkte demnächst verfügbar" data-es="Productos próximamente">Products coming soon</p>
     </div>
   </div>
   <div class="tab-panel" id="panel-daily">
     <div class="section-wrap"><div class="section-head"><span class="section-lbl">Daily Goods</span><span class="section-rule"></span></div>
-      <p style="color:rgba(18,16,14,.35);font-size:.85rem;letter-spacing:.15em;padding:3rem 0;text-align:center;" data-en="Products coming soon" data-ja="準備中">Products coming soon</p>
+      <p style="color:rgba(18,16,14,.35);font-size:.85rem;letter-spacing:.15em;padding:3rem 0;text-align:center;"
+        data-en="Products coming soon" data-ja="準備中"
+        data-zh="产品即将推出" data-zhtw="產品即將推出"
+        data-ko="상품 준비 중" data-fr="Produits bientôt disponibles"
+        data-de="Produkte demnächst verfügbar" data-es="Productos próximamente">Products coming soon</p>
     </div>
   </div>
   <div class="tab-panel" id="panel-fashion">
     <div class="section-wrap"><div class="section-head"><span class="section-lbl">Fashion</span><span class="section-rule"></span></div>
-      <p style="color:rgba(18,16,14,.35);font-size:.85rem;letter-spacing:.15em;padding:3rem 0;text-align:center;" data-en="Products coming soon" data-ja="準備中">Products coming soon</p>
+      <p style="color:rgba(18,16,14,.35);font-size:.85rem;letter-spacing:.15em;padding:3rem 0;text-align:center;"
+        data-en="Products coming soon" data-ja="準備中"
+        data-zh="产品即将推出" data-zhtw="產品即將推出"
+        data-ko="상품 준비 중" data-fr="Produits bientôt disponibles"
+        data-de="Produkte demnächst verfügbar" data-es="Productos próximamente">Products coming soon</p>
     </div>
   </div>
 
   <footer>
-    &copy; 2025 Japan Daily Hub &nbsp;|&nbsp; Authentic Japanese Products, Delivered Worldwide
+    &copy; 2025 Japan Daily Hub &nbsp;|&nbsp;
+    <span
+      data-en="Authentic Japanese Products, Delivered Worldwide"
+      data-ja="日本の逸品、世界へ"
+      data-zh="正宗日本商品，全球配送"
+      data-zhtw="正宗日本商品，全球配送"
+      data-ko="정품 일본 상품, 전 세계 배송"
+      data-fr="Produits Japonais Authentiques, Livrés Partout"
+      data-de="Authentische Japanische Produkte, Weltweit Geliefert"
+      data-es="Productos Japoneses Auténticos, Entregados en Todo el Mundo">Authentic Japanese Products, Delivered Worldwide</span>
   </footer>
 
   <script>
@@ -590,15 +687,27 @@ const products = [
     });
 
     // ── 言語切替 ──
+    const LANGS = ['en','ja','zh','zhtw','ko','fr','de','es'];
+
     function setLang(lang) {
+      if (!LANGS.includes(lang)) lang = 'en';
       document.querySelectorAll('[data-en]').forEach(el => {
-        const text = el.dataset[lang];
+        // dataset key: data-zhtw → el.dataset.zhtw
+        const text = el.dataset[lang] || el.dataset['en'];
         if (text) el.innerHTML = text;
       });
-      document.querySelectorAll('.lang-btn').forEach(b => {
-        b.classList.toggle('active', b.getAttribute('onclick').includes(lang));
-      });
+      const sel = document.getElementById('lang-select');
+      if (sel) sel.value = lang;
+      try { localStorage.setItem('jdh-lang', lang); } catch(e) {}
     }
+
+    // ページ読み込み時に保存済み言語を復元
+    (function() {
+      try {
+        const saved = localStorage.getItem('jdh-lang');
+        if (saved && LANGS.includes(saved)) setLang(saved);
+      } catch(e) {}
+    })();
 
     loadRates();
     setInterval(loadRates, 5 * 60 * 1000);
