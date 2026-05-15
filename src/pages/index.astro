@@ -6,60 +6,575 @@ const products = await getCollection('products');
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>JapanDaily Hub | 厳選商品カタログ</title>
+    <title>Japan Daily Hub | 日本の逸品、世界へ</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet" />
     <style>
-      .fade-out { animation: fadeOut 1.5s forwards; }
-      @keyframes fadeOut { from { opacity: 1; } to { opacity: 0; visibility: hidden; } }
-      .reveal { animation: revealText 2s ease-out forwards; }
-      @keyframes revealText { 
-        from { opacity: 0; letter-spacing: 0.2em; transform: scale(0.95); } 
-        to { opacity: 1; letter-spacing: 0.5em; transform: scale(1); } 
+      :root {
+        --ink:    #12100e;
+        --gold:   #b8963e;
+        --gold-l: #d4af5a;
+        --washi:  #f6f1e9;
+        --red:    #7a1a1a;
+        --mist:   rgba(18,16,14,0.55);
       }
+
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+
+      body {
+        background: var(--washi);
+        color: var(--ink);
+        font-family: 'Noto Serif JP', 'Hiragino Mincho ProN', serif;
+        overflow-x: hidden;
+      }
+
+      /* ─── OPENING ─────────────────────────────────── */
+      #opening {
+        position: fixed; inset: 0; z-index: 200;
+        display: flex; align-items: center; justify-content: center;
+        background: #000;
+        transition: opacity 1.6s ease, visibility 1.6s ease;
+      }
+      #opening.hide { opacity: 0; visibility: hidden; pointer-events: none; }
+
+      #opening video {
+        position: absolute; inset: 0;
+        width: 100%; height: 100%;
+        object-fit: cover;
+        opacity: .55;
+      }
+
+      #opening-overlay {
+        position: absolute; inset: 0;
+        background: linear-gradient(
+          to bottom,
+          rgba(0,0,0,.15) 0%,
+          rgba(0,0,0,.4)  60%,
+          rgba(0,0,0,.7) 100%
+        );
+      }
+
+      #opening-logo {
+        position: relative; z-index: 10;
+        text-align: center;
+        opacity: 0;
+        transform: translateY(18px);
+        transition: opacity 2s ease, transform 2s ease;
+      }
+      #opening-logo.show { opacity: 1; transform: translateY(0); }
+
+      #opening-logo .en {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: clamp(2.2rem, 6vw, 5rem);
+        font-weight: 300;
+        letter-spacing: .45em;
+        color: #fff;
+        text-transform: uppercase;
+        line-height: 1.1;
+      }
+      #opening-logo .en span { color: var(--gold-l); }
+      #opening-logo .ja {
+        margin-top: .8rem;
+        font-size: clamp(.75rem, 1.6vw, 1rem);
+        letter-spacing: .6em;
+        color: rgba(255,255,255,.65);
+        font-weight: 300;
+      }
+      #opening-logo .bar {
+        width: 60px; height: 1px;
+        background: var(--gold);
+        margin: 1.2rem auto;
+        transform: scaleX(0);
+        transition: transform 1.4s ease .6s;
+      }
+      #opening-logo.show .bar { transform: scaleX(1); }
+
+      /* ─── HEADER ──────────────────────────────────── */
+      header {
+        position: sticky; top: 0; z-index: 100;
+        background: rgba(246,241,233,.88);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid rgba(184,150,62,.3);
+      }
+      .header-inner {
+        max-width: 1160px; margin: 0 auto;
+        padding: 0 1.5rem;
+        height: 64px;
+        display: flex; align-items: center; justify-content: space-between;
+      }
+      .site-name {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 1.35rem;
+        font-weight: 300;
+        letter-spacing: .25em;
+        color: var(--ink);
+        text-transform: uppercase;
+      }
+      .site-name span { color: var(--gold); }
+
+      /* ─── TAB NAV ─────────────────────────────────── */
+      .tab-nav {
+        border-bottom: 1px solid rgba(184,150,62,.25);
+        background: rgba(246,241,233,.96);
+      }
+      .tab-list {
+        max-width: 1160px; margin: 0 auto;
+        padding: 0 1.5rem;
+        display: flex; gap: 0;
+        overflow-x: auto;
+        scrollbar-width: none;
+      }
+      .tab-list::-webkit-scrollbar { display: none; }
+
+      .tab-btn {
+        flex-shrink: 0;
+        padding: .85rem 1.6rem;
+        font-size: .78rem;
+        letter-spacing: .22em;
+        color: rgba(18,16,14,.5);
+        border: none; background: none; cursor: pointer;
+        border-bottom: 2px solid transparent;
+        transition: color .25s, border-color .25s;
+        font-family: inherit;
+        white-space: nowrap;
+      }
+      .tab-btn:hover { color: var(--ink); }
+      .tab-btn.active {
+        color: var(--gold);
+        border-bottom-color: var(--gold);
+      }
+
+      /* ─── HERO BANNER ─────────────────────────────── */
+      .hero {
+        background: linear-gradient(135deg, var(--ink) 0%, #2a2018 100%);
+        color: #fff;
+        text-align: center;
+        padding: 5rem 1.5rem 4.5rem;
+        position: relative;
+        overflow: hidden;
+      }
+      .hero::before {
+        content: '';
+        position: absolute; inset: 0;
+        background: url('https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=1600&q=60') center/cover no-repeat;
+        opacity: .18;
+      }
+      .hero-inner { position: relative; z-index: 1; }
+      .hero-sub {
+        font-size: .75rem;
+        letter-spacing: .55em;
+        color: var(--gold-l);
+        text-transform: uppercase;
+        margin-bottom: 1.2rem;
+      }
+      .hero-title {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: clamp(2rem, 5vw, 4rem);
+        font-weight: 300;
+        letter-spacing: .15em;
+        line-height: 1.25;
+        margin-bottom: 1.2rem;
+      }
+      .hero-desc {
+        font-size: .85rem;
+        letter-spacing: .12em;
+        color: rgba(255,255,255,.6);
+        line-height: 2;
+      }
+      .hero-divider {
+        width: 48px; height: 1px;
+        background: var(--gold);
+        margin: 1.8rem auto;
+      }
+
+      /* ─── SECTION ─────────────────────────────────── */
+      .section-wrap {
+        max-width: 1160px; margin: 0 auto;
+        padding: 4rem 1.5rem 5rem;
+      }
+      .section-head {
+        display: flex; align-items: center; gap: 1.2rem;
+        margin-bottom: 2.8rem;
+      }
+      .section-head .label {
+        font-size: .72rem;
+        letter-spacing: .45em;
+        color: var(--gold);
+        text-transform: uppercase;
+      }
+      .section-head .line {
+        flex: 1; height: 1px;
+        background: linear-gradient(to right, rgba(184,150,62,.5), transparent);
+      }
+
+      /* ─── PRODUCT GRID ────────────────────────────── */
+      .product-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 2rem;
+      }
+
+      .product-card {
+        background: #fff;
+        border: 1px solid rgba(184,150,62,.15);
+        border-radius: 2px;
+        overflow: hidden;
+        display: flex; flex-direction: column;
+        transition: box-shadow .3s, transform .3s;
+      }
+      .product-card:hover {
+        box-shadow: 0 12px 40px rgba(18,16,14,.1);
+        transform: translateY(-3px);
+      }
+
+      .product-img-wrap {
+        aspect-ratio: 4/3;
+        overflow: hidden;
+        background: #f0ece4;
+      }
+      .product-img-wrap img {
+        width: 100%; height: 100%;
+        object-fit: contain;
+        padding: 1rem;
+        transition: transform .5s ease;
+      }
+      .product-card:hover .product-img-wrap img { transform: scale(1.04); }
+
+      .product-body {
+        padding: 1.4rem 1.4rem 1.6rem;
+        display: flex; flex-direction: column; flex: 1;
+      }
+      .product-tag {
+        font-size: .6rem;
+        letter-spacing: .35em;
+        color: var(--gold);
+        text-transform: uppercase;
+        margin-bottom: .6rem;
+      }
+      .product-title {
+        font-size: .88rem;
+        line-height: 1.75;
+        letter-spacing: .04em;
+        color: var(--ink);
+        margin-bottom: 1rem;
+        flex: 1;
+      }
+      .product-price {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 1.6rem;
+        font-weight: 400;
+        letter-spacing: .05em;
+        color: var(--ink);
+        margin-bottom: 1.2rem;
+      }
+      .product-price .cur {
+        font-size: .9rem;
+        margin-right: .1em;
+        color: rgba(18,16,14,.6);
+      }
+
+      .btn-buy {
+        display: block;
+        text-align: center;
+        padding: .85rem;
+        background: var(--ink);
+        color: #fff;
+        text-decoration: none;
+        font-size: .65rem;
+        letter-spacing: .4em;
+        text-transform: uppercase;
+        transition: background .25s;
+        border: none; cursor: pointer;
+      }
+      .btn-buy:hover { background: var(--gold); }
+
+      /* ─── EMPTY STATE ─────────────────────────────── */
+      .empty {
+        text-align: center;
+        padding: 5rem 0;
+        color: rgba(18,16,14,.35);
+        font-size: .85rem;
+        letter-spacing: .2em;
+      }
+
+      /* ─── FOOTER ──────────────────────────────────── */
+      footer {
+        border-top: 1px solid rgba(184,150,62,.2);
+        padding: 2.4rem 1.5rem;
+        text-align: center;
+        font-size: .65rem;
+        letter-spacing: .35em;
+        color: rgba(18,16,14,.35);
+        text-transform: uppercase;
+      }
+
+      /* ─── TAB PANEL ───────────────────────────────── */
+      .tab-panel { display: none; }
+      .tab-panel.active { display: block; }
+
+      /* ─── SCROLL REVEAL ───────────────────────────── */
+      .reveal-up {
+        opacity: 0;
+        transform: translateY(24px);
+        transition: opacity .7s ease, transform .7s ease;
+      }
+      .reveal-up.in { opacity: 1; transform: none; }
     </style>
   </head>
-  <body class="bg-slate-50 text-slate-900 font-sans">
 
-    <!-- オープニング動画レイヤー -->
-    <div id="opening" class="fixed inset-0 z-[100] flex items-center justify-center bg-black overflow-hidden">
-      <video autoplay muted playsinline class="absolute inset-0 w-full h-full object-cover opacity-50">
-        <source src="https://assets.mixkit.co/videos/preview/mixkit-cherry-blossoms-in-the-wind-1191-preview.mp4" type="video/mp4">
+  <body>
+
+    <!-- ════ OPENING ════ -->
+    <div id="opening">
+      <video autoplay muted playsinline loop>
+        <source src="https://assets.mixkit.co/videos/preview/mixkit-cherry-blossoms-in-the-wind-1191-preview.mp4" type="video/mp4" />
       </video>
-      <div id="opening-logo" class="relative z-10 text-white text-center opacity-0 transition-all duration-1000">
-        <h1 class="text-4xl md:text-6xl font-black uppercase tracking-[0.5em]">JapanDaily <span class="text-orange-500">Hub</span></h1>
+      <div id="opening-overlay"></div>
+      <div id="opening-logo">
+        <div class="bar"></div>
+        <div class="en">Japan<span>Daily</span> Hub</div>
+        <div class="ja">日本の逸品、世界へ</div>
+        <div class="bar"></div>
       </div>
     </div>
 
-    <!-- メインコンテンツ -->
-    <div id="main-content" class="invisible">
-      <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200">
-        <div class="max-w-5xl mx-auto px-4 h-16 flex items-center justify-between text-orange-600 font-black italic">JapanDaily Hub</div>
-      </header>
-      <main class="max-w-5xl mx-auto px-4 py-8">
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {products.map((item) => (
-            <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-slate-100 flex flex-col p-6 transition-all hover:shadow-xl">
-              <img src={item.data.imageUrl} alt={item.data.title} class="w-full h-48 object-contain mb-4" />
-              <h3 class="font-bold text-sm mb-4 line-clamp-2">{item.data.title}</h3>
-              <p class="text-2xl font-black mb-4">¥{item.data.price.toLocaleString()}</p>
-              <a href={item.data.amazonUrl} class="bg-slate-900 text-white text-center py-4 rounded-2xl font-bold text-xs uppercase tracking-widest hover:bg-orange-600">Buy on Amazon</a>
-            </div>
-          ))}
+    <!-- ════ MAIN ════ -->
+    <div id="main-content" style="opacity:0; transition: opacity 1s ease;">
+
+      <!-- Header -->
+      <header>
+        <div class="header-inner">
+          <div class="site-name">Japan<span>Daily</span> Hub</div>
+          <div style="font-size:.65rem; letter-spacing:.3em; color:rgba(18,16,14,.4);">日本の逸品、世界へ</div>
         </div>
-      </main>
+      </header>
+
+      <!-- Tab Nav -->
+      <nav class="tab-nav">
+        <div class="tab-list" role="tablist">
+          <button class="tab-btn active" role="tab" data-tab="all">すべて</button>
+          <button class="tab-btn" role="tab" data-tab="food">飲食・食品</button>
+          <button class="tab-btn" role="tab" data-tab="daily">日用雑貨</button>
+          <button class="tab-btn" role="tab" data-tab="fashion">衣料品</button>
+          <button class="tab-btn" role="tab" data-tab="featured">注目商品</button>
+        </div>
+      </nav>
+
+      <!-- Hero -->
+      <section class="hero">
+        <div class="hero-inner">
+          <p class="hero-sub">Curated from Japan</p>
+          <h2 class="hero-title">日本の美しさを、<br/>あなたの暮らしへ</h2>
+          <div class="hero-divider"></div>
+          <p class="hero-desc">伝統と革新が交差する日本の逸品を厳選。<br/>本物の品質と美意識をお届けします。</p>
+        </div>
+      </section>
+
+      <!-- ── TAB: ALL ── -->
+      <div class="tab-panel active" id="panel-all">
+        <div class="section-wrap">
+          <div class="section-head">
+            <span class="label">All Products</span>
+            <span class="line"></span>
+          </div>
+          <div class="product-grid">
+            {products.length === 0 ? (
+              <div class="empty" style="grid-column:1/-1">商品を準備中です</div>
+            ) : products.map((item) => (
+              <div class="product-card reveal-up">
+                <div class="product-img-wrap">
+                  <img
+                    src={item.data.imageUrl ?? 'https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=500&q=60'}
+                    alt={item.data.title}
+                    loading="lazy"
+                  />
+                </div>
+                <div class="product-body">
+                  <div class="product-tag">{item.data.category ?? 'Japan Select'}</div>
+                  <div class="product-title">{item.data.title}</div>
+                  <div class="product-price">
+                    <span class="cur">¥</span>{(item.data.price ?? 0).toLocaleString()}
+                  </div>
+                  <a href={item.data.amazonUrl ?? item.data.amazon_url ?? '#'} class="btn-buy" target="_blank" rel="noopener">
+                    Amazon で購入
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <!-- ── TAB: FOOD ── -->
+      <div class="tab-panel" id="panel-food">
+        <div class="section-wrap">
+          <div class="section-head">
+            <span class="label">飲食・食品</span>
+            <span class="line"></span>
+          </div>
+          <div class="product-grid">
+            {(() => {
+              const items = products.filter(p => p.data.category === 'food');
+              return items.length === 0
+                ? <div class="empty" style="grid-column:1/-1">飲食・食品カテゴリの商品を準備中です</div>
+                : items.map((item) => (
+                  <div class="product-card reveal-up">
+                    <div class="product-img-wrap">
+                      <img src={item.data.imageUrl ?? ''} alt={item.data.title} loading="lazy" />
+                    </div>
+                    <div class="product-body">
+                      <div class="product-tag">飲食・食品</div>
+                      <div class="product-title">{item.data.title}</div>
+                      <div class="product-price"><span class="cur">¥</span>{(item.data.price ?? 0).toLocaleString()}</div>
+                      <a href={item.data.amazonUrl ?? item.data.amazon_url ?? '#'} class="btn-buy" target="_blank" rel="noopener">Amazon で購入</a>
+                    </div>
+                  </div>
+                ));
+            })()}
+          </div>
+        </div>
+      </div>
+
+      <!-- ── TAB: DAILY ── -->
+      <div class="tab-panel" id="panel-daily">
+        <div class="section-wrap">
+          <div class="section-head">
+            <span class="label">日用雑貨</span>
+            <span class="line"></span>
+          </div>
+          <div class="product-grid">
+            {(() => {
+              const items = products.filter(p => p.data.category === 'daily');
+              return items.length === 0
+                ? <div class="empty" style="grid-column:1/-1">日用雑貨カテゴリの商品を準備中です</div>
+                : items.map((item) => (
+                  <div class="product-card reveal-up">
+                    <div class="product-img-wrap">
+                      <img src={item.data.imageUrl ?? ''} alt={item.data.title} loading="lazy" />
+                    </div>
+                    <div class="product-body">
+                      <div class="product-tag">日用雑貨</div>
+                      <div class="product-title">{item.data.title}</div>
+                      <div class="product-price"><span class="cur">¥</span>{(item.data.price ?? 0).toLocaleString()}</div>
+                      <a href={item.data.amazonUrl ?? item.data.amazon_url ?? '#'} class="btn-buy" target="_blank" rel="noopener">Amazon で購入</a>
+                    </div>
+                  </div>
+                ));
+            })()}
+          </div>
+        </div>
+      </div>
+
+      <!-- ── TAB: FASHION ── -->
+      <div class="tab-panel" id="panel-fashion">
+        <div class="section-wrap">
+          <div class="section-head">
+            <span class="label">衣料品</span>
+            <span class="line"></span>
+          </div>
+          <div class="product-grid">
+            {(() => {
+              const items = products.filter(p => p.data.category === 'fashion');
+              return items.length === 0
+                ? <div class="empty" style="grid-column:1/-1">衣料品カテゴリの商品を準備中です</div>
+                : items.map((item) => (
+                  <div class="product-card reveal-up">
+                    <div class="product-img-wrap">
+                      <img src={item.data.imageUrl ?? ''} alt={item.data.title} loading="lazy" />
+                    </div>
+                    <div class="product-body">
+                      <div class="product-tag">衣料品</div>
+                      <div class="product-title">{item.data.title}</div>
+                      <div class="product-price"><span class="cur">¥</span>{(item.data.price ?? 0).toLocaleString()}</div>
+                      <a href={item.data.amazonUrl ?? item.data.amazon_url ?? '#'} class="btn-buy" target="_blank" rel="noopener">Amazon で購入</a>
+                    </div>
+                  </div>
+                ));
+            })()}
+          </div>
+        </div>
+      </div>
+
+      <!-- ── TAB: FEATURED ── -->
+      <div class="tab-panel" id="panel-featured">
+        <div class="section-wrap">
+          <div class="section-head">
+            <span class="label">注目商品</span>
+            <span class="line"></span>
+          </div>
+          <div class="product-grid">
+            {(() => {
+              const items = products.filter(p => p.data.featured);
+              return items.length === 0
+                ? <div class="empty" style="grid-column:1/-1">注目商品を準備中です</div>
+                : items.map((item) => (
+                  <div class="product-card reveal-up">
+                    <div class="product-img-wrap">
+                      <img src={item.data.imageUrl ?? ''} alt={item.data.title} loading="lazy" />
+                    </div>
+                    <div class="product-body">
+                      <div class="product-tag">Featured</div>
+                      <div class="product-title">{item.data.title}</div>
+                      <div class="product-price"><span class="cur">¥</span>{(item.data.price ?? 0).toLocaleString()}</div>
+                      <a href={item.data.amazonUrl ?? item.data.amazon_url ?? '#'} class="btn-buy" target="_blank" rel="noopener">Amazon で購入</a>
+                    </div>
+                  </div>
+                ));
+            })()}
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        &copy; 2025 Japan Daily Hub &nbsp;|&nbsp; Curated from Japan
+      </footer>
     </div>
 
     <script>
+      // ── Opening sequence ──
       window.addEventListener('load', () => {
-        const opening = document.getElementById('opening');
-        const logo = document.getElementById('opening-logo');
-        const mainContent = document.getElementById('main-content');
-        setTimeout(() => logo.classList.add('reveal'), 500);
+        const opening   = document.getElementById('opening');
+        const logo      = document.getElementById('opening-logo');
+        const main      = document.getElementById('main-content');
+
+        // ロゴ表示
+        setTimeout(() => logo.classList.add('show'), 800);
+
+        // オープニング退場 → メイン表示
         setTimeout(() => {
-          opening.classList.add('fade-out');
-          mainContent.classList.remove('invisible');
-        }, 4500);
+          opening.classList.add('hide');
+          main.style.opacity = '1';
+        }, 4200);
       });
+
+      // ── Tab switching ──
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+          document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+          btn.classList.add('active');
+          const target = document.getElementById('panel-' + btn.dataset.tab);
+          if (target) {
+            target.classList.add('active');
+            observeCards();
+          }
+        });
+      });
+
+      // ── Scroll reveal ──
+      function observeCards() {
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach((e, i) => {
+            if (e.isIntersecting) {
+              setTimeout(() => e.target.classList.add('in'), i * 80);
+              io.unobserve(e.target);
+            }
+          });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal-up:not(.in)').forEach(el => io.observe(el));
+      }
+      observeCards();
     </script>
   </body>
 </html>
