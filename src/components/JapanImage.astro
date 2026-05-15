@@ -1,0 +1,157 @@
+---
+/**
+ * JapanImage コンポーネント
+ * Unsplash Source APIを使用して日本関連の高解像度画像を動的表示
+ *
+ * Props:
+ *   size    - 画像サイズ (default: '1920x1080')
+ *   mode    - 'random' | 'sequential' | 'category'
+ *   category - 'luxury' | 'zen' | 'craft' | 'nature' | 'arch' | 'all'
+ *   interval - 自動切替間隔ms (default: 4000, 0で無効)
+ *   fit     - object-fit CSS値 (default: 'cover')
+ *   class   - 追加CSSクラス
+ */
+interface Props {
+  size?: string;
+  mode?: 'random' | 'sequential' | 'category';
+  category?: 'luxury' | 'zen' | 'craft' | 'nature' | 'arch' | 'all';
+  interval?: number;
+  fit?: string;
+  class?: string;
+}
+
+const {
+  size = '1920x1080',
+  mode = 'random',
+  category = 'all',
+  interval = 4000,
+  fit = 'cover',
+  class: className = '',
+} = Astro.props;
+---
+
+<div class={`japan-img-wrap ${className}`} data-mode={mode} data-category={category} data-interval={interval} data-size={size}>
+  <img class="japan-img" src="" alt="Japan imagery" style={`object-fit:${fit};`} />
+  <span class="japan-img-badge"></span>
+</div>
+
+<style>
+  .japan-img-wrap {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+  .japan-img {
+    width: 100%;
+    height: 100%;
+    transition: opacity 0.6s ease;
+  }
+  .japan-img-badge {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    background: rgba(0, 0, 0, 0.45);
+    color: rgba(255,255,255,0.75);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    padding: 3px 8px;
+    border-radius: 2px;
+    pointer-events: none;
+  }
+</style>
+
+<script>
+  const PATTERNS: Record<string, string[]> = {
+    luxury: [
+      'japanese+luxury+interior','kyoto+traditional+luxury','japan+gold+lacquer+art',
+      'japanese+ryokan+interior','japan+minimalist+luxury+space','tokyo+luxury+hotel',
+      'japanese+silk+kimono+detail','japan+wabi+sabi+luxury','japanese+tea+ceremony+luxury',
+      'kyoto+machiya+interior','japan+matcha+ceremony','japanese+kaiseki+cuisine',
+      'japan+ikebana+flower+arrangement','japanese+gold+screen+painting','nishiki+kyoto+textile',
+      'japanese+lacquerware+urushi','japan+onsen+ryokan','higashiyama+kyoto+alley',
+      'japanese+bamboo+garden+luxury','japan+aesthetic+minimalism',
+    ],
+    zen: [
+      'minimalist+zen+garden+japan','japanese+rock+garden+kyoto','zen+buddhist+temple+japan',
+      'japan+bamboo+forest+misty','japanese+moss+garden','arashiyama+bamboo+grove',
+      'japanese+meditation+zen','japan+white+space+minimal','japanese+paper+washi+minimal',
+      'zen+stone+water+japan','japanese+minimalist+architecture','japan+foggy+mountain+temple',
+      'japanese+ink+painting+landscape','torii+gate+misty+japan','japan+silent+forest+path',
+      'japanese+garden+raked+sand','mount+fuji+minimal+fog','japanese+koi+pond+reflection',
+      'japan+tatami+room+simple','japanese+shoji+window+light',
+    ],
+    craft: [
+      'japanese+craftsmanship+pottery','japan+traditional+craft+artisan','japanese+ceramics+wabi+sabi',
+      'japan+woodworking+joinery','japanese+sword+katana+craft','japan+handmade+indigo+dyeing',
+      'japanese+origami+craft','japan+bonsai+art','japanese+weaving+textile+craft',
+      'japan+hand+forged+ironwork','japanese+sashiko+embroidery','japan+nishijin+weaving+kyoto',
+      'japanese+traditional+paper+making','japan+kintsugi+gold+repair','japanese+glass+blowing+craft',
+      'japan+wooden+lacquer+craft','japanese+calligraphy+shodou','japan+kumiko+woodwork+pattern',
+      'japanese+hand+thrown+pottery','japan+boro+textile+indigo',
+    ],
+    nature: [
+      'japan+cherry+blossom+sakura','japanese+autumn+momiji+red','mount+fuji+reflection+lake',
+      'japan+snow+temple+winter','japanese+maple+leaves+fall','japan+bamboo+sunrise',
+      'japanese+plum+blossom+ume','japan+rice+field+sunset','japanese+coast+ocean+calm',
+      'japan+misty+valley+morning','japanese+pine+tree+landscape','japan+fuji+dawn+pink',
+      'japanese+forest+light+rays','japan+waterfall+hidden+nature','japanese+sea+cliff+dramatic',
+      'japan+lavender+hokkaido','japanese+wisteria+purple','japan+lotus+pond+summer',
+      'japanese+autumn+forest+path','japan+snowy+bamboo+winter',
+    ],
+    arch: [
+      'japanese+traditional+architecture','kyoto+temple+wooden+structure','japan+modern+architecture+minimal',
+      'japanese+pagoda+five+story','japan+torii+gate+red','japanese+shrine+roof+detail',
+      'japan+machiya+townhouse','japanese+castle+white+heron','japan+stone+lantern+garden',
+      'japanese+bridge+curved+garden','japan+contemporary+japanese+house','japanese+engawa+veranda',
+      'japan+wooden+gate+mon','japanese+tiled+roof+architecture','japan+shrine+path+stone',
+      'japanese+sukiya+tea+house','japan+rock+garden+nijo','japanese+noren+curtain+entrance',
+      'japan+minimalist+interior+architecture','japanese+skyline+night+tokyo',
+    ],
+  };
+
+  // category='all' の場合は全パターン結合
+  const ALL = Object.values(PATTERNS).flat();
+
+  function getPool(category: string): string[] {
+    return category === 'all' ? ALL : (PATTERNS[category] ?? ALL);
+  }
+
+  function buildUrl(keyword: string, sig: number, size: string): string {
+    return `https://source.unsplash.com/${size}/?${keyword}&sig=${sig}`;
+  }
+
+  document.querySelectorAll<HTMLElement>('.japan-img-wrap').forEach((wrap) => {
+    const img     = wrap.querySelector<HTMLImageElement>('.japan-img')!;
+    const badge   = wrap.querySelector<HTMLElement>('.japan-img-badge')!;
+    const mode     = wrap.dataset.mode ?? 'random';
+    const category = wrap.dataset.category ?? 'all';
+    const iv       = parseInt(wrap.dataset.interval ?? '4000', 10);
+    const size     = wrap.dataset.size ?? '1920x1080';
+    const pool     = getPool(category);
+
+    let currentIdx = mode === 'random'
+      ? Math.floor(Math.random() * pool.length)
+      : 0;
+
+    function loadImage(idx: number) {
+      img.style.opacity = '0';
+      const kw  = pool[idx];
+      const url = buildUrl(kw, idx, size);
+      img.onload = () => { img.style.opacity = '1'; };
+      img.src    = url;
+      badge.textContent = kw.replace(/\+/g, ' ');
+    }
+
+    loadImage(currentIdx);
+
+    if (iv > 0) {
+      setInterval(() => {
+        currentIdx = mode === 'random'
+          ? Math.floor(Math.random() * pool.length)
+          : (currentIdx + 1) % pool.length;
+        loadImage(currentIdx);
+      }, iv);
+    }
+  });
+</script>
