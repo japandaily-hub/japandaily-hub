@@ -639,15 +639,7 @@ const base = import.meta.env.BASE_URL ?? '';
 
   <!-- PRODUCTS (single grid, JS-filtered by tab) -->
   <div class="section-wrap">
-    <div class="section-head">
-      <span class="section-lbl" id="section-lbl-text"
-        data-en="Top 10 Best Sellers" data-ja="売れ筋トップ10"
-        data-zh="热销前10名" data-zhtw="熱銷前10名"
-        data-ko="베스트셀러 TOP 10" data-fr="Top 10 des Ventes"
-        data-de="Top 10 Bestseller" data-es="Los 10 Más Vendidos">Top 10 Best Sellers</span>
-      <span class="section-rule"></span>
-      <span id="product-count" style="font-size:.62rem;color:rgba(18,16,14,.35);letter-spacing:.15em;white-space:nowrap;"></span>
-    </div>
+
     <div class="product-grid" id="main-grid">
       {products.map(p => (
         <article class="product-card" data-tab={p.data.tab ?? 'daily'}>
@@ -803,11 +795,9 @@ const base = import.meta.env.BASE_URL ?? '';
         });
 
         document.getElementById('t-save').textContent = '↓ USD buyers save ~' + pct + '% vs 2021';
-        calcSavings();
         updateSaveBadges();
       } catch(e) {
         rates = { USD: 155, EUR: 168, GBP: 196, AUD: 100 };
-        calcSavings();
         updateSaveBadges();
       }
     }
@@ -830,24 +820,6 @@ const base = import.meta.env.BASE_URL ?? '';
       });
     }
 
-    function calcSavings() {
-      const price = parseFloat(document.getElementById('calc-price').value) || 10000;
-      const cur   = document.getElementById('calc-cur').value;
-      const sym   = SYM[cur];
-      const now   = rates[cur] || 155;
-      const base  = BASE[cur] || 108;
-      const amtNow = (price / now).toFixed(2);
-      const amtWas = (price / base).toFixed(2);
-      const saved  = (amtWas - amtNow).toFixed(2);
-      const pct    = Math.round(((amtWas - amtNow) / amtWas) * 100);
-      document.getElementById('c-now').textContent  = sym + amtNow;
-      document.getElementById('c-was').textContent  = sym + amtWas;
-      document.getElementById('c-save').textContent = sym + saved;
-      document.getElementById('c-pct').textContent  = pct + '% off vs 2021';
-    }
-
-    document.getElementById('calc-price').addEventListener('input', calcSavings);
-    document.getElementById('calc-cur').addEventListener('change', calcSavings);
 
     // ── タブ (client-side filter) ──
     const TAB_LABELS = {
