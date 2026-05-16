@@ -708,4 +708,14 @@ const products = [
     (function() {
       try {
         const saved = localStorage.getItem('jdh-lang');
+        if (saved && LANGS.includes(saved)) setLang(saved);
+      } catch(e) {}
+    })();
+
+    loadRates();
+    setInterval(loadRates, 5 * 60 * 1000);
+  </script>
+
+</body>
+</html>
     
