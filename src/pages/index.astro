@@ -1,22 +1,15 @@
 ---
-const products = [
-  {
-    id: 'item-01',
-    title: 'テスト用おすすめガジェット',
-    price: 5000,
-    imageUrl: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500',
-    amazonUrl: 'https://www.amazon.co.jp/',
-    category: 'Daily Goods',
-  },
-  {
-    id: 'product-1',
-    title: 'KURA - Minimalist Waxed Canvas Backpack',
-    price: 38500,
-    imageUrl: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500',
-    amazonUrl: 'https://www.amazon.co.jp/dp/EXAMPLE123',
-    category: 'Fashion',
-  },
-];
+import { getCollection } from 'astro:content';
+
+const allProducts = await getCollection('products');
+const products = allProducts.sort((a, b) => {
+  // featured first, then by price descending
+  if (a.data.featured && !b.data.featured) return -1;
+  if (!a.data.featured && b.data.featured) return 1;
+  return (b.data.price ?? 0) - (a.data.price ?? 0);
+});
+
+const base = import.meta.env.BASE_URL ?? '';
 ---
 <!DOCTYPE html>
 <html lang="en">
@@ -36,6 +29,14 @@ const products = [
   <meta name="twitter:description" content="Weak yen = you save up to 28% on authentic Japanese products. Ships worldwide." />
   <meta name="twitter:image" content="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=1200&q=80" />
   <link rel="canonical" href="https://japandaily-hub.github.io/japandaily-hub/" />
+  <!-- Google Analytics 4 — replace G-XXXXXXXXXX with your Measurement ID -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400&family=Cormorant+Garamond:wght@300;400&display=swap" rel="stylesheet" />
   <style>
@@ -695,77 +696,51 @@ const products = [
     </div>
   </nav>
 
-  <!-- PANEL: ALL -->
-  <div class="tab-panel active" id="panel-all">
-    <div class="section-wrap">
-      <div class="section-head">
-        <span class="section-lbl"
-          data-en="All Products" data-ja="すべての商品"
-          data-zh="全部商品" data-zhtw="全部商品"
-          data-ko="전체 상품" data-fr="Tous les Produits"
-          data-de="Alle Produkte" data-es="Todos los Productos">All Products</span>
-        <span class="section-rule"></span>
-      </div>
-      <div class="product-grid">
-        {products.map(p => (
-          <article class="product-card">
-            <div style="position:relative;">
-              <a class="product-img-wrap" href={`/japandaily-hub/products/${p.id}`}>
-                <img src={p.imageUrl} alt={p.title} loading="lazy" />
-              </a>
-              <button class="wl-btn"
-                data-id={p.id}
-                data-title={p.title}
-                data-price={p.price}
-                data-img={p.imageUrl ?? ''}
-                aria-label="ウィッシュリストに追加">♡</button>
-            </div>
-            <div class="product-body">
-              <div class="product-cat">{p.category}</div>
-              <div class="product-name">{p.title}</div>
-              <div class="yen-badge"
-                data-en="↓ ~25% cheaper due to weak yen" data-ja="↓ 円安で約25%お得"
-                data-zh="↓ 因日元贬值便宜约25%" data-zhtw="↓ 因日圓貶值便宜約25%"
-                data-ko="↓ 엔화 약세로 약 25% 저렴" data-fr="↓ ~25% moins cher grâce au yen faible"
-                data-de="↓ ~25% günstiger durch schwachen Yen" data-es="↓ ~25% más barato por el yen débil">↓ ~25% cheaper due to weak yen</div>
-              <div class="product-price"><small>¥</small>{p.price.toLocaleString()}</div>
-              <a class="btn-buy" href={p.amazonUrl} target="_blank" rel="noopener"
-                data-en="Buy on Amazon" data-ja="Amazonで購入"
-                data-zh="在亚马逊购买" data-zhtw="在亞馬遜購買"
-                data-ko="아마존에서 구매" data-fr="Acheter sur Amazon"
-                data-de="Auf Amazon kaufen" data-es="Comprar en Amazon">Buy on Amazon</a>
-            </div>
-          </article>
-        ))}
-      </div>
+  <!-- PRODUCTS (single grid, JS-filtered by tab) -->
+  <div class="section-wrap">
+    <div class="section-head">
+      <span class="section-lbl" id="section-lbl-text"
+        data-en="All Products" data-ja="すべての商品"
+        data-zh="全部商品" data-zhtw="全部商品"
+        data-ko="전체 상품" data-fr="Tous les Produits"
+        data-de="Alle Produkte" data-es="Todos los Productos">All Products</span>
+      <span class="section-rule"></span>
+      <span id="product-count" style="font-size:.62rem;color:rgba(18,16,14,.35);letter-spacing:.15em;white-space:nowrap;"></span>
     </div>
-  </div>
-
-  <div class="tab-panel" id="panel-food">
-    <div class="section-wrap"><div class="section-head"><span class="section-lbl">Food & Drink</span><span class="section-rule"></span></div>
-      <p style="color:rgba(18,16,14,.35);font-size:.85rem;letter-spacing:.15em;padding:3rem 0;text-align:center;"
-        data-en="Products coming soon" data-ja="準備中"
-        data-zh="产品即将推出" data-zhtw="產品即將推出"
-        data-ko="상품 준비 중" data-fr="Produits bientôt disponibles"
-        data-de="Produkte demnächst verfügbar" data-es="Productos próximamente">Products coming soon</p>
-    </div>
-  </div>
-  <div class="tab-panel" id="panel-daily">
-    <div class="section-wrap"><div class="section-head"><span class="section-lbl">Daily Goods</span><span class="section-rule"></span></div>
-      <p style="color:rgba(18,16,14,.35);font-size:.85rem;letter-spacing:.15em;padding:3rem 0;text-align:center;"
-        data-en="Products coming soon" data-ja="準備中"
-        data-zh="产品即将推出" data-zhtw="產品即將推出"
-        data-ko="상품 준비 중" data-fr="Produits bientôt disponibles"
-        data-de="Produkte demnächst verfügbar" data-es="Productos próximamente">Products coming soon</p>
-    </div>
-  </div>
-  <div class="tab-panel" id="panel-fashion">
-    <div class="section-wrap"><div class="section-head"><span class="section-lbl">Fashion</span><span class="section-rule"></span></div>
-      <p style="color:rgba(18,16,14,.35);font-size:.85rem;letter-spacing:.15em;padding:3rem 0;text-align:center;"
-        data-en="Products coming soon" data-ja="準備中"
-        data-zh="产品即将推出" data-zhtw="產品即將推出"
-        data-ko="상품 준비 중" data-fr="Produits bientôt disponibles"
-        data-de="Produkte demnächst verfügbar" data-es="Productos próximamente">Products coming soon</p>
+    <div class="product-grid" id="main-grid">
+      {products.map(p => (
+        <article class="product-card" data-tab={p.data.tab ?? 'daily'}>
+          <div style="position:relative;">
+            <a class="product-img-wrap" href={`${base}/products/${p.id}`}>
+              <img
+                src={p.data.imageUrl ?? 'https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=500&q=70'}
+                alt={p.data.title}
+                loading="lazy"
+              />
+            </a>
+            <button class="wl-btn"
+              data-id={p.id}
+              data-title={p.data.title}
+              data-price={p.data.price}
+              data-img={p.data.imageUrl ?? ''}
+              aria-label="Add to wishlist">♡</button>
+            {p.data.featured && (
+              <span style="position:absolute;top:.6rem;left:.6rem;background:var(--gold);color:#fff;font-size:.52rem;letter-spacing:.18em;padding:.18rem .55rem;text-transform:uppercase;">Featured</span>
+            )}
+          </div>
+          <div class="product-body">
+            <div class="product-cat">{p.data.category}</div>
+            <a class="product-name" href={`${base}/products/${p.id}`} style="display:block;text-decoration:none;color:inherit;">{p.data.title}</a>
+            <div class="yen-badge save-badge" data-price={p.data.price}>↓ calculating…</div>
+            <div class="product-price"><small>¥</small>{(p.data.price ?? 0).toLocaleString()}</div>
+            <a class="btn-buy" href={p.data.amazonUrl ?? '#'} target="_blank" rel="noopener noreferrer"
+              data-en="Buy on Amazon" data-ja="Amazonで購入"
+              data-zh="在亚马逊购买" data-zhtw="在亞馬遜購買"
+              data-ko="아마존에서 구매" data-fr="Acheter sur Amazon"
+              data-de="Auf Amazon kaufen" data-es="Comprar en Amazon">Buy on Amazon</a>
+          </div>
+        </article>
+      ))}
     </div>
   </div>
 
@@ -888,10 +863,30 @@ const products = [
 
         document.getElementById('t-save').textContent = '↓ USD buyers save ~' + pct + '% vs 2021';
         calcSavings();
+        updateSaveBadges();
       } catch(e) {
         rates = { USD: 155, EUR: 168, GBP: 196, AUD: 100 };
         calcSavings();
+        updateSaveBadges();
       }
+    }
+
+    function updateSaveBadges() {
+      const usdRate = rates.USD || 155;
+      document.querySelectorAll('.save-badge[data-price]').forEach(badge => {
+        const price = Number(badge.dataset.price) || 0;
+        if (!price) { badge.textContent = ''; return; }
+        const usdNow = price / usdRate;
+        const usdWas = price / 108;
+        const saved  = usdWas - usdNow;
+        const pct    = Math.round((saved / usdWas) * 100);
+        if (pct > 0) {
+          badge.textContent = '↓ Save $' + saved.toFixed(0) + ' (' + pct + '% vs 2021)';
+          badge.style.display = '';
+        } else {
+          badge.style.display = 'none';
+        }
+      });
     }
 
     function calcSavings() {
@@ -913,15 +908,36 @@ const products = [
     document.getElementById('calc-price').addEventListener('input', calcSavings);
     document.getElementById('calc-cur').addEventListener('change', calcSavings);
 
-    // ── タブ ──
-    document.querySelectorAll('.tab-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-        document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-        btn.classList.add('active');
-        document.getElementById('panel-' + btn.dataset.tab).classList.add('active');
+    // ── タブ (client-side filter) ──
+    const TAB_LABELS = {
+      all:     { en:'All Products',   ja:'すべての商品', zh:'全部商品', zhtw:'全部商品', ko:'전체 상품',    fr:'Tous les Produits',  de:'Alle Produkte',  es:'Todos los Productos' },
+      food:    { en:'Food & Drink',   ja:'飲食・食品',   zh:'食品饮料', zhtw:'食品飲料', ko:'식품·음료',    fr:'Alimentation',       de:'Essen & Trinken', es:'Comida y Bebida' },
+      daily:   { en:'Daily Goods',    ja:'日用雑貨',     zh:'日用品',   zhtw:'日用品',   ko:'생활용품',     fr:'Articles Quotidiens', de:'Alltagswaren',   es:'Artículos Diarios' },
+      fashion: { en:'Fashion',        ja:'ファッション', zh:'时尚',     zhtw:'時尚',     ko:'패션',         fr:'Mode',               de:'Mode',           es:'Moda' },
+    };
+
+    function applyTab(tab) {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
+      const cards = document.querySelectorAll('.product-card');
+      let visible = 0;
+      cards.forEach(card => {
+        const show = tab === 'all' || card.dataset.tab === tab;
+        card.style.display = show ? '' : 'none';
+        if (show) visible++;
       });
+      const lbl = document.getElementById('section-lbl-text');
+      if (lbl) {
+        const lang = document.getElementById('lang-select')?.value || 'en';
+        lbl.textContent = TAB_LABELS[tab]?.[lang] || TAB_LABELS[tab]?.en || tab;
+      }
+      const cnt = document.getElementById('product-count');
+      if (cnt) cnt.textContent = visible + ' items';
+    }
+
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => applyTab(btn.dataset.tab));
     });
+    applyTab('all');
 
     // ── 言語切替 ──
     const LANGS = ['en','ja','zh','zhtw','ko','fr','de','es'];

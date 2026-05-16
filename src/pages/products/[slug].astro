@@ -64,6 +64,14 @@ const base = import.meta.env.BASE_URL ?? '';
       },
       "brand": { "@type": "Brand", "name": "Japan Daily Hub" }
     })} />
+    <!-- Google Analytics 4 — replace G-XXXXXXXXXX with your Measurement ID -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-XXXXXXXXXX');
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet" />
     <style>
@@ -211,6 +219,20 @@ const base = import.meta.env.BASE_URL ?? '';
       }
       .btn-buy:hover { background: var(--gold); }
 
+      /* ── WISHLIST BUTTON (detail) ── */
+      .btn-wl-detail {
+        display: block; width: 100%; text-align: center;
+        padding: 1.1rem;
+        background: transparent; color: var(--ink);
+        border: 1px solid rgba(184,150,62,.5);
+        font-size: .68rem; letter-spacing: .4em; text-transform: uppercase;
+        cursor: pointer; font-family: inherit;
+        transition: border-color .22s, background .22s;
+        margin-top: .75rem;
+      }
+      .btn-wl-detail:hover { border-color: var(--gold); background: rgba(184,150,62,.06); }
+      .btn-wl-detail.saved { color: #e63946; border-color: rgba(230,57,70,.4); }
+
       .btn-note {
         font-size: .62rem; letter-spacing: .12em;
         color: rgba(18,16,14,.35); text-align: center;
@@ -342,17 +364,31 @@ const base = import.meta.env.BASE_URL ?? '';
 
         <div class="rule"></div>
 
-        <!-- 購入ボタン -->
+        <!-- Dual CTA -->
         <a
           href={buyUrl}
           class="btn-buy"
           target="_blank"
           rel="noopener noreferrer"
-          data-en="Buy on Amazon Japan"
-          data-ja="Amazon Japanで購入"
+          data-product-id={product.id}
+          data-price={price}
+          data-en="Buy on Amazon Japan ↗"
+          data-ja="Amazon Japanで購入 ↗"
         >
-          Buy on Amazon Japan
+          Buy on Amazon Japan ↗
         </a>
+        <button
+          id="detail-wl-btn"
+          class="btn-wl-detail"
+          data-id={product.id}
+          data-title={title}
+          data-price={price}
+          data-img={image}
+          data-en="♡  Add to Wishlist"
+          data-ja="♡  ウィッシュリストへ"
+        >
+          ♡  Add to Wishlist
+        </button>
         <p class="btn-note" data-en="Ships internationally · Fulfilled by Amazon" data-ja="国際配送対応 · Amazon発送">
           Ships internationally · Fulfilled by Amazon
         </p>
@@ -391,32 +427,103 @@ const base = import.meta.env.BASE_URL ?? '';
       </span>
     </footer>
 
-    <script define:vars={{ price, descEn, descJa }}>
-      // 円安計算
-      async function calcYenAdvantage() {
+    <script define:vars={{ price, descEn, descJa, productId: product.id, productTitle: title, productImg: image }}>
+      // ── 為替API フォールバック3系統 ──
+      const RATE_APIS = [
+        'https://open.er-api.com/v6/latest/JPY',
+        'https://api.exchangerate-api.com/v4/latest/JPY',
+        'https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/jpy.json',
+      ];
+
+      async function fetchRates() {
+        // sessionStorageキャッシュ (TTL: 10分)
         try {
-          const res  = await fetch('https://open.er-api.com/v6/latest/JPY');
-          const data = await res.json();
-          const usdRate = 1 / data.rates.USD;
-          const gbpRate = 1 / data.rates.GBP;
+          const cached = JSON.parse(sessionStorage.getItem('jdh-rates') || 'null');
+          if (cached && Date.now() - cached.ts < 600_000) return cached;
+        } catch {}
 
-          const BASELINE_USD = 108;
-          const amtNow  = price / usdRate;
-          const amtWas  = price / BASELINE_USD;
-          const saved   = amtWas - amtNow;
-          const pct     = Math.round((saved / amtWas) * 100);
-          const amtGbp  = price / gbpRate;
-
-          document.getElementById('pd-foreign').textContent =
-            `≈ $${amtNow.toFixed(2)} USD / £${amtGbp.toFixed(2)} GBP`;
-          document.getElementById('pd-was').textContent =
-            `was $${amtWas.toFixed(2)} in 2021`;
-          document.getElementById('pd-savings').textContent =
-            `You save ~$${saved.toFixed(2)} (${pct}%) thanks to the weak yen`;
-        } catch {
-          document.getElementById('pd-foreign').textContent = '≈ rate unavailable';
+        for (const url of RATE_APIS) {
+          try {
+            const res = await fetch(url, { signal: AbortSignal.timeout(3500) });
+            if (!res.ok) continue;
+            const data = await res.json();
+            // normalize: open.er-api returns data.rates.USD, fawazahmed returns data.jpy.usd
+            const usd = data.rates?.USD ?? data.jpy?.usd;
+            const gbp = data.rates?.GBP ?? data.jpy?.gbp;
+            const eur = data.rates?.EUR ?? data.jpy?.eur;
+            if (!usd) continue;
+            const result = { usd: 1/usd, gbp: 1/gbp, eur: 1/eur, ts: Date.now() };
+            sessionStorage.setItem('jdh-rates', JSON.stringify(result));
+            return result;
+          } catch {}
         }
+        return { usd: 155, gbp: 196, eur: 168, ts: 0 }; // ultimate fallback
       }
+
+      async function calcYenAdvantage() {
+        const r = await fetchRates();
+        const BASELINE_USD = 108;
+        const amtNow  = price / r.usd;
+        const amtWas  = price / BASELINE_USD;
+        const saved   = amtWas - amtNow;
+        const pct     = Math.round((saved / amtWas) * 100);
+        const amtGbp  = price / r.gbp;
+
+        document.getElementById('pd-foreign').textContent =
+          `≈ $${amtNow.toFixed(2)} USD / £${amtGbp.toFixed(2)} GBP`;
+        document.getElementById('pd-was').textContent =
+          `was $${amtWas.toFixed(2)} in 2021`;
+        document.getElementById('pd-savings').textContent =
+          pct > 0 ? `You save ~$${saved.toFixed(2)} (${pct}%) thanks to the weak yen` : '';
+
+        // Amazonリンクのクリック計測 (GA4)
+        document.querySelectorAll('a[href*="amazon.co.jp"]').forEach(a => {
+          a.addEventListener('click', () => {
+            if (typeof gtag === 'function') {
+              gtag('event', 'amazon_click', { product_id: a.dataset.productId, price: a.dataset.price });
+            }
+          });
+        });
+      }
+
+      // ── 言語切替対応 ──
+      const LANGS = ['en','ja'];
+      function applyLang(lang) {
+        if (!LANGS.includes(lang)) lang = 'en';
+        document.querySelectorAll('[data-en]').forEach(el => {
+          const t = el.dataset[lang] || el.dataset.en;
+          if (t) el.innerHTML = t;
+        });
+      }
+      const savedLang = (() => { try { return localStorage.getItem('jdh-lang'); } catch { return null; } })();
+      if (savedLang) applyLang(savedLang);
+
+      // ── Wishlist ──
+      const WL_KEY = 'jdh-wishlist';
+      const wlBtn  = document.getElementById('detail-wl-btn');
+
+      function getWL() { try { return JSON.parse(localStorage.getItem(WL_KEY) || '[]'); } catch { return []; } }
+      function saveWL(list) { try { localStorage.setItem(WL_KEY, JSON.stringify(list)); } catch {} }
+
+      function syncWLBtn() {
+        if (!wlBtn) return;
+        const saved = getWL().some(i => i.id === wlBtn.dataset.id);
+        wlBtn.classList.toggle('saved', saved);
+        const lang = savedLang || 'en';
+        wlBtn.textContent = saved
+          ? (lang === 'ja' ? '♥  ウィッシュリスト済み' : '♥  In Wishlist')
+          : (lang === 'ja' ? '♡  ウィッシュリストへ' : '♡  Add to Wishlist');
+      }
+
+      wlBtn?.addEventListener('click', () => {
+        const { id, title: t, price: pr, img } = wlBtn.dataset;
+        let list = getWL();
+        const exists = list.some(i => i.id === id);
+        saveWL(exists ? list.filter(i => i.id !== id) : [...list, { id, title: t, price: pr, img }]);
+        syncWLBtn();
+      });
+
+      syncWLBtn();
       calcYenAdvantage();
     </script>
   </body>

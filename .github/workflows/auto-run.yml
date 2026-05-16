@@ -25,6 +25,11 @@ jobs:
           node-version: '20'
       - name: Install dependencies
         run: npm install
+      - name: Validate JSON content files
+        run: |
+          find src/content -name "*.json" | while read f; do
+            node -e "JSON.parse(require('fs').readFileSync('$f','utf8'))" || { echo "INVALID JSON: $f"; exit 1; }
+          done
       - name: Build Astro
         run: npm run build
       - name: Upload artifact
