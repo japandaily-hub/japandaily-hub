@@ -30,8 +30,8 @@ const base = import.meta.env.BASE_URL ?? '';
   <meta name="twitter:image" content="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=1200&q=80" />
   <link rel="canonical" href="https://japandaily-hub.github.io/japandaily-hub/" />
   <!-- Google Analytics 4 — replace G-XXXXXXXXXX with your Measurement ID -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-  <script>
+  <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script is:inline>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
