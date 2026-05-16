@@ -24,6 +24,18 @@ const products = [
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Japan Daily Hub | Authentic Japanese Products</title>
+  <meta name="description" content="Handpicked Japanese products at unbeatable prices thanks to the weak yen. Save up to 28% vs 2021 prices. Ships worldwide." />
+  <meta property="og:title" content="Japan Daily Hub | Authentic Japanese Products" />
+  <meta property="og:description" content="Handpicked Japanese products — weak yen means you save up to 28% vs 2021 prices. Ships worldwide." />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=1200&q=80" />
+  <meta property="og:url" content="https://japandaily-hub.github.io/japandaily-hub/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Japan Daily Hub" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Japan Daily Hub | Authentic Japanese Products" />
+  <meta name="twitter:description" content="Weak yen = you save up to 28% on authentic Japanese products. Ships worldwide." />
+  <meta name="twitter:image" content="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=1200&q=80" />
+  <link rel="canonical" href="https://japandaily-hub.github.io/japandaily-hub/" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400&family=Cormorant+Garamond:wght@300;400&display=swap" rel="stylesheet" />
   <style>
@@ -382,6 +394,146 @@ const products = [
     .tab-panel { display: none; }
     .tab-panel.active { display: block; }
 
+    /* WISHLIST BUTTON (header) */
+    .wl-header-btn {
+      background: none; border: 1px solid rgba(184,150,62,.35);
+      color: var(--ink); padding: .3rem .75rem;
+      font-size: .7rem; letter-spacing: .1em;
+      cursor: pointer; border-radius: 2px;
+      display: flex; align-items: center; gap: .4rem;
+      font-family: inherit; transition: border-color .2s;
+    }
+    .wl-header-btn:hover { border-color: var(--gold); }
+    .wl-count {
+      background: var(--gold); color: #fff;
+      font-size: .6rem; border-radius: 50%;
+      width: 16px; height: 16px;
+      display: none; align-items: center; justify-content: center;
+    }
+    .wl-count.visible { display: flex; }
+
+    /* WISHLIST HEART on card */
+    .wl-btn {
+      position: absolute; top: .6rem; right: .6rem;
+      background: rgba(255,255,255,.85); border: none;
+      width: 32px; height: 32px; border-radius: 50%;
+      font-size: 1rem; cursor: pointer; line-height: 1;
+      transition: background .2s, transform .2s;
+    }
+    .wl-btn:hover { background: #fff; transform: scale(1.15); }
+    .wl-btn.saved { color: #e63946; }
+
+    /* DRAWER */
+    .drawer-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,.4);
+      z-index: 200; opacity: 0; pointer-events: none;
+      transition: opacity .3s;
+    }
+    .drawer-overlay.open { opacity: 1; pointer-events: all; }
+    .drawer {
+      position: fixed; top: 0; right: 0; bottom: 0;
+      width: min(380px, 92vw);
+      background: var(--washi);
+      z-index: 201;
+      transform: translateX(100%);
+      transition: transform .35s cubic-bezier(.4,0,.2,1);
+      display: flex; flex-direction: column;
+      box-shadow: -8px 0 32px rgba(0,0,0,.12);
+    }
+    .drawer.open { transform: translateX(0); }
+    .drawer-head {
+      padding: 1.2rem 1.5rem;
+      border-bottom: 1px solid rgba(184,150,62,.2);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .drawer-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem; font-weight: 300; letter-spacing: .1em;
+    }
+    .drawer-close {
+      background: none; border: none; font-size: 1.4rem;
+      cursor: pointer; color: rgba(18,16,14,.4);
+      padding: 0 .3rem; line-height: 1;
+    }
+    .drawer-body { flex: 1; overflow-y: auto; padding: 1rem 1.5rem; }
+    .wl-empty {
+      text-align: center; padding: 3rem 0;
+      color: rgba(18,16,14,.3); font-size: .85rem; letter-spacing: .1em;
+    }
+    .wl-item {
+      display: flex; gap: 1rem; align-items: center;
+      padding: .9rem 0; border-bottom: 1px solid rgba(184,150,62,.12);
+    }
+    .wl-item-img {
+      width: 60px; height: 60px; object-fit: contain;
+      background: #f0ece4; padding: .3rem; flex-shrink: 0;
+    }
+    .wl-item-info { flex: 1; }
+    .wl-item-name { font-size: .8rem; line-height: 1.5; margin-bottom: .3rem; }
+    .wl-item-price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem; color: var(--ink);
+    }
+    .wl-item-remove {
+      background: none; border: none; color: rgba(18,16,14,.3);
+      font-size: 1.1rem; cursor: pointer; padding: 0 .3rem;
+    }
+    .wl-item-remove:hover { color: #e63946; }
+    .drawer-footer { padding: 1rem 1.5rem; border-top: 1px solid rgba(184,150,62,.2); }
+    .btn-wl-clear {
+      width: 100%; padding: .75rem; border: 1px solid rgba(184,150,62,.3);
+      background: none; color: rgba(18,16,14,.45); font-family: inherit;
+      font-size: .65rem; letter-spacing: .25em; cursor: pointer;
+      text-transform: uppercase; transition: all .2s;
+    }
+    .btn-wl-clear:hover { border-color: var(--gold); color: var(--ink); }
+
+    /* EMAIL SECTION */
+    .email-section {
+      background: var(--ink); color: #fff;
+      padding: 4rem 1.5rem; text-align: center;
+    }
+    .email-eye {
+      font-size: .62rem; letter-spacing: .45em;
+      color: var(--gold-l); text-transform: uppercase;
+      margin-bottom: .8rem;
+    }
+    .email-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.4rem, 3vw, 2.2rem);
+      font-weight: 300; letter-spacing: .1em; margin-bottom: .8rem;
+    }
+    .email-desc {
+      font-size: .8rem; color: rgba(255,255,255,.45);
+      letter-spacing: .06em; margin-bottom: 2rem; line-height: 1.8;
+    }
+    .email-form {
+      display: flex; gap: .75rem; justify-content: center;
+      flex-wrap: wrap; max-width: 480px; margin: 0 auto;
+    }
+    .email-input {
+      flex: 1; min-width: 220px;
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(184,150,62,.3);
+      color: #fff; padding: .75rem 1rem;
+      font-size: .85rem; font-family: inherit;
+      outline: none; border-radius: 2px;
+    }
+    .email-input::placeholder { color: rgba(255,255,255,.25); }
+    .email-input:focus { border-color: var(--gold-l); }
+    .btn-email {
+      padding: .75rem 1.6rem;
+      background: var(--gold); color: #fff; border: none;
+      font-size: .65rem; letter-spacing: .3em; text-transform: uppercase;
+      cursor: pointer; font-family: inherit; border-radius: 2px;
+      transition: background .2s; white-space: nowrap;
+    }
+    .btn-email:hover { background: var(--gold-l); }
+    .email-success {
+      display: none; color: #4ade80;
+      font-size: .8rem; letter-spacing: .1em; margin-top: 1rem;
+    }
+
     /* FOOTER */
     footer {
       border-top: 1px solid rgba(184,150,62,.18);
@@ -410,6 +562,10 @@ const products = [
   <header>
     <div class="header-inner">
       <div class="logo">Japan<em>Daily</em> Hub</div>
+      <div style="display:flex;gap:.75rem;align-items:center;">
+        <button class="wl-header-btn" id="wl-open-btn" aria-label="Wishlist">
+          ♡ <span class="wl-count" id="wl-count">0</span>
+        </button>
         <select class="lang-select" id="lang-select">
         <option value="en">🌐 English</option>
         <option value="ja">🇯🇵 日本語</option>
@@ -420,6 +576,7 @@ const products = [
         <option value="de">🇩🇪 Deutsch</option>
         <option value="es">🇪🇸 Español</option>
       </select>
+      </div>
     </div>
   </header>
 
@@ -552,9 +709,17 @@ const products = [
       <div class="product-grid">
         {products.map(p => (
           <article class="product-card">
-            <a class="product-img-wrap" href={`/japandaily-hub/products/${p.id}`}>
-              <img src={p.imageUrl} alt={p.title} loading="lazy" />
-            </a>
+            <div style="position:relative;">
+              <a class="product-img-wrap" href={`/japandaily-hub/products/${p.id}`}>
+                <img src={p.imageUrl} alt={p.title} loading="lazy" />
+              </a>
+              <button class="wl-btn"
+                data-id={p.id}
+                data-title={p.title}
+                data-price={p.price}
+                data-img={p.imageUrl ?? ''}
+                aria-label="ウィッシュリストに追加">♡</button>
+            </div>
             <div class="product-body">
               <div class="product-cat">{p.category}</div>
               <div class="product-name">{p.title}</div>
@@ -603,6 +768,78 @@ const products = [
         data-de="Produkte demnächst verfügbar" data-es="Productos próximamente">Products coming soon</p>
     </div>
   </div>
+
+  <!-- WISHLIST DRAWER -->
+  <div class="drawer-overlay" id="wl-overlay"></div>
+  <div class="drawer" id="wl-drawer" role="dialog" aria-label="Wishlist">
+    <div class="drawer-head">
+      <div class="drawer-title"
+        data-en="My Wishlist" data-ja="ウィッシュリスト"
+        data-zh="我的心愿单" data-zhtw="我的心願單"
+        data-ko="위시리스트" data-fr="Ma Liste de Souhaits"
+        data-de="Wunschliste" data-es="Mi Lista de Deseos">My Wishlist</div>
+      <button class="drawer-close" id="wl-close-btn" aria-label="Close">✕</button>
+    </div>
+    <div class="drawer-body" id="wl-body">
+      <div class="wl-empty"
+        data-en="Your wishlist is empty" data-ja="リストは空です"
+        data-zh="心愿单为空" data-zhtw="心願單為空"
+        data-ko="위시리스트가 비어 있습니다" data-fr="Votre liste est vide"
+        data-de="Ihre Wunschliste ist leer" data-es="Tu lista está vacía">Your wishlist is empty</div>
+    </div>
+    <div class="drawer-footer">
+      <button class="btn-wl-clear" id="wl-clear-btn"
+        data-en="Clear all" data-ja="すべて削除"
+        data-zh="清空全部" data-zhtw="清空全部"
+        data-ko="전체 삭제" data-fr="Tout supprimer"
+        data-de="Alles löschen" data-es="Borrar todo">Clear all</button>
+    </div>
+  </div>
+
+  <!-- EMAIL SECTION -->
+  <section class="email-section">
+    <p class="email-eye"
+      data-en="Stay ahead of the market" data-ja="市場の動向をいち早くキャッチ"
+      data-zh="抢先掌握市场动态" data-zhtw="搶先掌握市場動態"
+      data-ko="시장 동향을 먼저 파악하세요" data-fr="Gardez une longueur d'avance"
+      data-de="Immer einen Schritt voraus" data-es="Adelántate al mercado">Stay ahead of the market</p>
+    <h2 class="email-title"
+      data-en="Get Yen Advantage Alerts" data-ja="円安アラートを受け取る"
+      data-zh="获取日元优势提醒" data-zhtw="獲取日圓優勢提醒"
+      data-ko="엔화 이점 알림 받기" data-fr="Recevoir les Alertes Yen"
+      data-de="Yen-Vorteil-Benachrichtigungen" data-es="Recibe Alertas de Ventaja del Yen">Get Yen Advantage Alerts</h2>
+    <p class="email-desc"
+      data-en="We'll notify you when the yen weakens further — so you never miss the best time to buy."
+      data-ja="円安がさらに進んだときに通知します。買い時を逃しません。"
+      data-zh="当日元进一步贬值时，我们会通知您，让您抓住最佳购买时机。"
+      data-zhtw="當日圓進一步貶值時，我們會通知您，讓您抓住最佳購買時機。"
+      data-ko="엔화가 더욱 약세를 보일 때 알려드립니다. 최적의 구매 타이밍을 놓치지 마세요."
+      data-fr="Nous vous notifions quand le yen s'affaiblit davantage — ne manquez jamais le meilleur moment d'acheter."
+      data-de="Wir benachrichtigen Sie, wenn der Yen weiter fällt — verpassen Sie nie den besten Kaufzeitpunkt."
+      data-es="Te avisamos cuando el yen se debilite más — nunca pierdas el mejor momento para comprar.">
+      We'll notify you when the yen weakens further — so you never miss the best time to buy.
+    </p>
+    <form class="email-form" id="email-form">
+      <input class="email-input" id="email-input" type="email" required
+        placeholder="your@email.com" autocomplete="email" />
+      <button class="btn-email" type="submit"
+        data-en="Notify Me" data-ja="通知を受け取る"
+        data-zh="通知我" data-zhtw="通知我"
+        data-ko="알림 받기" data-fr="Me Notifier"
+        data-de="Benachrichtige mich" data-es="Notifícame">Notify Me</button>
+    </form>
+    <p class="email-success" id="email-success"
+      data-en="✓ You're on the list! We'll alert you when the yen weakens further."
+      data-ja="✓ 登録完了！円安が進んだらお知らせします。"
+      data-zh="✓ 已订阅！日元进一步贬值时我们会通知您。"
+      data-zhtw="✓ 已訂閱！日圓進一步貶值時我們會通知您。"
+      data-ko="✓ 등록 완료! 엔화가 더 약세를 보이면 알려드립니다."
+      data-fr="✓ Inscription réussie ! Nous vous alerterons quand le yen faiblira."
+      data-de="✓ Eingetragen! Wir benachrichtigen Sie, wenn der Yen weiter fällt."
+      data-es="✓ ¡Registrado! Te avisaremos cuando el yen se debilite más.">
+      ✓ You're on the list! We'll alert you when the yen weakens further.
+    </p>
+  </section>
 
   <footer>
     &copy; 2025 Japan Daily Hub &nbsp;|&nbsp;
@@ -714,8 +951,106 @@ const products = [
 
     loadRates();
     setInterval(loadRates, 5 * 60 * 1000);
+
+    // ── ウィッシュリスト ──
+    const WL_KEY = 'jdh-wishlist';
+
+    function getWL() {
+      try { return JSON.parse(localStorage.getItem(WL_KEY) || '[]'); } catch { return []; }
+    }
+    function saveWL(list) {
+      try { localStorage.setItem(WL_KEY, JSON.stringify(list)); } catch {}
+    }
+
+    function renderWLCount() {
+      const list = getWL();
+      const countEl = document.getElementById('wl-count');
+      if (!countEl) return;
+      countEl.textContent = list.length;
+      countEl.classList.toggle('visible', list.length > 0);
+    }
+
+    function renderWLBody() {
+      const list = getWL();
+      const body = document.getElementById('wl-body');
+      if (!body) return;
+      if (list.length === 0) {
+        body.innerHTML = '<div class="wl-empty">Your wishlist is empty</div>';
+        return;
+      }
+      body.innerHTML = list.map(item => `
+        <div class="wl-item">
+          <img class="wl-item-img" src="${item.img || 'https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=120&q=60'}" alt="${item.title}" loading="lazy" />
+          <div class="wl-item-info">
+            <div class="wl-item-name">${item.title}</div>
+            <div class="wl-item-price">&#165;${Number(item.price).toLocaleString()}</div>
+          </div>
+          <button class="wl-item-remove" data-id="${item.id}" aria-label="Remove">&#215;</button>
+        </div>
+      `).join('');
+      body.querySelectorAll('.wl-item-remove').forEach(btn => {
+        btn.addEventListener('click', () => {
+          saveWL(getWL().filter(i => i.id !== btn.dataset.id));
+          renderWLBody(); renderWLCount(); syncWLButtons();
+        });
+      });
+    }
+
+    function syncWLButtons() {
+      const ids = new Set(getWL().map(i => i.id));
+      document.querySelectorAll('.wl-btn').forEach(btn => {
+        const saved = ids.has(btn.dataset.id);
+        btn.classList.toggle('saved', saved);
+        btn.textContent = saved ? '♥' : '♡';
+      });
+    }
+
+    function openDrawer() {
+      renderWLBody();
+      document.getElementById('wl-drawer')?.classList.add('open');
+      document.getElementById('wl-overlay')?.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeDrawer() {
+      document.getElementById('wl-drawer')?.classList.remove('open');
+      document.getElementById('wl-overlay')?.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    document.getElementById('wl-open-btn')?.addEventListener('click', openDrawer);
+    document.getElementById('wl-close-btn')?.addEventListener('click', closeDrawer);
+    document.getElementById('wl-overlay')?.addEventListener('click', closeDrawer);
+    document.getElementById('wl-clear-btn')?.addEventListener('click', () => {
+      saveWL([]); renderWLBody(); renderWLCount(); syncWLButtons();
+    });
+
+    document.querySelectorAll('.wl-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const { id, title, price, img } = btn.dataset;
+        let list = getWL();
+        const exists = list.some(i => i.id === id);
+        saveWL(exists ? list.filter(i => i.id !== id) : [...list, { id, title, price, img }]);
+        renderWLCount(); syncWLButtons();
+      });
+    });
+
+    renderWLCount(); syncWLButtons();
+
+    // ── メール登録 ──
+    document.getElementById('email-form')?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email = document.getElementById('email-input')?.value?.trim();
+      if (!email) return;
+      try {
+        const subs = JSON.parse(localStorage.getItem('jdh-subscribers') || '[]');
+        if (!subs.includes(email)) { subs.push(email); localStorage.setItem('jdh-subscribers', JSON.stringify(subs)); }
+      } catch {}
+      const form = document.getElementById('email-form');
+      const success = document.getElementById('email-success');
+      if (form) form.style.display = 'none';
+      if (success) success.style.display = 'block';
+    });
   </script>
 
 </body>
 </html>
-    
