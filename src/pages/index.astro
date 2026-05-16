@@ -2,12 +2,10 @@
 import { getCollection } from 'astro:content';
 
 const allProducts = await getCollection('products');
-const products = allProducts.sort((a, b) => {
-  // featured first, then by price descending
-  if (a.data.featured && !b.data.featured) return -1;
-  if (!a.data.featured && b.data.featured) return 1;
-  return (b.data.price ?? 0) - (a.data.price ?? 0);
-});
+const products = allProducts
+  .filter(p => p.data.featured)
+  .sort((a, b) => (b.data.price ?? 0) - (a.data.price ?? 0))
+  .slice(0, 10);
 
 const base = import.meta.env.BASE_URL ?? '';
 ---
@@ -635,76 +633,18 @@ const base = import.meta.env.BASE_URL ?? '';
       <div class="rate-card"><div class="rate-flag">🇬🇧</div><div class="rate-cur">GBP</div><div class="rate-val" id="r-gbp">…</div><div class="rate-badge" id="b-gbp"></div></div>
       <div class="rate-card"><div class="rate-flag">🇦🇺</div><div class="rate-cur">AUD</div><div class="rate-val" id="r-aud">…</div><div class="rate-badge" id="b-aud"></div></div>
     </div>
-    <div class="calc-box">
-      <div class="calc-title"
-        data-en="Savings Calculator" data-ja="節約額シミュレーター"
-        data-zh="节省金额计算器" data-zhtw="節省金額計算器"
-        data-ko="절약 계산기" data-fr="Calculateur d'Économies"
-        data-de="Sparrechner" data-es="Calculadora de Ahorros">Savings Calculator</div>
-      <div class="calc-row">
-        <input class="calc-input" id="calc-price" type="number" value="10000" min="100" step="100" />
-        <select class="calc-select" id="calc-cur">
-          <option value="USD">USD $</option>
-          <option value="EUR">EUR €</option>
-          <option value="GBP">GBP £</option>
-          <option value="AUD">AUD A$</option>
-        </select>
-      </div>
-      <div class="calc-result">
-        <div class="calc-col"><div class="calc-col-lbl"
-          data-en="You pay now" data-ja="現在の支払額"
-          data-zh="现在您支付" data-zhtw="現在您支付"
-          data-ko="지금 지불 금액" data-fr="Vous payez maintenant"
-          data-de="Sie zahlen jetzt" data-es="Usted paga ahora">You pay now</div><div class="calc-now" id="c-now">—</div></div>
-        <div style="color:rgba(255,255,255,.2)">→</div>
-        <div class="calc-col"><div class="calc-col-lbl"
-          data-en="Was in 2021" data-ja="2021年なら"
-          data-zh="2021年的价格" data-zhtw="2021年的價格"
-          data-ko="2021년 가격" data-fr="C'était en 2021"
-          data-de="War 2021" data-es="Era en 2021">Was in 2021</div><div class="calc-was" id="c-was">—</div></div>
-        <div class="calc-col" style="text-align:center"><div class="calc-col-lbl"
-          data-en="You save" data-ja="節約額"
-          data-zh="您节省" data-zhtw="您節省"
-          data-ko="절약 금액" data-fr="Vous économisez"
-          data-de="Sie sparen" data-es="Usted ahorra">You save</div><div class="calc-save" id="c-save">—</div><div class="calc-save-pct" id="c-pct"></div></div>
-      </div>
-    </div>
   </section>
 
-  <!-- TABS -->
-  <nav class="tab-nav">
-    <div class="tab-list">
-      <button class="tab-btn active" data-tab="all"
-        data-en="All Products" data-ja="すべて"
-        data-zh="全部商品" data-zhtw="全部商品"
-        data-ko="전체 상품" data-fr="Tous les Produits"
-        data-de="Alle Produkte" data-es="Todos los Productos">All Products</button>
-      <button class="tab-btn" data-tab="food"
-        data-en="Food &amp; Drink" data-ja="飲食・食品"
-        data-zh="食品饮料" data-zhtw="食品飲料"
-        data-ko="식품·음료" data-fr="Alimentation"
-        data-de="Essen &amp; Trinken" data-es="Comida y Bebida">Food &amp; Drink</button>
-      <button class="tab-btn" data-tab="daily"
-        data-en="Daily Goods" data-ja="日用雑貨"
-        data-zh="日用品" data-zhtw="日用品"
-        data-ko="생활용품" data-fr="Articles Quotidiens"
-        data-de="Alltagswaren" data-es="Artículos Diarios">Daily Goods</button>
-      <button class="tab-btn" data-tab="fashion"
-        data-en="Fashion" data-ja="衣料品"
-        data-zh="时尚" data-zhtw="時尚"
-        data-ko="패션" data-fr="Mode"
-        data-de="Mode" data-es="Moda">Fashion</button>
-    </div>
-  </nav>
+
 
   <!-- PRODUCTS (single grid, JS-filtered by tab) -->
   <div class="section-wrap">
     <div class="section-head">
       <span class="section-lbl" id="section-lbl-text"
-        data-en="All Products" data-ja="すべての商品"
-        data-zh="全部商品" data-zhtw="全部商品"
-        data-ko="전체 상품" data-fr="Tous les Produits"
-        data-de="Alle Produkte" data-es="Todos los Productos">All Products</span>
+        data-en="Top 10 Best Sellers" data-ja="売れ筋トップ10"
+        data-zh="热销前10名" data-zhtw="熱銷前10名"
+        data-ko="베스트셀러 TOP 10" data-fr="Top 10 des Ventes"
+        data-de="Top 10 Bestseller" data-es="Los 10 Más Vendidos">Top 10 Best Sellers</span>
       <span class="section-rule"></span>
       <span id="product-count" style="font-size:.62rem;color:rgba(18,16,14,.35);letter-spacing:.15em;white-space:nowrap;"></span>
     </div>
@@ -780,20 +720,20 @@ const base = import.meta.env.BASE_URL ?? '';
       data-ko="시장 동향을 먼저 파악하세요" data-fr="Gardez une longueur d'avance"
       data-de="Immer einen Schritt voraus" data-es="Adelántate al mercado">Stay ahead of the market</p>
     <h2 class="email-title"
-      data-en="Get Yen Advantage Alerts" data-ja="円安アラートを受け取る"
-      data-zh="获取日元优势提醒" data-zhtw="獲取日圓優勢提醒"
-      data-ko="엔화 이점 알림 받기" data-fr="Recevoir les Alertes Yen"
-      data-de="Yen-Vorteil-Benachrichtigungen" data-es="Recibe Alertas de Ventaja del Yen">Get Yen Advantage Alerts</h2>
+      data-en="Get Sale Alerts" data-ja="セール商品を定期的に受け取る"
+      data-zh="获取特卖优惠提醒" data-zhtw="獲取特賣優惠提醒"
+      data-ko="할인 알림 받기" data-fr="Recevoir les Alertes Promos"
+      data-de="Angebots-Benachrichtigungen" data-es="Recibe Alertas de Ofertas">Get Sale Alerts</h2>
     <p class="email-desc"
-      data-en="We'll notify you when the yen weakens further — so you never miss the best time to buy."
-      data-ja="円安がさらに進んだときに通知します。買い時を逃しません。"
-      data-zh="当日元进一步贬值时，我们会通知您，让您抓住最佳购买时机。"
-      data-zhtw="當日圓進一步貶值時，我們會通知您，讓您抓住最佳購買時機。"
-      data-ko="엔화가 더욱 약세를 보일 때 알려드립니다. 최적의 구매 타이밍을 놓치지 마세요."
-      data-fr="Nous vous notifions quand le yen s'affaiblit davantage — ne manquez jamais le meilleur moment d'acheter."
-      data-de="Wir benachrichtigen Sie, wenn der Yen weiter fällt — verpassen Sie nie den besten Kaufzeitpunkt."
-      data-es="Te avisamos cuando el yen se debilite más — nunca pierdas el mejor momento para comprar.">
-      We'll notify you when the yen weakens further — so you never miss the best time to buy.
+      data-en="Sign up to receive limited-time deals and exclusive Japanese products directly to your inbox."
+      data-ja="期間限定セールやお得な日本商品情報をメールでお届けします。"
+      data-zh="订阅后定期收到限时特卖和精选日本商品信息。"
+      data-zhtw="訂閱後定期收到限時特賣和精選日本商品資訊。"
+      data-ko="한정 할인 및 엄선된 일본 상품 정보를 메일로 받아보세요."
+      data-fr="Inscrivez-vous pour recevoir des offres limitées et des produits japonais exclusifs."
+      data-de="Melden Sie sich an und erhalten Sie zeitlich begrenzte Angebote und exklusive japanische Produkte."
+      data-es="Suscríbete para recibir ofertas limitadas y productos japoneses exclusivos.">
+      Sign up to receive limited-time deals and exclusive Japanese products directly to your inbox.
     </p>
     <form class="email-form" id="email-form">
       <input class="email-input" id="email-input" type="email" required
@@ -805,15 +745,15 @@ const base = import.meta.env.BASE_URL ?? '';
         data-de="Benachrichtige mich" data-es="Notifícame">Notify Me</button>
     </form>
     <p class="email-success" id="email-success"
-      data-en="✓ You're on the list! We'll alert you when the yen weakens further."
-      data-ja="✓ 登録完了！円安が進んだらお知らせします。"
-      data-zh="✓ 已订阅！日元进一步贬值时我们会通知您。"
-      data-zhtw="✓ 已訂閱！日圓進一步貶值時我們會通知您。"
-      data-ko="✓ 등록 완료! 엔화가 더 약세를 보이면 알려드립니다."
-      data-fr="✓ Inscription réussie ! Nous vous alerterons quand le yen faiblira."
-      data-de="✓ Eingetragen! Wir benachrichtigen Sie, wenn der Yen weiter fällt."
-      data-es="✓ ¡Registrado! Te avisaremos cuando el yen se debilite más.">
-      ✓ You're on the list! We'll alert you when the yen weakens further.
+      data-en="✓ Subscribed! You'll receive sale alerts and special deals regularly."
+      data-ja="✓ 登録完了！セール情報やお得な商品を定期的にお届けします。"
+      data-zh="✓ 已订阅！您将定期收到特卖优惠和精选商品信息。"
+      data-zhtw="✓ 已訂閱！您將定期收到特賣優惠和精選商品資訊。"
+      data-ko="✓ 등록 완료! 할인 정보와 특별 상품을 정기적으로 받아보실 수 있습니다."
+      data-fr="✓ Inscrit(e) ! Vous recevrez régulièrement des offres et produits exclusifs."
+      data-de="✓ Angemeldet! Sie erhalten regelmäßig Angebote und exklusive Produkte."
+      data-es="✓ ¡Suscrito! Recibirás ofertas y productos especiales regularmente.">
+      ✓ Subscribed! You'll receive sale alerts and special deals regularly.
     </p>
   </section>
 
