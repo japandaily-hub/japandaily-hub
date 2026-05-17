@@ -1,4 +1,5 @@
 ---
+import { categories } from '../data/categories.ts';
 const base = import.meta.env.BASE_URL ?? '';
 ---
 <!DOCTYPE html>
@@ -525,7 +526,82 @@ const base = import.meta.env.BASE_URL ?? '';
       font-size: .8rem; letter-spacing: .1em; margin-top: 1rem;
     }
 
-    /* FOOTER */
+
+    /* CATEGORY GRID */
+    .cat-section {
+      background: var(--washi);
+      padding: 4rem 1.5rem 5rem;
+    }
+    .cat-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .cat-eye {
+      font-size: .65rem;
+      letter-spacing: .45em;
+      color: var(--gold);
+      text-transform: uppercase;
+      text-align: center;
+      margin-bottom: .6rem;
+    }
+    .cat-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.4rem, 3vw, 2.2rem);
+      font-weight: 300;
+      letter-spacing: .1em;
+      text-align: center;
+      margin-bottom: 2.5rem;
+      color: var(--ink);
+    }
+    .cat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 1rem;
+    }
+    .cat-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .6rem;
+      padding: 1.6rem 1rem;
+      border: 1px solid rgba(184,150,62,.18);
+      background: #fff;
+      text-decoration: none;
+      color: var(--ink);
+      transition: box-shadow .25s, transform .25s, border-color .25s;
+      border-radius: 2px;
+    }
+    .cat-card:hover {
+      box-shadow: 0 8px 28px rgba(18,16,14,.09);
+      transform: translateY(-3px);
+      border-color: rgba(184,150,62,.45);
+    }
+    .cat-icon {
+      font-size: 2rem;
+      line-height: 1;
+    }
+    .cat-name {
+      font-size: .78rem;
+      font-weight: 500;
+      letter-spacing: .06em;
+      text-align: center;
+      color: var(--ink);
+    }
+    .cat-desc {
+      font-size: .62rem;
+      color: rgba(18,16,14,.4);
+      letter-spacing: .04em;
+      text-align: center;
+      line-height: 1.5;
+    }
+    .cat-arrow {
+      font-size: .65rem;
+      color: var(--gold);
+      letter-spacing: .1em;
+      margin-top: .2rem;
+    }
+
+      /* FOOTER */
     footer {
       border-top: 1px solid rgba(184,150,62,.18);
       padding: 2.2rem 1.5rem;
@@ -656,6 +732,32 @@ const base = import.meta.env.BASE_URL ?? '';
         data-de="Alles löschen" data-es="Borrar todo">Clear all</button>
     </div>
   </div>
+
+  <!-- CATEGORY GRID -->
+  <section class="cat-section">
+    <div class="cat-inner">
+      <p class="cat-eye"
+        data-en="Shop by Category" data-ja="カテゴリから探す"
+        data-zh="按类别浏览" data-zhtw="按類別瀏覽"
+        data-ko="카테고리별 쇼핑" data-fr="Acheter par Catégorie"
+        data-de="Nach Kategorie stöbern" data-es="Comprar por Categoría">Shop by Category</p>
+      <h2 class="cat-title"
+        data-en="Find What You Love" data-ja="お気に入りのカテゴリを探す"
+        data-zh="找到您喜欢的" data-zhtw="找到您喜歡的"
+        data-ko="마음에 드는 것을 찾아보세요" data-fr="Trouvez Ce Que Vous Aimez"
+        data-de="Finden Sie, Was Sie Lieben" data-es="Encuentra Lo Que Te Gusta">Find What You Love</h2>
+      <div class="cat-grid">
+        {categories.map(cat => (
+          <a href={`${base}/category/${cat.slug}/`} class="cat-card">
+            <span class="cat-icon">{cat.icon}</span>
+            <span class="cat-name">{cat.nameJa}</span>
+            <span class="cat-desc">{cat.descJa}</span>
+            <span class="cat-arrow">→</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
 
   <!-- EMAIL SECTION -->
   <section class="email-section">
