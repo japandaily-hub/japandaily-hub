@@ -1,12 +1,4 @@
 ---
-import { getCollection } from 'astro:content';
-
-const allProducts = await getCollection('products');
-const products = allProducts
-  .filter(p => p.data.featured)
-  .sort((a, b) => (b.data.price ?? 0) - (a.data.price ?? 0))
-  .slice(0, 10);
-
 const base = import.meta.env.BASE_URL ?? '';
 ---
 <!DOCTYPE html>
@@ -637,45 +629,6 @@ const base = import.meta.env.BASE_URL ?? '';
 
 
 
-  <!-- PRODUCTS (single grid, JS-filtered by tab) -->
-  <div class="section-wrap">
-
-    <div class="product-grid" id="main-grid">
-      {products.map(p => (
-        <article class="product-card" data-tab={p.data.tab ?? 'daily'}>
-          <div style="position:relative;">
-            <a class="product-img-wrap" href={`${base}/products/${p.id}`}>
-              <img
-                src={p.data.imageUrl ?? 'https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=500&q=70'}
-                alt={p.data.title}
-                loading="lazy"
-              />
-            </a>
-            <button class="wl-btn"
-              data-id={p.id}
-              data-title={p.data.title}
-              data-price={p.data.price}
-              data-img={p.data.imageUrl ?? ''}
-              aria-label="Add to wishlist">♡</button>
-            {p.data.featured && (
-              <span style="position:absolute;top:.6rem;left:.6rem;background:var(--gold);color:#fff;font-size:.52rem;letter-spacing:.18em;padding:.18rem .55rem;text-transform:uppercase;">Featured</span>
-            )}
-          </div>
-          <div class="product-body">
-            <div class="product-cat">{p.data.category}</div>
-            <a class="product-name" href={`${base}/products/${p.id}`} style="display:block;text-decoration:none;color:inherit;">{p.data.title}</a>
-            <div class="yen-badge save-badge" data-price={p.data.price}>↓ calculating…</div>
-            <div class="product-price"><small>¥</small>{(p.data.price ?? 0).toLocaleString()}</div>
-            <a class="btn-buy" href={p.data.amazonUrl ?? '#'} target="_blank" rel="noopener noreferrer"
-              data-en="Buy on Amazon" data-ja="Amazonで購入"
-              data-zh="在亚马逊购买" data-zhtw="在亞馬遜購買"
-              data-ko="아마존에서 구매" data-fr="Acheter sur Amazon"
-              data-de="Auf Amazon kaufen" data-es="Comprar en Amazon">Buy on Amazon</a>
-          </div>
-        </article>
-      ))}
-    </div>
-  </div>
 
   <!-- WISHLIST DRAWER -->
   <div class="drawer-overlay" id="wl-overlay"></div>
@@ -711,7 +664,7 @@ const base = import.meta.env.BASE_URL ?? '';
       data-zh="抢先掌握市场动态" data-zhtw="搶先掌握市場動態"
       data-ko="시장 동향을 먼저 파악하세요" data-fr="Gardez une longueur d'avance"
       data-de="Immer einen Schritt voraus" data-es="Adelántate al mercado">Stay ahead of the market</p>
-    <h2 class="email-title"
+        <h2 class="email-title"
       data-en="Get Sale Alerts" data-ja="セール商品を定期的に受け取る"
       data-zh="获取特卖优惠提醒" data-zhtw="獲取特賣優惠提醒"
       data-ko="할인 알림 받기" data-fr="Recevoir les Alertes Promos"
