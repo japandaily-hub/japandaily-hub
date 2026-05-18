@@ -810,7 +810,7 @@ const base = import.meta.env.BASE_URL ?? '';
       data-es="Suscríbete para recibir ofertas limitadas y productos japoneses exclusivos.">
       Sign up to receive limited-time deals and exclusive Japanese products directly to your inbox.
     </p>
-    <form class="email-form" id="email-form">
+    <form class="email-form" id="email-form" data-api-base={base}>
       <input class="email-input" id="email-input" type="email" required
         placeholder="your@email.com" autocomplete="email" />
       <button class="btn-email" type="submit"
@@ -1048,19 +1048,41 @@ const base = import.meta.env.BASE_URL ?? '';
 
     renderWLCount(); syncWLButtons();
 
-    // ── メール登録 ──
-    document.getElementById('email-form')?.addEventListener('submit', (e) => {
+    // ── メール登録（Mailchimp API） ──
+    document.getElementById('email-form')?.addEventListener('submit', async (e) => {
       e.preventDefault();
       const email = document.getElementById('email-input')?.value?.trim();
       if (!email) return;
+
+      const btn = e.target.querySelector('button[type="submit"]');
+      if (btn) { btn.disabled = true; btn.style.opacity = '.5'; }
+
+      const rawBase = document.getElementById('email-form')?.dataset.apiBase ?? '';
+      const apiBase = rawBase.replace(/\/$/, '');
+      const endpoint = apiBase + '/api/subscribe';
+
       try {
-        const subs = JSON.parse(localStorage.getItem('jdh-subscribers') || '[]');
-        if (!subs.includes(email)) { subs.push(email); localStorage.setItem('jdh-subscribers', JSON.stringify(subs)); }
-      } catch {}
-      const form = document.getElementById('email-form');
-      const success = document.getElementById('email-success');
-      if (form) form.style.display = 'none';
-      if (success) success.style.display = 'block';
+        const res = await fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email }),
+        });
+        const data = await res.json();
+
+        if (data.success || res.ok) {
+          const form = document.getElementById('email-form');
+          const success = document.getElementById('email-success');
+          if (form) form.style.display = 'none';
+          if (success) success.style.display = 'block';
+        } else {
+          alert(data.error || 'Subscription failed. Please try again.');
+          if (btn) { btn.disabled = false; btn.style.opacity = ''; }
+        }
+      } catch (err) {
+        console.error('[subscribe]', err);
+        alert('Network error. Please try again.');
+        if (btn) { btn.disabled = false; btn.style.opacity = ''; }
+      }
     });
   </script>
 
