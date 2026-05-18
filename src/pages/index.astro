@@ -1,5 +1,6 @@
 ---
 import { categories } from '../data/categories.ts';
+import CategoryIcon from '../components/CategoryIcon.astro';
 const base = import.meta.env.BASE_URL ?? '';
 ---
 <!DOCTYPE html>
@@ -577,9 +578,15 @@ const base = import.meta.env.BASE_URL ?? '';
       border-color: rgba(184,150,62,.45);
     }
     .cat-icon {
-      font-size: 2rem;
-      line-height: 1;
+      width: 2.4rem;
+      height: 2.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(18,16,14,.5);
+      transition: color .25s ease;
     }
+    .cat-card:hover .cat-icon { color: var(--gold); }
     .cat-name {
       font-size: .78rem;
       font-weight: 500;
@@ -749,7 +756,7 @@ const base = import.meta.env.BASE_URL ?? '';
       <div class="cat-grid">
         {categories.map(cat => (
           <a href={`${base}/category/${cat.slug}/`} class="cat-card">
-            <span class="cat-icon">{cat.icon}</span>
+            <span class="cat-icon"><CategoryIcon path={cat.iconPath} size={2.2} /></span>
             <span class="cat-name">{cat.nameJa}</span>
             <span class="cat-desc">{cat.descJa}</span>
             <span class="cat-arrow">→</span>
