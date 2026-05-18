@@ -21,6 +21,15 @@ const base = import.meta.env.BASE_URL ?? '';
   <meta name="twitter:description" content="Weak yen = you save up to 28% on authentic Japanese products. Ships worldwide." />
   <meta name="twitter:image" content="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=1200&q=80" />
   <link rel="canonical" href="https://japandaily-hub.github.io/japandaily-hub/" />
+  <!-- WebSite 構造化データ (Google サイトリンク検索ボックス対応) -->
+  <script type="application/ld+json">{
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Japan Daily Hub",
+    "url": "https://japandaily-hub.github.io/japandaily-hub/",
+    "description": "Handpicked Japanese products at unbeatable prices thanks to the weak yen. Ships worldwide.",
+    "inLanguage": ["en", "ja", "zh", "ko", "fr", "de", "es"]
+  }</script>
   <!-- Google Analytics 4 — replace G-XXXXXXXXXX with your Measurement ID -->
   <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
   <script is:inline>
