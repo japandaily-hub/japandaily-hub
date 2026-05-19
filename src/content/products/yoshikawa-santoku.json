@@ -1,1 +1,19 @@
-{"title":"Yoshikawa Santoku Knife 165mm","price":8800,"category":"Kitchen","tab":"daily","featured":true,"imageUrl":"https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=500&q=70","amazonUrl":"https://www.amazon.co.jp/dp/B071VFQKNF?tag=japandailyhub-22","description_en":"Hand-forged in the knife capital of Japan, this Yoshikawa Santoku features a 3-layer steel core clad in 16-layer Damascus. Razor-sharp edge retention, perfect balance — a chef's knife that lasts generations.","description_ja":"刃物の町・岐阜産の本格三徳包丁。16層ダマスカス鋼に包まれた3層鋼構造。切れ味の持続性と絶妙なバランスが世代を超えて使える一本。","tags":["kitchen","knife","cutlery","japan-made","chef"]}
+{
+  "title": "Yoshikawa Santoku Knife 165mm",
+  "price": 8800,
+  "category": "Kitchen",
+  "tab": "daily",
+  "featured": true,
+  "imageUrl": "https://m.media-amazon.com/images/P/B071VFQKNF.01._SX300_.jpg",
+  "amazonUrl": "https://www.amazon.co.jp/dp/B071VFQKNF?tag=japandailyhub-22",
+  "description_en": "Hand-forged in the knife capital of Japan, this Yoshikawa Santoku features a 3-layer steel core clad in 16-layer Damascus. Razor-sharp edge retention, perfect balance — a chef's knife that lasts generations.",
+  "description_ja": "刃物の町・岐阜産の本格三徳包丁。16層ダマスカス鋼に包まれた3層鋼構造。切れ味の持続性と絶妙なバランスが世代を超えて使える一本。",
+  "tags": [
+    "kitchen",
+    "knife",
+    "cutlery",
+    "japan-made",
+    "chef"
+  ],
+  "asin": "B071VFQKNF"
+}

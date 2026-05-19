@@ -1,1 +1,20 @@
-{"title":"Glico Pocky Japan Special Assortment 8 varieties","price":2200,"category":"Food","tab":"food","imageUrl":"https://images.unsplash.com/photo-1611787640592-ebade2dbb5b3?w=500&q=70","amazonUrl":"https://www.amazon.co.jp/dp/B07XV94KBT?tag=japandailyhub-22","description_en":"Japan has 50+ Pocky varieties unavailable outside Japan. This curated assortment includes Tsubu Strawberry, Matcha Pocky, Almond Crush, Winter Pocky (chocolate-filled), and seasonal Japan-only variants. The definitive Pocky experience.","description_ja":"日本国内限定を含む50種以上のポッキーの中から厳選。つぶつぶいちご・抹茶ポッキー・アーモンドクラッシュ・中身チョコレートのウィンターポッキーほか期間限定品を詰め合わせ。","tags":["food","pocky","glico","snack","japan-only","chocolate","gift"]}
+{
+  "title": "Glico Pocky Japan Special Assortment 8 varieties",
+  "price": 2200,
+  "category": "Food",
+  "tab": "food",
+  "imageUrl": "https://m.media-amazon.com/images/P/B07XV94KBT.01._SX300_.jpg",
+  "amazonUrl": "https://www.amazon.co.jp/dp/B07XV94KBT?tag=japandailyhub-22",
+  "description_en": "Japan has 50+ Pocky varieties unavailable outside Japan. This curated assortment includes Tsubu Strawberry, Matcha Pocky, Almond Crush, Winter Pocky (chocolate-filled), and seasonal Japan-only variants. The definitive Pocky experience.",
+  "description_ja": "日本国内限定を含む50種以上のポッキーの中から厳選。つぶつぶいちご・抹茶ポッキー・アーモンドクラッシュ・中身チョコレートのウィンターポッキーほか期間限定品を詰め合わせ。",
+  "tags": [
+    "food",
+    "pocky",
+    "glico",
+    "snack",
+    "japan-only",
+    "chocolate",
+    "gift"
+  ],
+  "asin": "B07XV94KBT"
+}

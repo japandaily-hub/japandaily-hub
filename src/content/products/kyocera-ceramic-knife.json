@@ -1,1 +1,18 @@
-{"title":"Kyocera Ceramic Kitchen Knife 150mm","price":4400,"category":"Kitchen","tab":"daily","imageUrl":"https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?w=500&q=70","amazonUrl":"https://www.amazon.co.jp/dp/B00004RFLO?tag=japandailyhub-22","description_en":"Kyocera's zirconia ceramic blade is 10× harder than steel and never needs sharpening for everyday use. Ultra-light, odor-free, and rust-proof — the ideal knife for fruits, vegetables, and boneless meats.","description_ja":"ジルコニア製セラミック刃はスチールの10倍の硬度。日常使いでは研ぎ不要。サビない・においがつかない・軽い。野菜や果物のカットに理想的。","tags":["kitchen","knife","kyocera","ceramic","innovation"]}
+{
+  "title": "Kyocera Ceramic Kitchen Knife 150mm",
+  "price": 4400,
+  "category": "Kitchen",
+  "tab": "daily",
+  "imageUrl": "https://m.media-amazon.com/images/P/B00004RFLO.01._SX300_.jpg",
+  "amazonUrl": "https://www.amazon.co.jp/dp/B00004RFLO?tag=japandailyhub-22",
+  "description_en": "Kyocera's zirconia ceramic blade is 10× harder than steel and never needs sharpening for everyday use. Ultra-light, odor-free, and rust-proof — the ideal knife for fruits, vegetables, and boneless meats.",
+  "description_ja": "ジルコニア製セラミック刃はスチールの10倍の硬度。日常使いでは研ぎ不要。サビない・においがつかない・軽い。野菜や果物のカットに理想的。",
+  "tags": [
+    "kitchen",
+    "knife",
+    "kyocera",
+    "ceramic",
+    "innovation"
+  ],
+  "asin": "B00004RFLO"
+}

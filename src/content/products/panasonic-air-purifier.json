@@ -1,1 +1,19 @@
-{"title":"Panasonic Air Purifier F-PXV60 with nanoe X","price":44000,"category":"Electronics","tab":"daily","imageUrl":"https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=500&q=70","amazonUrl":"https://www.amazon.co.jp/dp/B08Q4H8G2T?tag=japandailyhub-22","description_en":"Japan's top-selling air purifier featuring Panasonic's nanoe X technology, which inhibits viruses, bacteria, pollen, and odors at a molecular level. Covers 23 tatami mats (38m²), ultra-quiet sleep mode, PM2.5 sensor. A Japanese home essential.","description_ja":"パナソニックのナノイーX搭載空気清浄機。ウイルス・菌・花粉・においを分子レベルで抑制。23畳対応・超静音スリープモード・PM2.5センサー付き。日本の住宅に欠かせない一台。","tags":["electronics","air-purifier","panasonic","nanoe","health","japan-made"]}
+{
+  "title": "Panasonic Air Purifier F-PXV60 with nanoe X",
+  "price": 44000,
+  "category": "Electronics",
+  "tab": "daily",
+  "imageUrl": "https://m.media-amazon.com/images/P/B08Q4H8G2T.01._SX300_.jpg",
+  "amazonUrl": "https://www.amazon.co.jp/dp/B08Q4H8G2T?tag=japandailyhub-22",
+  "description_en": "Japan's top-selling air purifier featuring Panasonic's nanoe X technology, which inhibits viruses, bacteria, pollen, and odors at a molecular level. Covers 23 tatami mats (38m²), ultra-quiet sleep mode, PM2.5 sensor. A Japanese home essential.",
+  "description_ja": "パナソニックのナノイーX搭載空気清浄機。ウイルス・菌・花粉・においを分子レベルで抑制。23畳対応・超静音スリープモード・PM2.5センサー付き。日本の住宅に欠かせない一台。",
+  "tags": [
+    "electronics",
+    "air-purifier",
+    "panasonic",
+    "nanoe",
+    "health",
+    "japan-made"
+  ],
+  "asin": "B08Q4H8G2T"
+}

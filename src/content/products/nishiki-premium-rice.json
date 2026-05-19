@@ -1,1 +1,18 @@
-{"title":"Koshihikari Premium Japanese Rice 5kg","price":3900,"category":"Food","tab":"food","imageUrl":"https://images.unsplash.com/photo-1536304993881-ff86e0c9ef1d?w=500&q=70","amazonUrl":"https://www.amazon.co.jp/dp/B003T3PNWO?tag=japandailyhub-22","description_en":"Koshihikari is the king of Japanese rice — sticky, glutinous, and aromatic. Grown in Niigata Prefecture where cold mountain spring water and rich soil produce Japan's most prized rice. The base of sushi, onigiri, and everyday Japanese cooking.","description_ja":"日本一の米どころ・新潟産コシヒカリ。冷たい山の湧き水と豊かな土壌が生む、粘り・甘み・香りすべてが最高峰のお米。寿司・おにぎり・日常の食卓に欠かせない一粒。","tags":["food","rice","koshihikari","niigata","japanese-rice"]}
+{
+  "title": "Koshihikari Premium Japanese Rice 5kg",
+  "price": 3900,
+  "category": "Food",
+  "tab": "food",
+  "imageUrl": "https://m.media-amazon.com/images/P/B003T3PNWO.01._SX300_.jpg",
+  "amazonUrl": "https://www.amazon.co.jp/dp/B003T3PNWO?tag=japandailyhub-22",
+  "description_en": "Koshihikari is the king of Japanese rice — sticky, glutinous, and aromatic. Grown in Niigata Prefecture where cold mountain spring water and rich soil produce Japan's most prized rice. The base of sushi, onigiri, and everyday Japanese cooking.",
+  "description_ja": "日本一の米どころ・新潟産コシヒカリ。冷たい山の湧き水と豊かな土壌が生む、粘り・甘み・香りすべてが最高峰のお米。寿司・おにぎり・日常の食卓に欠かせない一粒。",
+  "tags": [
+    "food",
+    "rice",
+    "koshihikari",
+    "niigata",
+    "japanese-rice"
+  ],
+  "asin": "B003T3PNWO"
+}

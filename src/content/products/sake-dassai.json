@@ -1,1 +1,20 @@
-{"title":"Dassai 45 Junmai Daiginjo Sake 720ml","price":2200,"category":"Food","tab":"food","featured":true,"imageUrl":"https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?w=500&q=70","amazonUrl":"https://www.amazon.co.jp/dp/B07QJYZZQP?tag=japandailyhub-22","description_en":"獺祭 (Dassai) from Asahi Shuzo is Japan's most exported premium sake — served at the G7 summit and in Michelin-starred restaurants worldwide. The 45 refers to 45% rice polishing ratio: pure, crisp, and floral. Available globally for $45+; Japan price is ¥2,200.","description_ja":"旭酒造の「獺祭45」は日本最多輸出量を誇るプレミアム純米大吟醸。G7サミットやミシュラン星付きレストランで提供される世界的銘柄。海外では¥6,000以上で販売されるものが日本価格¥2,200で。","tags":["food","sake","dassai","junmai-daiginjo","premium","japanese-sake"]}
+{
+  "title": "Dassai 45 Junmai Daiginjo Sake 720ml",
+  "price": 2200,
+  "category": "Food",
+  "tab": "food",
+  "featured": true,
+  "imageUrl": "https://m.media-amazon.com/images/P/B07QJYZZQP.01._SX300_.jpg",
+  "amazonUrl": "https://www.amazon.co.jp/dp/B07QJYZZQP?tag=japandailyhub-22",
+  "description_en": "獺祭 (Dassai) from Asahi Shuzo is Japan's most exported premium sake — served at the G7 summit and in Michelin-starred restaurants worldwide. The 45 refers to 45% rice polishing ratio: pure, crisp, and floral. Available globally for $45+; Japan price is ¥2,200.",
+  "description_ja": "旭酒造の「獺祭45」は日本最多輸出量を誇るプレミアム純米大吟醸。G7サミットやミシュラン星付きレストランで提供される世界的銘柄。海外では¥6,000以上で販売されるものが日本価格¥2,200で。",
+  "tags": [
+    "food",
+    "sake",
+    "dassai",
+    "junmai-daiginjo",
+    "premium",
+    "japanese-sake"
+  ],
+  "asin": "B07QJYZZQP"
+}

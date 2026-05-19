@@ -1,1 +1,18 @@
-{"title":"Shiseido Ultimune Power Infusing Concentrate 50ml","price":13200,"category":"Beauty","tab":"daily","imageUrl":"https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=500&q=70","amazonUrl":"https://www.amazon.co.jp/dp/B01N5IXI8H?tag=japandailyhub-22","description_en":"Shiseido's globally acclaimed serum that supercharges all products layered after it. The ImuGeneration Technology activates skin's natural immunity, visibly reducing signs of aging in 4 weeks.","description_ja":"重ねるスキンケアの効果を高めるシセイドウの美容液。独自のImuGenerationテクノロジーが肌本来の免疫力を活性化。4週間で目に見えるエイジングケア効果。","tags":["beauty","serum","shiseido","anti-aging","luxury-skincare"]}
+{
+  "title": "Shiseido Ultimune Power Infusing Concentrate 50ml",
+  "price": 13200,
+  "category": "Beauty",
+  "tab": "daily",
+  "imageUrl": "https://m.media-amazon.com/images/P/B01N5IXI8H.01._SX300_.jpg",
+  "amazonUrl": "https://www.amazon.co.jp/dp/B01N5IXI8H?tag=japandailyhub-22",
+  "description_en": "Shiseido's globally acclaimed serum that supercharges all products layered after it. The ImuGeneration Technology activates skin's natural immunity, visibly reducing signs of aging in 4 weeks.",
+  "description_ja": "重ねるスキンケアの効果を高めるシセイドウの美容液。独自のImuGenerationテクノロジーが肌本来の免疫力を活性化。4週間で目に見えるエイジングケア効果。",
+  "tags": [
+    "beauty",
+    "serum",
+    "shiseido",
+    "anti-aging",
+    "luxury-skincare"
+  ],
+  "asin": "B01N5IXI8H"
+}

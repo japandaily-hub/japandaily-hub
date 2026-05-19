@@ -1,1 +1,18 @@
-{"title":"DHC Deep Cleansing Oil 200ml","price":2640,"category":"Beauty","tab":"daily","imageUrl":"https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=500&q=70","amazonUrl":"https://www.amazon.co.jp/dp/B000FQUGOG?tag=japandailyhub-22","description_en":"Japan's most iconic cleansing oil — based on ultra-pure olive oil and rosemary extract, it dissolves even waterproof makeup in seconds. Rinses clean with water, no film residue. Sold every 2 seconds worldwide.","description_ja":"純度の高いオリーブバージンオイルとローズマリーエキス配合。ウォータープルーフメイクも素早く溶かし、すすぎで肌に残らないすっきりした洗い上がり。世界で2秒に1本売れる名品。","tags":["beauty","cleansing","dhc","olive-oil","makeup-remover"]}
+{
+  "title": "DHC Deep Cleansing Oil 200ml",
+  "price": 2640,
+  "category": "Beauty",
+  "tab": "daily",
+  "imageUrl": "https://m.media-amazon.com/images/P/B000FQUGOG.01._SX300_.jpg",
+  "amazonUrl": "https://www.amazon.co.jp/dp/B000FQUGOG?tag=japandailyhub-22",
+  "description_en": "Japan's most iconic cleansing oil — based on ultra-pure olive oil and rosemary extract, it dissolves even waterproof makeup in seconds. Rinses clean with water, no film residue. Sold every 2 seconds worldwide.",
+  "description_ja": "純度の高いオリーブバージンオイルとローズマリーエキス配合。ウォータープルーフメイクも素早く溶かし、すすぎで肌に残らないすっきりした洗い上がり。世界で2秒に1本売れる名品。",
+  "tags": [
+    "beauty",
+    "cleansing",
+    "dhc",
+    "olive-oil",
+    "makeup-remover"
+  ],
+  "asin": "B000FQUGOG"
+}

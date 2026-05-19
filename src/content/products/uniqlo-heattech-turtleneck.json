@@ -1,1 +1,20 @@
-{"title":"Uniqlo Heattech Extra Warm Turtleneck","price":2990,"category":"Fashion","tab":"fashion","featured":true,"imageUrl":"https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?w=500&q=70","amazonUrl":"https://www.amazon.co.jp/dp/B09P8ZJG4R?tag=japandailyhub-22","description_en":"Uniqlo's most advanced Heattech fabric — traps body heat while staying ultra-thin. The Extra Warm version is 2.25× warmer than standard Heattech. A Japanese winter staple worn from the Arctic Circle to the Tokyo commute.","description_ja":"ユニクロのヒートテックエクストラウォームタートルネック。体から発する水分を熱に変換し、通常ヒートテックの2.25倍の暖かさを実現。極寒の地から東京の通勤まで。","tags":["fashion","uniqlo","heattech","knitwear","winter","basics"]}
+{
+  "title": "Uniqlo Heattech Extra Warm Turtleneck",
+  "price": 2990,
+  "category": "Fashion",
+  "tab": "fashion",
+  "featured": true,
+  "imageUrl": "https://m.media-amazon.com/images/P/B09P8ZJG4R.01._SX300_.jpg",
+  "amazonUrl": "https://www.amazon.co.jp/dp/B09P8ZJG4R?tag=japandailyhub-22",
+  "description_en": "Uniqlo's most advanced Heattech fabric — traps body heat while staying ultra-thin. The Extra Warm version is 2.25× warmer than standard Heattech. A Japanese winter staple worn from the Arctic Circle to the Tokyo commute.",
+  "description_ja": "ユニクロのヒートテックエクストラウォームタートルネック。体から発する水分を熱に変換し、通常ヒートテックの2.25倍の暖かさを実現。極寒の地から東京の通勤まで。",
+  "tags": [
+    "fashion",
+    "uniqlo",
+    "heattech",
+    "knitwear",
+    "winter",
+    "basics"
+  ],
+  "asin": "B09P8ZJG4R"
+}

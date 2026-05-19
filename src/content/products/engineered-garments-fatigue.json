@@ -1,1 +1,18 @@
-{"title":"Engineered Garments Workaday Fatigue Pant","price":27500,"category":"Fashion","tab":"fashion","imageUrl":"https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&q=70","amazonUrl":"https://www.amazon.co.jp/dp/B07R5KGKPW?tag=japandailyhub-22","description_en":"Daiki Suzuki's Engineered Garments reimagines US Army fatigue pants through a Japanese lens: tighter construction, better cotton, and evolved silhouette. Made in New York, sold at Japan pricing — 25% below US retail.","description_ja":"エンジニアードガーメンツのワークデイ ファティーグパンツ。米軍ファティーグを日本的美意識でリデザイン。タイトな縫製、良質なコットン、進化したシルエット。日本価格はUS小売より25%安。","tags":["fashion","engineered-garments","fatigue-pant","workwear","nyc"]}
+{
+  "title": "Engineered Garments Workaday Fatigue Pant",
+  "price": 27500,
+  "category": "Fashion",
+  "tab": "fashion",
+  "imageUrl": "https://m.media-amazon.com/images/P/B07R5KGKPW.01._SX300_.jpg",
+  "amazonUrl": "https://www.amazon.co.jp/dp/B07R5KGKPW?tag=japandailyhub-22",
+  "description_en": "Daiki Suzuki's Engineered Garments reimagines US Army fatigue pants through a Japanese lens: tighter construction, better cotton, and evolved silhouette. Made in New York, sold at Japan pricing — 25% below US retail.",
+  "description_ja": "エンジニアードガーメンツのワークデイ ファティーグパンツ。米軍ファティーグを日本的美意識でリデザイン。タイトな縫製、良質なコットン、進化したシルエット。日本価格はUS小売より25%安。",
+  "tags": [
+    "fashion",
+    "engineered-garments",
+    "fatigue-pant",
+    "workwear",
+    "nyc"
+  ],
+  "asin": "B07R5KGKPW"
+}

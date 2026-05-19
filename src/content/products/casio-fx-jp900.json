@@ -1,1 +1,18 @@
-{"title":"Casio fx-JP900 Scientific Calculator","price":2750,"category":"Electronics","tab":"daily","imageUrl":"https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=500&q=70","amazonUrl":"https://www.amazon.co.jp/dp/B00AFYYXWQ?tag=japandailyhub-22","description_en":"Casio's flagship scientific calculator used in Japanese universities and engineering firms. Natural Textbook Display shows equations exactly as they appear in textbooks. 4-line display, 542 functions, solar + battery backup. Japan-only model.","description_ja":"日本の大学・技術職に標準装備のカシオ最上位関数電卓。自然表示(ナチュラルV.P.A.M)でテキストと同じ見やすい数式表示。4行表示・542機能・ソーラー＋電池バックアップ。日本限定モデル。","tags":["electronics","calculator","casio","scientific","japan-only"]}
+{
+  "title": "Casio fx-JP900 Scientific Calculator",
+  "price": 2750,
+  "category": "Electronics",
+  "tab": "daily",
+  "imageUrl": "https://m.media-amazon.com/images/P/B00AFYYXWQ.01._SX300_.jpg",
+  "amazonUrl": "https://www.amazon.co.jp/dp/B00AFYYXWQ?tag=japandailyhub-22",
+  "description_en": "Casio's flagship scientific calculator used in Japanese universities and engineering firms. Natural Textbook Display shows equations exactly as they appear in textbooks. 4-line display, 542 functions, solar + battery backup. Japan-only model.",
+  "description_ja": "日本の大学・技術職に標準装備のカシオ最上位関数電卓。自然表示(ナチュラルV.P.A.M)でテキストと同じ見やすい数式表示。4行表示・542機能・ソーラー＋電池バックアップ。日本限定モデル。",
+  "tags": [
+    "electronics",
+    "calculator",
+    "casio",
+    "scientific",
+    "japan-only"
+  ],
+  "asin": "B00AFYYXWQ"
+}
