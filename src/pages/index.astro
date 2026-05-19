@@ -97,19 +97,38 @@ const base = import.meta.env.BASE_URL ?? '';
       color: var(--ink);
     }
     .logo em { color: var(--gold); font-style: normal; }
-    .lang-select {
-      background: transparent;
-      border: 1px solid rgba(184,150,62,.35);
-      color: var(--ink);
-      padding: .35rem .7rem;
-      font-size: .72rem;
-      font-family: inherit;
-      cursor: pointer;
-      border-radius: 2px;
-      outline: none;
-      letter-spacing: .05em;
+    /* カスタム言語ドロップダウン */
+    .lang-btn {
+      position: relative; cursor: pointer;
+      display: flex; align-items: center; gap: .45rem;
+      border: 1px solid rgba(184,150,62,.35); padding: .35rem .7rem .35rem .8rem;
+      font-size: .65rem; letter-spacing: .12em; text-transform: uppercase;
+      color: var(--ink); background: transparent; font-family: inherit;
+      border-radius: 2px; transition: border-color .2s; user-select: none;
     }
-    .lang-select:hover { border-color: var(--gold); }
+    .lang-btn:hover { border-color: var(--gold); }
+    .lang-btn .lang-flag { font-size: .85rem; }
+    .lang-btn .lang-chevron {
+      font-size: .5rem; margin-left: .2rem;
+      transition: transform .2s; display: inline-block;
+    }
+    .lang-btn.open .lang-chevron { transform: rotate(180deg); }
+    .lang-dropdown {
+      display: none; position: absolute; top: calc(100% + .5rem); right: 0;
+      background: #fff; border: 1px solid rgba(184,150,62,.25);
+      box-shadow: 0 8px 32px rgba(18,16,14,.12);
+      min-width: 160px; z-index: 200;
+    }
+    .lang-btn.open + .lang-dropdown { display: block; }
+    .lang-option {
+      display: flex; align-items: center; gap: .7rem;
+      padding: .65rem 1rem; font-size: .7rem; letter-spacing: .08em;
+      cursor: pointer; transition: background .15s; white-space: nowrap;
+    }
+    .lang-option:hover { background: rgba(184,150,62,.08); }
+    .lang-option.active { color: var(--gold); }
+    .lang-option .lo-flag { font-size: .9rem; }
+    .lang-wrapper { position: relative; }
 
     /* HERO */
     .hero {
@@ -156,6 +175,19 @@ const base = import.meta.env.BASE_URL ?? '';
       letter-spacing: .16em;
       max-width: 420px;
       margin: 0 auto;
+    }
+
+    /* HERO CTA */
+    .hero-cta {
+      display: inline-block; margin-top: 2.2rem;
+      padding: .85rem 2.4rem;
+      border: 1px solid rgba(184,150,62,.6); color: rgba(255,255,255,.85);
+      font-size: .65rem; letter-spacing: .38em; text-transform: uppercase;
+      text-decoration: none; font-family: 'Cormorant Garamond', serif;
+      transition: background .25s, border-color .25s, color .25s;
+    }
+    .hero-cta:hover {
+      background: rgba(184,150,62,.2); border-color: var(--gold-l); color: #fff;
     }
 
     /* YEN SECTION */
@@ -662,16 +694,23 @@ const base = import.meta.env.BASE_URL ?? '';
         <button class="wl-header-btn" id="wl-open-btn" aria-label="Wishlist">
           ♡ <span class="wl-count" id="wl-count">0</span>
         </button>
-        <select class="lang-select" id="lang-select">
-        <option value="en">🌐 English</option>
-        <option value="ja">🇯🇵 日本語</option>
-        <option value="zh">🇨🇳 简体中文</option>
-        <option value="zhtw">🇹🇼 繁體中文</option>
-        <option value="ko">🇰🇷 한국어</option>
-        <option value="fr">🇫🇷 Français</option>
-        <option value="de">🇩🇪 Deutsch</option>
-        <option value="es">🇪🇸 Español</option>
-      </select>
+        <div class="lang-wrapper">
+          <button class="lang-btn" id="lang-btn" aria-expanded="false" aria-label="言語を選択">
+            <span class="lang-flag" id="lang-flag">🌐</span>
+            <span id="lang-label">EN</span>
+            <span class="lang-chevron">▼</span>
+          </button>
+          <div class="lang-dropdown" id="lang-dropdown" role="listbox">
+            <div class="lang-option active" data-lang="en" role="option"><span class="lo-flag">🌐</span>English</div>
+            <div class="lang-option" data-lang="ja" role="option"><span class="lo-flag">🇯🇵</span>日本語</div>
+            <div class="lang-option" data-lang="zh" role="option"><span class="lo-flag">🇨🇳</span>简体中文</div>
+            <div class="lang-option" data-lang="zhtw" role="option"><span class="lo-flag">🇹🇼</span>繁體中文</div>
+            <div class="lang-option" data-lang="ko" role="option"><span class="lo-flag">🇰🇷</span>한국어</div>
+            <div class="lang-option" data-lang="fr" role="option"><span class="lo-flag">🇫🇷</span>Français</div>
+            <div class="lang-option" data-lang="de" role="option"><span class="lo-flag">🇩🇪</span>Deutsch</div>
+            <div class="lang-option" data-lang="es" role="option"><span class="lo-flag">🇪🇸</span>Español</div>
+          </div>
+        </div>
       </div>
     </div>
   </header>
@@ -708,6 +747,11 @@ const base = import.meta.env.BASE_URL ?? '';
         data-es="Productos japoneses seleccionados — donde la tradición se encuentra con la artesanía.">
         Handpicked Japanese products — where tradition meets craftsmanship.
       </p>
+      <a href="#categories" class="hero-cta"
+        data-en="Explore Collections" data-ja="コレクションを見る"
+        data-zh="浏览商品" data-zhtw="瀏覽商品"
+        data-ko="컬렉션 보기" data-fr="Explorer les Collections"
+        data-de="Kollektionen Entdecken" data-es="Explorar Colecciones">Explore Collections</a>
     </div>
   </section>
 
@@ -762,7 +806,7 @@ const base = import.meta.env.BASE_URL ?? '';
   </div>
 
   <!-- CATEGORY GRID -->
-  <section class="cat-section">
+  <section class="cat-section" id="categories">
     <div class="cat-inner">
       <p class="cat-eye"
         data-en="Shop by Category" data-ja="カテゴリから探す"
@@ -937,21 +981,60 @@ const base = import.meta.env.BASE_URL ?? '';
 
     // ── 言語切替 ──
     const LANGS = ['en','ja','zh','zhtw','ko','fr','de','es'];
+    const LANG_META = {
+      en:   { flag: '🌐', label: 'EN' },
+      ja:   { flag: '🇯🇵', label: 'JA' },
+      zh:   { flag: '🇨🇳', label: 'ZH' },
+      zhtw: { flag: '🇹🇼', label: 'TW' },
+      ko:   { flag: '🇰🇷', label: 'KO' },
+      fr:   { flag: '🇫🇷', label: 'FR' },
+      de:   { flag: '🇩🇪', label: 'DE' },
+      es:   { flag: '🇪🇸', label: 'ES' },
+    };
 
     function setLang(lang) {
       if (!LANGS.includes(lang)) lang = 'en';
+      // テキスト差し替え
       document.querySelectorAll('[data-en]').forEach(el => {
         const text = el.dataset[lang] || el.dataset['en'];
         if (text) el.innerHTML = text;
       });
-      const sel = document.getElementById('lang-select');
-      if (sel) sel.value = lang;
+      // ボタン表示更新
+      const meta = LANG_META[lang];
+      const flagEl = document.getElementById('lang-flag');
+      const lblEl  = document.getElementById('lang-label');
+      if (flagEl) flagEl.textContent = meta.flag;
+      if (lblEl)  lblEl.textContent  = meta.label;
+      // アクティブ状態
+      document.querySelectorAll('.lang-option').forEach(opt => {
+        opt.classList.toggle('active', opt.dataset.lang === lang);
+      });
       try { localStorage.setItem('jdh-lang', lang); } catch(e) {}
     }
 
-    // selectのchangeイベントをスクリプト内でバインド（Astroモジュールスコープ対応）
-    const langSel = document.getElementById('lang-select');
-    if (langSel) langSel.addEventListener('change', (e) => setLang(e.target.value));
+    // カスタムドロップダウン制御
+    const langBtn      = document.getElementById('lang-btn');
+    const langDropdown = document.getElementById('lang-dropdown');
+
+    function closeLangDropdown() {
+      langBtn?.classList.remove('open');
+      langBtn?.setAttribute('aria-expanded', 'false');
+    }
+
+    langBtn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = langBtn.classList.toggle('open');
+      langBtn.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    document.querySelectorAll('.lang-option').forEach(opt => {
+      opt.addEventListener('click', () => {
+        setLang(opt.dataset.lang);
+        closeLangDropdown();
+      });
+    });
+
+    document.addEventListener('click', closeLangDropdown);
 
     // ページ読み込み時に保存済み言語を復元
     (function() {
