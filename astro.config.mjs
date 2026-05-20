@@ -3,7 +3,6 @@ import sitemap from '@astrojs/sitemap';
 
 const IS_VERCEL = !!process.env.VERCEL;
 
-// Vercel環境のみアダプターを動的import
 const adapter = IS_VERCEL
   ? (await import('@astrojs/vercel/serverless')).default({ webAnalytics: { enabled: true } })
   : undefined;
@@ -15,6 +14,6 @@ export default defineConfig({
   base: IS_VERCEL ? '/' : '/japandaily-hub',
   output: IS_VERCEL ? 'hybrid' : 'static',
   ...(adapter ? { adapter } : {}),
-  integrations: [sitemap()],
+  integrations: [sitemap({ filter: (page) => !page.includes('/api/') })],
   build: { format: 'directory' },
 });
