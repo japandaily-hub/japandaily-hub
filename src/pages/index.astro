@@ -21,15 +21,6 @@ const base = import.meta.env.BASE_URL ?? '';
   <meta name="twitter:description" content="Authentic Japanese products at genuine local prices. Direct from Tokyo, without the import markup." />
   <meta name="twitter:image" content="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=1200&q=80" />
   <link rel="canonical" href="https://japandaily-hub.github.io/japandaily-hub/" />
-  <!-- WebSite æ§‹é€ åŒ–ãƒ‡ãƒ¼ã‚¿ (Google ã‚µã‚¤ãƒˆãƒªãƒ³ã‚¯æ¤œç´¢ãƒœãƒƒã‚¯ã‚¹å¯¾å¿œ) -->
-  <script type="application/ld+json">{
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "Japan Daily Hub",
-    "url": "https://japandaily-hub.github.io/japandaily-hub/",
-    "description": "Authentic Japanese products at Japanese market prices â€” curated for quality, delivered from the source.",
-    "inLanguage": ["en", "ja", "zh", "ko", "fr", "de", "es"]
-  }</script>
   <!-- Google Analytics 4 â€” replace G-XXXXXXXXXX with your Measurement ID -->
   <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
   <script is:inline>
@@ -90,104 +81,66 @@ const base = import.meta.env.BASE_URL ?? '';
     }
     .logo {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.15rem;
+      font-size: 1.3rem;
       font-weight: 300;
-      letter-spacing: .32em;
+      letter-spacing: .22em;
       text-transform: uppercase;
       color: var(--ink);
     }
     .logo em { color: var(--gold); font-style: normal; }
-    /* ã‚«ã‚¹ã‚¿ãƒ è¨€èªãƒ‰ãƒ­ãƒƒãƒ—ãƒ€ã‚¦ãƒ³ */
-    .lang-btn {
-      position: relative; cursor: pointer;
-      display: flex; align-items: center; gap: .45rem;
-      border: 1px solid rgba(184,150,62,.35); padding: .35rem .7rem .35rem .8rem;
-      font-size: .65rem; letter-spacing: .12em; text-transform: uppercase;
-      color: var(--ink); background: transparent; font-family: inherit;
-      border-radius: 2px; transition: border-color .2s; user-select: none;
+    .lang-select {
+      background: transparent;
+      border: 1px solid rgba(184,150,62,.35);
+      color: var(--ink);
+      padding: .35rem .7rem;
+      font-size: .72rem;
+      font-family: inherit;
+      cursor: pointer;
+      border-radius: 2px;
+      outline: none;
+      letter-spacing: .05em;
     }
-    .lang-btn:hover { border-color: var(--gold); }
-    .lang-btn .lang-flag { font-size: .85rem; }
-    .lang-btn .lang-chevron {
-      font-size: .5rem; margin-left: .2rem;
-      transition: transform .2s; display: inline-block;
-    }
-    .lang-btn.open .lang-chevron { transform: rotate(180deg); }
-    .lang-dropdown {
-      display: none; position: absolute; top: calc(100% + .5rem); right: 0;
-      background: #fff; border: 1px solid rgba(184,150,62,.25);
-      box-shadow: 0 8px 32px rgba(18,16,14,.12);
-      min-width: 160px; z-index: 200;
-    }
-    .lang-btn.open + .lang-dropdown { display: block; }
-    .lang-option {
-      display: flex; align-items: center; gap: .7rem;
-      padding: .65rem 1rem; font-size: .7rem; letter-spacing: .08em;
-      cursor: pointer; transition: background .15s; white-space: nowrap;
-    }
-    .lang-option:hover { background: rgba(184,150,62,.08); }
-    .lang-option.active { color: var(--gold); }
-    .lang-option .lo-flag { font-size: .9rem; }
-    .lang-wrapper { position: relative; }
+    .lang-select:hover { border-color: var(--gold); }
 
     /* HERO */
     .hero {
       background: var(--ink);
       color: #fff;
       text-align: center;
-      padding: 8rem 1.5rem 7rem;
-      min-height: 90vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      padding: 6rem 1.5rem 5rem;
       position: relative;
       overflow: hidden;
     }
     .hero-bg {
       position: absolute; inset: 0;
       background: url('https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=1600&q=60') center/cover no-repeat;
-      opacity: .07;
+      opacity: .15;
     }
     .hero-inner { position: relative; z-index: 1; }
     .hero-eye {
-      font-size: .58rem;
-      letter-spacing: .85em;
+      font-size: .68rem;
+      letter-spacing: .5em;
       color: var(--gold-l);
       text-transform: uppercase;
-      margin-bottom: 2rem;
+      margin-bottom: 1rem;
     }
     .hero-title {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(3rem, 8vw, 6.5rem);
+      font-size: clamp(2rem, 5vw, 4rem);
       font-weight: 300;
-      letter-spacing: .18em;
-      line-height: 1.15;
+      letter-spacing: .12em;
+      line-height: 1.3;
     }
     .hero-line {
-      width: 1px; height: 72px;
-      background: linear-gradient(to bottom, transparent, var(--gold), transparent);
-      margin: 3rem auto;
+      width: 44px; height: 1px;
+      background: var(--gold);
+      margin: 1.8rem auto;
     }
     .hero-desc {
-      font-size: .72rem;
-      line-height: 2.4;
-      color: rgba(255,255,255,.38);
-      letter-spacing: .16em;
-      max-width: 420px;
-      margin: 0 auto;
-    }
-
-    /* HERO CTA */
-    .hero-cta {
-      display: inline-block; margin-top: 2.2rem;
-      padding: .85rem 2.4rem;
-      border: 1px solid rgba(184,150,62,.6); color: rgba(255,255,255,.85);
-      font-size: .65rem; letter-spacing: .38em; text-transform: uppercase;
-      text-decoration: none; font-family: 'Cormorant Garamond', serif;
-      transition: background .25s, border-color .25s, color .25s;
-    }
-    .hero-cta:hover {
-      background: rgba(184,150,62,.2); border-color: var(--gold-l); color: #fff;
+      font-size: .82rem;
+      line-height: 2;
+      color: rgba(255,255,255,.55);
+      letter-spacing: .08em;
     }
 
     /* YEN SECTION */
@@ -198,17 +151,17 @@ const base = import.meta.env.BASE_URL ?? '';
       text-align: center;
     }
     .yen-eye {
-      font-size: .58rem;
-      letter-spacing: .7em;
+      font-size: .65rem;
+      letter-spacing: .45em;
       color: var(--gold-l);
       text-transform: uppercase;
-      margin-bottom: 1.2rem;
+      margin-bottom: .8rem;
     }
     .yen-title {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2rem, 4.5vw, 3.6rem);
+      font-size: clamp(1.6rem, 3.5vw, 2.8rem);
       font-weight: 300;
-      letter-spacing: .16em;
+      letter-spacing: .1em;
       margin-bottom: 1.2rem;
     }
     .yen-body {
@@ -265,7 +218,7 @@ const base = import.meta.env.BASE_URL ?? '';
     .calc-input {
       flex: 1;
       min-width: 120px;
-      background: rgba(255,255,255,.06);
+  #   background: rgba(255,255,255,.06);
       border: 1px solid rgba(184,150,62,.3);
       color: #fff;
       padding: .6rem .8rem;
@@ -368,8 +321,8 @@ const base = import.meta.env.BASE_URL ?? '';
       transition: box-shadow .3s, transform .3s;
     }
     .product-card:hover {
-      box-shadow: 0 24px 60px rgba(18,16,14,.09);
-      transform: translateY(-6px);
+      box-shadow: 0 16px 48px rgba(18,16,14,.1);
+      transform: translateY(-4px);
     }
     .product-img-wrap {
       aspect-ratio: 4/3;
@@ -539,17 +492,17 @@ const base = import.meta.env.BASE_URL ?? '';
     /* EMAIL SECTION */
     .email-section {
       background: var(--ink); color: #fff;
-      padding: 7rem 1.5rem; text-align: center;
+      padding: 4rem 1.5rem; text-align: center;
     }
     .email-eye {
-      font-size: .56rem; letter-spacing: .7em;
+      font-size: .62rem; letter-spacing: .45em;
       color: var(--gold-l); text-transform: uppercase;
-      margin-bottom: 1.2rem;
+      margin-bottom: .8rem;
     }
     .email-title {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2rem, 4vw, 3.2rem);
-      font-weight: 300; letter-spacing: .18em; margin-bottom: 1rem;
+      font-size: clamp(1.4rem, 3vw, 2.2rem);
+      font-weight: 300; letter-spacing: .1em; margin-bottom: .8rem;
     }
     .email-desc {
       font-size: .8rem; color: rgba(255,255,255,.45);
@@ -582,56 +535,54 @@ const base = import.meta.env.BASE_URL ?? '';
       font-size: .8rem; letter-spacing: .1em; margin-top: 1rem;
     }
 
-
     /* CATEGORY GRID */
     .cat-section {
       background: var(--washi);
-      padding: 7rem 1.5rem 8rem;
+      padding: 4rem 1.5rem 5rem;
     }
     .cat-inner {
       max-width: 1200px;
       margin: 0 auto;
     }
     .cat-eye {
-      font-size: .58rem;
-      letter-spacing: .7em;
+      font-size: .65rem;
+      letter-spacing: .45em;
       color: var(--gold);
       text-transform: uppercase;
       text-align: center;
-      margin-bottom: 1rem;
+      margin-bottom: .6rem;
     }
     .cat-title {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-size: clamp(1.4rem, 3vw, 2.2rem);
       font-weight: 300;
-      letter-spacing: .18em;
+      letter-spacing: .1em;
       text-align: center;
-      margin-bottom: 4rem;
+      margin-bottom: 2.5rem;
       color: var(--ink);
     }
     .cat-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
-      gap: 1.2rem;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 1rem;
     }
     .cat-card {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: .9rem;
-      padding: 2.6rem 1.2rem 2.2rem;
-      border: 1px solid rgba(184,150,62,.14);
-      background: transparent;
+      gap: .6rem;
+      padding: 1.6rem 1rem;
+      border: 1px solid rgba(184,150,62,.18);
+      background: #fff;
       text-decoration: none;
       color: var(--ink);
-      transition: box-shadow .4s ease, transform .4s ease, border-color .4s ease, background .4s ease;
-      border-radius: 0;
+      transition: box-shadow .25s, transform .25s, border-color .25s;
+      border-radius: 2px;
     }
     .cat-card:hover {
-      box-shadow: 0 20px 60px rgba(18,16,14,.07);
-      transform: translateY(-5px);
-      border-color: rgba(184,150,62,.4);
-      background: rgba(184,150,62,.03);
+      box-shadow: 0 8px 28px rgba(18,16,14,.09);
+      transform: translateY(-3px);
+      border-color: rgba(184,150,62,.45);
     }
     .cat-icon {
       width: 2.4rem;
@@ -644,32 +595,27 @@ const base = import.meta.env.BASE_URL ?? '';
     }
     .cat-card:hover .cat-icon { color: var(--gold); }
     .cat-name {
-      font-size: .72rem;
-      font-weight: 400;
-      letter-spacing: .14em;
+      font-size: .78rem;
+      font-weight: 500;
+      letter-spacing: .06em;
       text-align: center;
       color: var(--ink);
     }
     .cat-desc {
-      font-size: .58rem;
-      color: rgba(18,16,14,.32);
-      letter-spacing: .06em;
+      font-size: .62rem;
+      color: rgba(18,16,14,.4);
+      letter-spacing: .04em;
       text-align: center;
-      line-height: 1.7;
+      line-height: 1.5;
     }
     .cat-arrow {
-      font-size: .55rem;
-      color: rgba(184,150,62,.5);
-      letter-spacing: .2em;
-      margin-top: .4rem;
-      transition: color .3s ease, letter-spacing .3s ease;
-    }
-    .cat-card:hover .cat-arrow {
+      font-size: .65rem;
       color: var(--gold);
-      letter-spacing: .35em;
+      letter-spacing: .1em;
+      margin-top: .2rem;
     }
 
-      /* FOOTER */
+    /* FOOTER */
     footer {
       border-top: 1px solid rgba(184,150,62,.18);
       padding: 2.2rem 1.5rem;
@@ -702,23 +648,16 @@ const base = import.meta.env.BASE_URL ?? '';
         <button class="wl-header-btn" id="wl-open-btn" aria-label="Wishlist">
           â™¡ <span class="wl-count" id="wl-count">0</span>
         </button>
-        <div class="lang-wrapper">
-          <button class="lang-btn" id="lang-btn" aria-expanded="false" aria-label="è¨€èªã‚’é¸æŠ">
-            <span class="lang-flag" id="lang-flag">ğŸŒ</span>
-            <span id="lang-label">EN</span>
-            <span class="lang-chevron">â–¼</span>
-          </button>
-          <div class="lang-dropdown" id="lang-dropdown" role="listbox">
-            <div class="lang-option active" data-lang="en" role="option"><span class="lo-flag">ğŸŒ</span>English</div>
-            <div class="lang-option" data-lang="ja" role="option"><span class="lo-flag">ğŸ‡¯ğŸ‡µ</span>æ—¥æœ¬èª</div>
-            <div class="lang-option" data-lang="zh" role="option"><span class="lo-flag">ğŸ‡¨ğŸ‡³</span>ç®€ä½“ä¸­æ–‡</div>
-            <div class="lang-option" data-lang="zhtw" role="option"><span class="lo-flag">ğŸ‡¹ğŸ‡¼</span>ç¹é«”ä¸­æ–‡</div>
-            <div class="lang-option" data-lang="ko" role="option"><span class="lo-flag">ğŸ‡°ğŸ‡·</span>í•œêµ­ì–´</div>
-            <div class="lang-option" data-lang="fr" role="option"><span class="lo-flag">ğŸ‡«ğŸ‡·</span>FranÃ§ais</div>
-            <div class="lang-option" data-lang="de" role="option"><span class="lo-flag">ğŸ‡©ğŸ‡ª</span>Deutsch</div>
-            <div class="lang-option" data-lang="es" role="option"><span class="lo-flag">ğŸ‡ªğŸ‡¸</span>EspaÃ±ol</div>
-          </div>
-        </div>
+        <select class="lang-select" id="lang-select">
+        <option value="en">ğŸŒ English</option>
+        <option value="ja">ğŸ‡¯ğŸ‡µ æ—¥æœ¬èª</option>
+        <option value="zh">ğŸ‡¨ğŸ‡³ ç®€ä½“ä¸­æ–‡</option>
+        <option value="zhtw">ğŸ‡¹ğŸ‡¼ ç¹é«”ä¸­æ–‡</option>
+        <option value="ko">ğŸ‡°ğŸ‡· í•œêµ­ì–´</option>
+        <option value="fr">ğŸ‡«ğŸ‡· FranÃ§ais</option>
+        <option value="de">ğŸ‡©ğŸ‡ª Deutsch</option>
+        <option value="es">ğŸ‡ªğŸ‡¸ EspaÃ±ol</option>
+      </select>
       </div>
     </div>
   </header>
@@ -755,11 +694,6 @@ const base = import.meta.env.BASE_URL ?? '';
         data-es="Productos japoneses seleccionados â€” donde la tradiciÃ³n se encuentra con la artesanÃ­a.">
         Handpicked Japanese products â€” where tradition meets craftsmanship.
       </p>
-      <a href="#categories" class="hero-cta"
-        data-en="Explore Collections" data-ja="ã‚³ãƒ¬ã‚¯ã‚·ãƒ§ãƒ³ã‚’è¦‹ã‚‹"
-        data-zh="æµè§ˆå•†å“" data-zhtw="ç€è¦½å•†å“"
-        data-ko="ì»¬ë ‰ì…˜ ë³´ê¸°" data-fr="Explorer les Collections"
-        data-de="Kollektionen Entdecken" data-es="Explorar Colecciones">Explore Collections</a>
     </div>
   </section>
 
@@ -779,188 +713,75 @@ const base = import.meta.env.BASE_URL ?? '';
     <p class="yen-body"
       data-en="The same products sold abroad at a 2â€“3Ã— import premium â€” available here at authentic Japanese retail price. Not a sale. Just the source."
       data-ja="æµ·å¤–ã§ã¯2ã€œ3å€ã®è¼¸å…¥ä¾¡æ ¼ãŒã¤ãå•†å“ã‚‚ã€ã“ã“ã§ã¯æ—¥æœ¬ã®æ­£è¦å°å£²ä¾¡æ ¼ã§ãŠå±Šã‘ã—ã¾ã™ã€‚ã‚»ãƒ¼ãƒ«ã§ã¯ãªãã€ç”£åœ°ç›´é€ã§ã™ã€‚"
-      data-zh="åœ¨å›½å¤–ä»¥2-3å€è¿›å£æº¢ä»·å‡ºå”®çš„å•†å“â€”â€”åœ¨è¿™é‡Œä»¥æ­£å®—çš„æ—¥æœ¬é›¶å”®ä»·æä¾›ã€‚ä¸æ˜¯ä¿ƒé”€ï¼Œè€Œæ˜¯ç›´æ¥ä»æºå¤´è·å–ã€‚"
+      data-zh="åœ¨å›½å¤–ä»¥2-ä½2å€è¿›å£æº¢ä»·å‡ºå”®çš„å•†å“â€”â€”åœ¨è¿™é‡Œä»¥æ­£å®—çš„æ—¥æœ¬é›¶å”®ä»·æä¾›ã€‚ä¸æ˜¯ä¿ƒé”€ï¼Œè€Œæ˜¯ç›´æ¥ä»æºå¤´è·å–ã€‚"
       data-zhtw="åœ¨åœ‹å¤–ä»¥2-3å€é€²å£æº¢åƒ¹å‡ºå”®çš„å•†å“â€”â€”åœ¨é€™è£¡ä»¥æ­£å®—çš„æ—¥æœ¬é›¶å”®åƒ¹æä¾›ã€‚ä¸æ˜¯ä¿ƒéŠ·ï¼Œè€Œæ˜¯ç›´æ¥å¾æºé ­ç²å–ã€‚"
-      data-ko="í•´ì™¸ì—ì„œ 2~3ë°°ì˜ ìˆ˜ì… í”„ë¦¬ë¯¸ì—„ìœ¼ë¡œ íŒë§¤ë˜ëŠ” ì œí’ˆë“¤ â€” ì—¬ê¸°ì„œëŠ” ì¼ë³¸ í˜„ì§€ ì†Œë§¤ ê°€ê²©ìœ¼ë¡œ ì œê³µë©ë‹ˆë‹¤."
-      data-fr="Les mÃªmes produits vendus Ã  l'Ã©tranger avec une prime d'importation de 2 Ã  3Ã— â€” disponibles ici au prix de dÃ©tail japonais authentique."
-      data-de="Dieselben Produkte, die im Ausland mit einem 2â€“3-fachen Aufschlag verkauft werden â€” hier zum authentischen japanischen Einzelhandelspreis."
-      data-es="Los mismos productos vendidos en el extranjero con un recargo de 2â€“3Ã— â€” disponibles aquÃ­ al precio minorista japonÃ©s autÃ©ntico.">The same products sold abroad at a 2â€“3Ã— import premium â€” available here at authentic Japanese retail price. Not a sale. Just the source.</p>
-    <div class="rate-cards">
-      <div class="rate-card"><div class="rate-flag">ğŸ‡ºğŸ‡¸</div><div class="rate-cur">USD</div><div class="rate-val" id="r-usd">â€¦</div><div class="rate-badge" id="b-usd"></div></div>
-      <div class="rate-card"><div class="rate-flag">ğŸ‡ªğŸ‡º</div><div class="rate-cur">EUR</div><div class="rate-val" id="r-eur">â€¦</div><div class="rate-badge" id="b-eur"></div></div>
-      <div class="rate-card"><div class="rate-flag">ğŸ‡¬ğŸ‡§</div><div class="rate-cur">GBP</div><div class="rate-val" id="r-gbp">â€¦</div><div class="rate-badge" id="b-gbp"></div></div>
-      <div class="rate-card"><div class="rate-flag">ğŸ‡¦ğŸ‡º</div><div class="rate-cur">AUD</div><div class="rate-val" id="r-aud">â€¦</div><div class="rate-badge" id="b-aud"></div></div>
-    </div>
-  </section>
+      data-ko="í•´ì™¸ì—ì„œ 2~3ë°°ì˜ ìˆ˜ì… í”„ë¦¬ë¯¸ì—„ìœ¼ë¡œ íŒë§¤ë˜â¥;(';d¢:äé8 %;%ë:®,;!':â¥;'o:ìî;f!;)à;!£:éé:¬ :¬ª{'/:èg;(':¬ízä*zââ:âéˆ‚ˆ]KYœH“\Èpê›Y\È›ÙZ]È™[™\È0è	ğê]˜[™Ù\ˆ]™XÈ[™Hš[YH	Ú[\Ü][ÛˆHˆ0èğåÈ8 %\ÜÛšX›\ÈXÚH]Hš^H0ê]Z[˜\Û˜Z\È]][\]YKˆ‚ˆ]KYOH‘Y\Ù[™[ˆ›ÙZİKYH[H]\Û[™Z]Z[™[H¸ $ÌËY˜XÚ[ˆ]YœØÚYÈ™\šØ]YÙ\™[ˆ8 %Y\ˆ[H]][\ØÚ[ˆ˜\[š\ØÚ[ˆZ[™[[™[Ü™Z\Ëˆ‚ˆ]KY\ÏH“ÜÈZ\Û[ÜÈ›ÙXİÜÈ™[™YÜÈ[ˆ[^˜[š™\›ÈÛÛˆ[ˆ™XØ\™ÛÈH¸ $ÌğåÈ8 %\ÜÛšX›\È\]pëH[™XÚ[ÈZ[›Üš\İH˜\Û°ê\È]]0ê[XÛËˆ•HØ[YH›ÙXİÈÛÛXœ›ØY]H¸ $ÌğåÈ[\Ü™[Z][H8 %]˜Z[X›H\™H]]][XÈ˜\[™\ÙH™]Z[šXÙKˆ›İHØ[Kˆ\İHÛİ\˜ÙKÜ‚ˆ]ˆÛ\ÜÏHœ˜]KXØ\™È‚ˆ]ˆÛ\ÜÏHœ˜]KXØ\™]ˆÛ\ÜÏHœ˜]KY›YÈ¼'áî¼'áîÙ]]ˆÛ\ÜÏHœ˜]KXİ\ˆ•TÑÙ]]ˆÛ\ÜÏHœ˜]K]˜[ˆYHœ‹]\Ù¸ )Ù]]ˆÛ\ÜÏHœ˜]KX˜YÙHˆYH˜‹]\ÙÙ]Ù]‚ˆ]ˆÛ\ÜÏHœ˜]KXØ\™]ˆÛ\ÜÏHœ˜]KY›YÈ¼'áê¼'áîÙ]]ˆÛ\ÜÏHœ˜]KXİ\ˆ‘UTÙ]]ˆÛ\ÜÏHœ˜]K]˜[ˆYHœ‹Y]\ˆ¸ )Ù]]ˆÛ\ÜÏHœ˜]KX˜YÙHˆYH˜‹Y]\ˆÙ]Ù]‚ˆ]ˆÛ\ÜÏHœ˜]KXØ\™]ˆÛ\ÜÏHœ˜]KY›YÈ¼'áë<'áéÏÙ]]ˆÛ\ÜÏHœ˜]KXİ\ˆ‘Ğ”Ù]]ˆÛ\ÜÏHœ˜]K]˜[ˆYHœ‹YØœ¸ )Ù]]ˆÛ\ÜÏHœ˜]KX˜YÙHˆYH˜‹YØœÙ]Ù]‚ˆ]ˆÛ\ÜÏHœ˜]KXØ\™]ˆÛ\ÜÏHœ˜]KY›YÈ¼'áé¼'áîÙ]]ˆÛ\ÜÏHœ˜]KXİ\ˆUQÙ]]ˆÛ\ÜÏHœ˜]K]˜[ˆYHœ‹X]Y¸ )Ù]]ˆÛ\ÜÏHœ˜]KX˜YÙHˆYH˜‹X]YÙ]Ù]‚ˆÙ]‚ˆÜÙXİ[Û‚‚‚‚‚ˆKKHÒTÒTÕUÑTˆKO‚ˆ]ˆÛ\ÜÏH™˜]Ù\‹[İ™\›^HˆYHÛ[İ™\›^HÙ]‚ˆ]ˆÛ\ÜÏH™˜]Ù\ˆˆYHÛY˜]Ù\ˆˆ›ÛOH™X[ÙÈˆ\šXK[X™[H•Ú\Ú\İ‚ˆ]ˆÛ\ÜÏH™˜]Ù\‹ZXY‚ˆ]ˆÛ\ÜÏH™˜]Ù\‹]]H‚ˆ]KY[H“^HÚ\Ú\İˆ]KZ˜OH¸à©¸à¨øààøà­øàéxàêˆ8à®xàâ‚ˆ]K^šH¹¢$yæ¡9oàù¡/ùceHˆ]K^šÏH¹¢$yæ¡9oàúhf9e«ˆ‚ˆ]KZÛÏH»'!;"ç:é«;");b®ˆ]KYœH“XH\İHHÛİZZ]È‚ˆ]KYOH•ı[œØÚ\İHˆ]KY\ÏH“ZH\İHH\Ù[ÜÈ“^HÚ\Ú\İÙ]‚ˆ]ÛˆÛ\ÜÏH™˜]Ù\‹XÛÜÙHˆYHÛXÛÜÙKXˆˆ\šXK[X™[HÛÜÙH¸§%OØ]Û‚ˆÙ]‚ˆ]ˆÛ\ÜÏH™˜]Ù\‹X›ÙHˆYHÛX›ÙH‚ˆ]ˆÛ\ÜÏHÛY[\H‚ˆ]KY[H–[İ\ˆÚ\Ú\İ\È[\Hˆ]KZ˜OH¸àê¸à®xàâ8àkùên¹.®.8 (ˆ‚ˆ]K^šH¹oàù¡/ùcey..¹ânˆˆ]K^šÏH¹oàúhf9e«¹ïl¹ênˆ‚ˆ]KZÛÏH»'!;"ç:é«;"©;b®:¬ :îa;%­;'¢;"­zââ:âéˆ]KYœH•›İ™H\İH\İšYH‚ˆ]KYOH’Z™Hİ[œØÚ\İH\İY\ˆˆ]KY\ÏH•H\İH\İ0èH˜XğëXH–[İ\ˆÚ\Ú\İ\È[\OÙ]‚ˆÙ]‚ˆ]ˆÛ\ÜÏH™˜]Ù\‹Y›Ûİ\ˆ‚ˆ]ÛˆÛ\ÜÏH˜‹]ÛXÛX\ˆˆYHÛXÛX\‹Xˆ‚ˆ]KY[HÛX\ˆ[ˆ]KZ˜OH¸àfxànxàiˆ¹bªzfi‚ˆ]K^šH¹®!yên¹aj:`êˆ]K^šÏH¹®!yên¹aj:`ê‚ˆ]KZÛÏH»(!;,­; «{('ˆ]KYœH•İ]İ\š[Y\ˆ‚ˆ]KYOH[\È0íœØÚ[ˆˆ]KY\ÏH›Üœ˜\ˆÙÈÛX\ˆ[Ø]Û‚ˆÙ]‚ˆÙ]‚‚ˆKKHĞUQÓÔ–HÔ’QKO‚ˆÙXİ[ÛˆÛ\ÜÏH˜Ø]\ÙXİ[Ûˆ‚ˆ]ˆÛ\ÜÏH˜Ø]Z[›™\ˆ‚ˆÛ\ÜÏH˜Ø]Y^YH‚ˆ]KY[H”ÚÜHØ]YÛÜHˆ]KZ˜OH¸àªøàá¸à­8àê¸àbøà¢y£¨¸àfH‚ˆ]K^šH¹£"yìnùb*ù­cú)âˆ]K^šÏH¹£"zhg¹b)yà#ú)¯H‚ˆ]KZÛÏH».m;ac:¬è:é«:ìá;!ï;edHˆ]KYœHXÚ]\ˆ\ˆØ]0êYÛÜšYH‚ˆ]KYOH“˜XÚØ]YÛÜšYHİ0í˜™\›ˆˆ]KY\ÏHÛÛ\˜\ˆÜˆØ]YÛÜ°ëXH”ÚÜHØ]YÛÜOÜ‚ˆˆÛ\ÜÏH˜Ø]]]H‚ˆ]KY[H‘š[™Ú][İHİ™Hˆ]KZ˜OH¸àb¹¬%øàjùaixà¢¸àk¸àªøàá¸à­8àê¸à¤¹£¨¸àfH‚ˆ]K^šH¹¢o¹b,9 ª9e§9«(¹æ¡ˆ]K^šÏH¹¢o¹b,9 ª9e§9«hyæ¡‚ˆ]KZÛÏHºéâ;'c;%ä:äç:â¥:¬ û'a;,/»%a:ìí;!.;&¥ˆ]KYœH•›İ]™^ˆÙH]YH›İ\ÈZ[Y^ˆ‚ˆ]KYOH‘š[™[ˆÚYKØ\ÈÚYHYX™[ˆˆ]KY\ÏH‘[˜İY[˜HÈ]YHHİ\İH‘š[™Ú][İHİ™OÚ‚ˆ]ˆÛ\ÜÏH˜Ø]YÜšY‚ˆØØ]YÛÜšY\Ë›X\
+Ø]Oˆ
+ˆH™Y^Ø	Ø˜\Ù_KØØ]YÛÜKÉØØ]œÛYßKØHÛ\ÜÏH˜Ø]XØ\™‚ˆÜ[ˆÛ\ÜÏH˜Ø]ZXÛÛˆØ]YÛÜRXÛÛˆ]^ØØ]šXÛÛ”]HÚ^™O^Ì‹ŒŸHÏÜÜ[‚ˆÜ[ˆÛ\ÜÏH˜Ø][˜[YHØØ]›˜[YR˜_OÜÜ[‚ˆÜ[ˆÛ\ÜÏH˜Ø]Y\ØÈØØ]™\ØÒ˜_OÜÜ[‚ˆÜ[ˆÛ\ÜÏH˜Ø]X\œ›İÈ¸¡¤ÜÜ[‚ˆØO‚ˆ
+J_BˆÙ]‚ˆÙ]‚ˆÜÙXİ[Û‚‚ˆKKHSPRSÑPÕSÓˆKO‚ˆÙXİ[ÛˆÛ\ÜÏH™[XZ[\ÙXİ[Ûˆ‚ˆÛ\ÜÏH™[XZ[Y^YH‚ˆ]KY[H”İ^HZXYÙˆHX\šÙ]ˆ]KZ˜OH¹n ¹h-8àk¹båyd$xà¤¸àa8àhy¥êxàcøà«xàèøààøààH‚ˆ]K^šH¹¢¨¹ab9££9£èyn ¹g.¹bª9  Hˆ]K^šÏH¹¤-¹ab9££9£èyn ¹h-9båy¡bÈ‚ˆ]KZÛÏH»"ç;'©H:ãæ{e©{'a:ê/;( ;c#;%a{ef;!.;&¥ˆ]KYœH‘Ø\™^ˆ[™HÛ™İY]\ˆ	Ø]˜[˜ÙH‚ˆ]KYOH’[[Y\ˆZ[™[ˆØÚš]›Ü˜]\Èˆ]KY\ÏHY[0è[]H[Y\˜ØYÈ”İ^HZXYÙˆHX\šÙ]Ü‚ˆˆÛ\ÜÏH™[XZ[]]H‚ˆ]KY[H‘Ù]Ø[H[\Èˆ]KZ˜OH¸à®øàï8àêùea¹dàxà¤¹k¦¹§'ùæ¡8àjùcåøàdycå¸à¢È‚ˆ]K^šHº#­ùcå¹ânyce¹/&9 è9£ä:a¤ˆˆ]K^šÏH¹ãl¹cå¹ânz,èùa*¹ è9£ä:a¤ˆ‚ˆ]KZÛÏH»eh;'n;%c:é¯:ì&ú®,ˆ]KYœH”™XÙ]›Ú\ˆ\È[\\È›Û[ÜÈ‚ˆ]KYOH[™ÙX›İËP™[˜XÚšXÚYİ[™Ù[ˆˆ]KY\ÏH”™XÚX™H[\\ÈHÙ™\\È‘Ù]Ø[H[\ÏÚ‚ˆÛ\ÜÏH™[XZ[Y\ØÈ‚ˆ]KY[H”ÚYÛˆ\È™XÙZ]™H[Z]Y][YHX[È[™^Û\Ú]™H˜\[™\ÙH›ÙXİÈ\™XİHÈ[İ\ˆ[˜›Şˆ‚ˆ]KZ˜OH¹§'úe¤úfd9k¦¸à®øàï8àêøà¡8àb¹o¥øàj¹¥éy§+9ea¹dày áyh,xà¤¸àèxàï8àêøàiøàb¹lb¸àdxàeøào¸àfxà ˆ‚ˆ]K^šHº+¨ºf!yd#¹k¦¹§'ù¥-¹b,:fd9¥í¹ânyce¹d£9ì¯º`"y¥éy§+9ea¹dày/èy køà ˆ‚ˆ]K^šÏHº* ºe¬yo£9k¦¹§'ù¥-¹b,:fd9¦`¹ânz,èùd£9ì¯º`n9¥éy§+9ea¹dàz,áú*"¸à ˆ‚ˆ]KZÛÏH»eg;(%H;eh;'n:ì#È;%á;!(:ä';'o:ìî; à{d¢;(%zìí:éo:êe;'o:èg:ì&û%a:ìí;!.;&¥ˆ‚ˆ]KYœH’[œØÜš]™^‹]›İ\Èİ\ˆ™XÙ]›Ú\ˆ\ÈÙ™œ™\È[Z]0êY\È]\È›ÙZ]È˜\Û˜Z\È^Û\ÚYœËˆ‚ˆ]KYOH“Y[[ˆÚYHÚXÚ[ˆ[™\š[[ˆÚYH™Z]XÚ™YÜ™[H[™ÙX›İH[™^Û\Ú]™H˜\[š\ØÚH›ÙZİKˆ‚ˆ]KY\ÏH”İ\ØÜ°ëX™]H\˜H™XÚXš\ˆÙ™\\È[Z]Y\ÈH›ÙXİÜÈ˜\Û™\Ù\È^Û\Ú]›ÜËˆ‚ˆÚYÛˆ\È™XÙZ]™H[Z]Y][YHX[È[™^Û\Ú]™H˜\[™\ÙH›ÙXİÈ\™XİHÈ[İ\ˆ[˜›Ş‚ˆÜ‚ˆ›Ü›HÛ\ÜÏH™[XZ[Y›Ü›HˆYH™[XZ[Y›Ü›H‚ˆ[œ]Û\ÜÏH™[XZ[Z[œ]ˆYH™[XZ[Z[œ]ˆ\OH™[XZ[ˆ™\]Z\™YˆXÙZÛ\H[İ\[XZ[˜ÛÛHˆ]]ØÛÛ\]OH™[XZ[ˆÏ‚ˆ]ÛˆÛ\ÜÏH˜‹Y[XZ[ˆ\OHœİX›Z]‚ˆ]KY[H“›İYHYHˆ]KZ˜OHº`&¹çéxà¤¹cåøàdycå¸à¢È‚ˆ]K^šHº`&¹çéy¢$Hˆ]K^šÏHº`&¹çéy¢$H‚ˆ]KZÛÏH»%c:é¯:ì&ú®,ˆ]KYœH“YH›İYšY\ˆ‚ˆ]KYOH™[˜XÚšXÚYÙHZXÚˆ]KY\ÏH“›İY°ëXØ[YH“›İYHYOØ]Û‚ˆÙ›Ü›O‚ˆÛ\ÜÏH™[XZ[\İXØÙ\ÜÈˆYH™[XZ[\İXØÙ\ÜÈ‚ˆ]KY[H¸§$ÈİXœØÜšX™YH[İIÛ™XÙZ]™HØ[H[\È[™ÜXÚX[X[È™Yİ[\›Kˆ‚ˆ]KZ˜OH¸§$È9ænúc,¹k£9.¡»ï xà®øàï8àêù áyh,xà¡8àb¹o¥øàj¹ea¹dàxà¤¹k¦¹§'ùæ¡8àjøàb¹lb¸àdxàeøào¸àfxà ˆ‚ˆ]K^šH¸§$È9mìº+¨ºf!{ï y ª9l!¹k¦¹§'ù¥-¹b,9ânyce¹/&9 è9d£9ì¯º`"yea¹dày/èy køà ˆ‚ˆ]K^šÏH¸§$È9mìº* ºe¬{ï y ª9l!ùk¦¹§'ù¥-¹b,9ânz,èùa*¹ è9d£9ì¯º`n9ea¹dàz,áú*"¸à ˆ‚ˆ]KZÛÏH¸§$È:äìzègH;&a:èãH;eh;'n;(%zìí;&`;b®zìá; à{d¢;'a;(%z®,;( {'/:èg:ì&û%a:ìí;"é;"&;'¢;"­zââ:âéˆ‚ˆ]KYœH¸§$È[œØÜš]
+JHH›İ\È™XÙ]œ™^ˆ°êYİ[pê™[Y[\ÈÙ™œ™\È]›ÙZ]È^Û\ÚYœËˆ‚ˆ]KYOH¸§$È[™Ù[Y[]HÚYH\š[[ˆ™YÙ[pé0çÚYÈ[™ÙX›İH[™^Û\Ú]™H›ÙZİKˆ‚ˆ]KY\ÏH¸§$È0¨Tİ\ØÜš]ÈH™XÚXš\°è\ÈÙ™\\ÈH›ÙXİÜÈ\ÜXÚX[\È™Yİ[\›Y[Kˆ‚ˆ8§$ÈİXœØÜšX™YH[İIÛ™XÙZ]™HØ[H[\È[™ÜXÚX[X[È™Yİ[\›K‚ˆÜ‚ˆÜÙXİ[Û‚‚ˆ›Ûİ\‚ˆ	˜ÛÜNÈŒH˜\[ˆZ[HXˆ	›˜œÜß	›˜œÜÂˆÜ[‚ˆ]KY[H]][XÈ˜\[™\ÙH›ÙXİË[]™\™YÛÜ›ÚYH‚ˆ]KZ˜OH¹¥éy§+8àkº`.9dàxà y.%¹åc8àn‚ˆ]K^šH¹«hùk¥ù¥éy§+9ea¹dà{ï#9aj9ä úacz` H‚ˆ]K^šÏH¹«hùk¥ù¥éy§+9ea¹dà{ï#9aj9ä úacz` H‚ˆ]KZÛÏH»(%{d¢;'o:ìî; à{d¢;(!;!.:¬á:ì,;!¨H‚ˆ]KYœH”›ÙZ]È˜\Û˜Z\È]][\]Y\Ë]œ°ê\È\İ]‚ˆ]KYOH]][\ØÚH˜\[š\ØÚH›ÙZİKÙ[ÙZ]Ù[YY™\‚ˆ]KY\ÏH”›ÙXİÜÈ˜\Û™\Ù\È]]0ê[XÛÜË[™YØYÜÈ[ˆÙÈ[][™È]][XÈ˜\[™\ÙH›ÙXİË[]™\™YÛÜ›ÚYOÜÜ[‚ˆÙ›Ûİ\‚‚ˆØÜš\\Îš[›[™O‚ˆËÈ8¥ 8¥ 9à®¹¦ïøàë8àï8àâ8¥ 8¥ ˆÛÛœİTÑHHÈTÑˆLUTˆLĞ”ˆM‹UQˆNÂˆÛÛœİÖSHHÈTÑˆ	É	ËUTˆ	ø «	ËĞ”ˆ	ğ¨ÉËUQˆ	ĞI	ÈNÂˆ]˜]\ÈHßNÂ‚ˆ\Ş[˜È[˜İ[ÛˆØY˜]\Ê
+HÂˆHÂˆÛÛœİ™\ÈH]ØZ]™]Ú
+	ÚÎ‹ËÛÜ[‹™\‹X\K˜ÛÛKİ‹Û]\İÒ”IÊNÂˆÛÛœİ]HH]ØZ]™\ËšœÛÛŠ
+NÂˆ˜]\ÈHÂˆTÑˆX]œ›İ[™
+HÈ]Kœ˜]\Ë•TÑ
+KˆUTˆX]œ›İ[™
+HÈ]Kœ˜]\Ë‘UTŠKˆĞ”ˆX]œ›İ[™
+HÈ]Kœ˜]\Ë‘Ğ”
+KˆUQˆX]œ›İ[™
+HÈ]Kœ˜]\ËUQ
+KˆNÂˆËÈXÚÙ\‚ˆØİ[Y[™Ù][[Y[RY
+	İ]\Ù	ÊK^ÛÛ[H	ğ©IÈ
+È˜]\Ë•TÑÂˆØİ[Y[™Ù][[Y[RY
+	İY]\‰ÊK^ÛÛ[H	ğ©IÈ
+È˜]\Ë‘UTÂˆØİ[Y[™Ù][[Y[RY
+	İYØœ	ÊK^ÛÛ[H	ğ©IÈ
+È˜]\Ë‘Ğ”ÂˆØİ[Y[™Ù][[Y[RY
+	İX]Y	ÊK^ÛÛ[H	ğ©IÈ
+È˜]\ËUQÂ‚ˆËÈ˜]HØ\™ÂˆÛÛœİİHX]œ›İ[™
 
 
+˜]\Ë•TÑHTÑK•TÑ
+HÈ˜]\Ë•TÑ
+H
+ˆL
+NÂˆÉÕTÑ	Ë	ÑUT‰Ë	ÑĞ”	Ë	ĞUQ	×K™›Ü‘XXÚ
+ÈOˆÂˆÛÛœİ‘[HØİ[Y[™Ù][[Y[RY
+	Ü‹IÈ
+ÈËÓİÙ\Ø\ÙJ
+JNÂˆÛÛœİ‘[HØİ[Y[™Ù][[Y[RY
+	Ø‹IÈ
+ÈËÓİÙ\Ø\ÙJ
+JNÂˆYˆ
+‘[
+H‘[^ÛÛ[H	ğ©IÈ
+È˜]\ÖØ×NÂˆÛÛœİHX]œ›İ[™
 
 
-  <!-- WISHLIST DRAWER -->
-  <div class="drawer-overlay" id="wl-overlay"></div>
-  <div class="drawer" id="wl-drawer" role="dialog" aria-label="Wishlist">
-    <div class="drawer-head">
-      <div class="drawer-title"
-        data-en="My Wishlist" data-ja="ã‚¦ã‚£ãƒƒã‚·ãƒ¥ãƒªã‚¹ãƒˆ"
-        data-zh="æˆ‘çš„å¿ƒæ„¿å•" data-zhtw="æˆ‘çš„å¿ƒé¡˜å–®"
-        data-ko="ìœ„ì‹œë¦¬ìŠ¤íŠ¸" data-fr="Ma Liste de Souhaits"
-        data-de="Wunschliste" data-es="Mi Lista de Deseos">My Wishlist</div>
-      <button class="drawer-close" id="wl-close-btn" aria-label="Close">âœ•</button>
-    </div>
-    <div class="drawer-body" id="wl-body">
-      <div class="wl-empty"
-        data-en="Your wishlist is empty" data-ja="ãƒªã‚¹ãƒˆã¯ç©ºã§ã™"
-        data-zh="å¿ƒæ„¿å•ä¸ºç©º" data-zhtw="å¿ƒé¡˜å–®ç‚ºç©º"
-        data-ko="ìœ„ì‹œë¦¬ìŠ¤íŠ¸ê°€ ë¹„ì–´ ìˆìŠµë‹ˆë‹¤" data-fr="Votre liste est vide"
-        data-de="Ihre Wunschliste ist leer" data-es="Tu lista estÃ¡ vacÃ­a">Your wishlist is empty</div>
-    </div>
-    <div class="drawer-footer">
-      <button class="btn-wl-clear" id="wl-clear-btn"
-        data-en="Clear all" data-ja="ã™ã¹ã¦å‰Šé™¤"
-        data-zh="æ¸…ç©ºå…¨éƒ¨" data-zhtw="æ¸…ç©ºå…¨éƒ¨"
-        data-ko="ì „ì²´ ì‚­ì œ" data-fr="Tout supprimer"
-        data-de="Alles lÃ¶schen" data-es="Borrar todo">Clear all</button>
-    </div>
-  </div>
+˜]\ÖØ×HHTÑVØ×JHÈ˜]\ÖØ×JH
+ˆL
+NÂˆYˆ
+‘[
+H‘[^ÛÛ[H	ÉÎÂˆJNÂ‚ˆØİ[Y[™Ù][[Y[RY
+	İ\Ø]™IÊK^ÛÛ[H	Ó]™H˜]H0­È\]Y	È
+È™]È]J
+KÓØØ[U[YTİš[™Ê×KÚİ\‰Ì‹YYÚ]	ËZ[]N‰Ì‹YYÚ]	ßJNÂˆ\]TØ]™P˜YÙ\Ê
+NÂˆHØ]Ú
+JHÂˆ˜]\ÈHÈTÑˆMMKUTˆMĞ”ˆNM‹UQˆLNÂˆ\]TØ]™P˜YÙ\Ê
+NÂˆBˆB‚ˆ[˜İ[Ûˆ\]TØ]™P˜YÙ\Ê
+HÂˆÛÛœİ\Ù˜]HH˜]\Ë•TÑMMNÂˆØİ[Y[œ]Y\TÙ[XİÜ[
+	ËœØ]™KX˜YÙVÙ]K\šXÙWIÊK™›Ü‘XXÚ
+˜YÙHOˆÂˆÛÛœİšXÙHH[X™\Š˜YÙK™]\Ù]œšXÙJHÂˆYˆ
+\šXÙJHÈ˜YÙK^ÛÛ[H	ÉÎÈ™]\›ÈBˆÛÛœİ\Ù›İÈHšXÙHÈ\Ù˜]NÂˆÛÛœİ\ÙØ\ÈHšXÙHÈLÂˆÛÛœİØ]™YH\ÙØ\ÈH\Ù›İÎÂˆÛÛœİİHX]œ›İ[™
 
-  <!-- CATEGORY GRID -->
-  <section class="cat-section" id="categories">
-    <div class="cat-inner">
-      <p class="cat-eye"
-        data-en="Shop by Category" data-ja="ã‚«ãƒ†ã‚´ãƒªã‹ã‚‰æ¢ã™"
-        data-zh="æŒ‰ç±»åˆ«æµè§ˆ" data-zhtw="æŒ‰é¡åˆ¥ç€è¦½"
-        data-ko="ì¹´í…Œê³ ë¦¬ë³„ ì‡¼í•‘" data-fr="Acheter par CatÃ©gorie"
-        data-de="Nach Kategorie stÃ¶bern" data-es="Comprar por CategorÃ­a">Shop by Category</p>
-      <h2 class="cat-title"
-        data-en="Find What You Love" data-ja="ãŠæ°—ã«å…¥ã‚Šã®ã‚«ãƒ†ã‚´ãƒªã‚’æ¢ã™"
-        data-zh="æ‰¾åˆ°æ‚¨å–œæ¬¢çš„" data-zhtw="æ‰¾åˆ°æ‚¨å–œæ­¡çš„"
-        data-ko="ë§ˆìŒì— ë“œëŠ” ê²ƒì„ ì°¾ì•„ë³´ì„¸ìš”" data-fr="Trouvez Ce Que Vous Aimez"
-        data-de="Finden Sie, Was Sie Lieben" data-es="Encuentra Lo Que Te Gusta">Find What You Love</h2>
-      <div class="cat-grid">
-        {categories.map(cat => (
-          <a href={`${base}/category/${cat.slug}/`} class="cat-card">
-            <span class="cat-icon"><CategoryIcon path={cat.iconPath} size={2.2} /></span>
-            <span class="cat-name">{cat.nameJa}</span>
-            <span class="cat-desc">{cat.descJa}</span>
-            <span class="cat-arrow">â†’</span>
-          </a>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- EMAIL SECTION -->
-  <section class="email-section">
-    <p class="email-eye"
-      data-en="Stay ahead of the market" data-ja="å¸‚å ´ã®å‹•å‘ã‚’ã„ã¡æ—©ãã‚­ãƒ£ãƒƒãƒ"
-      data-zh="æŠ¢å…ˆæŒæ¡å¸‚åœºåŠ¨æ€" data-zhtw="æ¶å…ˆæŒæ¡å¸‚å ´å‹•æ…‹"
-      data-ko="ì‹œì¥ ë™í–¥ì„ ë¨¼ì € íŒŒì•…í•˜ì„¸ìš”" data-fr="Gardez une longueur d'avance"
-      data-de="Immer einen Schritt voraus" data-es="AdelÃ¡ntate al mercado">Stay ahead of the market</p>
-        <h2 class="email-title"
-      data-en="Get Sale Alerts" data-ja="ã‚»ãƒ¼ãƒ«å•†å“ã‚’å®šæœŸçš„ã«å—ã‘å–ã‚‹"
-      data-zh="è·å–ç‰¹å–ä¼˜æƒ æé†’" data-zhtw="ç²å–ç‰¹è³£å„ªæƒ æé†’"
-      data-ko="í• ì¸ ì•Œë¦¼ ë°›ê¸°" data-fr="Recevoir les Alertes Promos"
-      data-de="Angebots-Benachrichtigungen" data-es="Recibe Alertas de Ofertas">Get Sale Alerts</h2>
-    <p class="email-desc"
-      data-en="Sign up to receive limited-time deals and exclusive Japanese products directly to your inbox."
-      data-ja="æœŸé–“é™å®šã‚»ãƒ¼ãƒ«ã‚„ãŠå¾—ãªæ—¥æœ¬å•†å“æƒ…å ±ã‚’ãƒ¡ãƒ¼ãƒ«ã§ãŠå±Šã‘ã—ã¾ã™ã€‚"
-      data-zh="è®¢é˜…åå®šæœŸæ”¶åˆ°é™æ—¶ç‰¹å–å’Œç²¾é€‰æ—¥æœ¬å•†å“ä¿¡æ¯ã€‚"
-      data-zhtw="è¨‚é–±å¾Œå®šæœŸæ”¶åˆ°é™æ™‚ç‰¹è³£å’Œç²¾é¸æ—¥æœ¬å•†å“è³‡è¨Šã€‚"
-      data-ko="í•œì • í• ì¸ ë° ì—„ì„ ëœ ì¼ë³¸ ìƒí’ˆ ì •ë³´ë¥¼ ë©”ì¼ë¡œ ë°›ì•„ë³´ì„¸ìš”."
-      data-fr="Inscrivez-vous pour recevoir des offres limitÃ©es et des produits japonais exclusifs."
-      data-de="Melden Sie sich an und erhalten Sie zeitlich begrenzte Angebote und exklusive japanische Produkte."
-      data-es="SuscrÃ­bete para recibir ofertas limitadas y productos japoneses exclusivos.">
-      Sign up to receive limited-time deals and exclusive Japanese products directly to your inbox.
-    </p>
-    <form class="email-form" id="email-form" data-api-base={base}>
-      <input class="email-input" id="email-input" type="email" required
-        placeholder="your@email.com" autocomplete="email" />
-      <button class="btn-email" type="submit"
-        data-en="Notify Me" data-ja="é€šçŸ¥ã‚’å—ã‘å–ã‚‹"
-        data-zh="é€šçŸ¥æˆ‘" data-zhtw="é€šçŸ¥æˆ‘"
-        data-ko="ì•Œë¦¼ ë°›ê¸°" data-fr="Me Notifier"
-        data-de="Benachrichtige mich" data-es="NotifÃ­came">Notify Me</button>
-    </form>
-    <p class="email-success" id="email-success"
-      data-en="âœ“ Subscribed! You'll receive sale alerts and special deals regularly."
-      data-ja="âœ“ ç™»éŒ²å®Œäº†ï¼ã‚»ãƒ¼ãƒ«æƒ…å ±ã‚„ãŠå¾—ãªå•†å“ã‚’å®šæœŸçš„ã«ãŠå±Šã‘ã—ã¾ã™ã€‚"
-      data-zh="âœ“ å·²è®¢é˜…ï¼æ‚¨å°†å®šæœŸæ”¶åˆ°ç‰¹å–ä¼˜æƒ å’Œç²¾é€‰å•†å“ä¿¡æ¯ã€‚"
-      data-zhtw="âœ“ å·²è¨‚é–±ï¼æ‚¨å°‡å®šæœŸæ”¶åˆ°ç‰¹è³£å„ªæƒ å’Œç²¾é¸å•†å“è³‡è¨Šã€‚"
-      data-ko="âœ“ ë“±ë¡ ì™„ë£Œ! í• ì¸ ì •ë³´ì™€ íŠ¹ë³„ ìƒí’ˆì„ ì •ê¸°ì ìœ¼ë¡œ ë°›ì•„ë³´ì‹¤ ìˆ˜ ìˆìŠµë‹ˆë‹¤."
-      data-fr="âœ“ Inscrit(e) ! Vous recevrez rÃ©guliÃ¨rement des offres et produits exclusifs."
-      data-de="âœ“ Angemeldet! Sie erhalten regelmÃ¤ÃŸig Angebote und exklusive Produkte."
-      data-es="âœ“ Â¡Suscrito! RecibirÃ¡s ofertas y productos especiales regularmente.">
-      âœ“ Subscribed! You'll receive sale alerts and special deals regularly.
-    </p>
-  </section>
-
-  <footer>
-    &copy; 2025 Japan Daily Hub &nbsp;|&nbsp;
-    <span
-      data-en="Authentic Japanese Products, Delivered Worldwide"
-      data-ja="æ—¥æœ¬ã®é€¸å“ã€ä¸–ç•Œã¸"
-      data-zh="æ­£å®—æ—¥æœ¬å•†å“ï¼Œå…¨çƒé…é€"
-      data-zhtw="æ­£å®—æ—¥æœ¬å•†å“ï¼Œå…¨çƒé…é€"
-      data-ko="ì •í’ˆ ì¼ë³¸ ìƒí’ˆ, ì „ ì„¸ê³„ ë°°ì†¡"
-      data-fr="Produits Japonais Authentiques, LivrÃ©s Partout"
-      data-de="Authentische Japanische Produkte, Weltweit Geliefert"
-      data-es="Productos Japoneses AutÃ©nticos, Entregados en Todo el Mundo">Authentic Japanese Products, Delivered Worldwide</span>
-  </footer>
-
-  <script is:inline>
-    // â”€â”€ ç‚ºæ›¿ãƒ¬ãƒ¼ãƒˆ â”€â”€
-    const BASE = { USD: 108, EUR: 128, GBP: 142, AUD: 80 };
-    const SYM  = { USD: '$', EUR: 'â‚¬', GBP: 'Â£', AUD: 'A$' };
-    let rates  = {};
-
-    async function loadRates() {
-      try {
-        const res  = await fetch('https://open.er-api.com/v6/latest/JPY');
-        const data = await res.json();
-        rates = {
-          USD: Math.round(1 / data.rates.USD),
-          EUR: Math.round(1 / data.rates.EUR),
-          GBP: Math.round(1 / data.rates.GBP),
-          AUD: Math.round(1 / data.rates.AUD),
-        };
-        // ticker
-        document.getElementById('t-usd').textContent = 'Â¥' + rates.USD;
-        document.getElementById('t-eur').textContent = 'Â¥' + rates.EUR;
-        document.getElementById('t-gbp').textContent = 'Â¥' + rates.GBP;
-        document.getElementById('t-aud').textContent = 'Â¥' + rates.AUD;
-
-        // rate cards
-        const pct = Math.round(((rates.USD - BASE.USD) / rates.USD) * 100);
-        ['USD','EUR','GBP','AUD'].forEach(c => {
-          const rEl = document.getElementById('r-' + c.toLowerCase());
-          const bEl = document.getElementById('b-' + c.toLowerCase());
-          if (rEl) rEl.textContent = 'Â¥' + rates[c];
-          const p = Math.round(((rates[c] - BASE[c]) / rates[c]) * 100);
-          if (bEl) bEl.textContent = '';
-        });
-
-        document.getElementById('t-save').textContent = 'Live rate Â· Updated ' + new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
-        updateSaveBadges();
-      } catch(e) {
-        rates = { USD: 155, EUR: 168, GBP: 196, AUD: 100 };
-        updateSaveBadges();
-      }
-    }
-
-    function updateSaveBadges() {
-      const usdRate = rates.USD || 155;
-      document.querySelectorAll('.save-badge[data-price]').forEach(badge => {
-        const price = Number(badge.dataset.price) || 0;
-        if (!price) { badge.textContent = ''; return; }
-        const usdNow = price / usdRate;
-        const usdWas = price / 108;
-        const saved  = usdWas - usdNow;
-        const pct    = Math.round((saved / usdWas) * 100);
-        if (pct > 0) {
-          badge.textContent = 'â†“ ;
-          badge.style.display = '';
-        } else {
-          badge.style.display = 'none';
+Ø]™YÈ\ÙØ\ÊH
+ˆL
+NÂˆYˆ
+İˆ
+HÂˆ˜YÙK^ÛÛ[H	ø¡¤È		È
+ÈØ]™YÑš^Y
+
+H
+È	ÈœÈ[\Ü™]Z[	ÎÂˆ˜YÙKœİ[K™\Ü^HH	ÉÎÂˆH[ÙHÂˆ˜YÙKœİ[K™`= 'none';
         }
       });
     }
@@ -999,60 +820,21 @@ const base = import.meta.env.BASE_URL ?? '';
 
     // â”€â”€ è¨€èªåˆ‡æ›¿ â”€â”€
     const LANGS = ['en','ja','zh','zhtw','ko','fr','de','es'];
-    const LANG_META = {
-      en:   { flag: 'ğŸŒ', label: 'EN' },
-      ja:   { flag: 'ğŸ‡¯ğŸ‡µ', label: 'JA' },
-      zh:   { flag: 'ğŸ‡¨ğŸ‡³', label: 'ZH' },
-      zhtw: { flag: 'ğŸ‡¹ğŸ‡¼', label: 'TW' },
-      ko:   { flag: 'ğŸ‡°ğŸ‡·', label: 'KO' },
-      fr:   { flag: 'ğŸ‡«ğŸ‡·', label: 'FR' },
-      de:   { flag: 'ğŸ‡©ğŸ‡ª', label: 'DE' },
-      es:   { flag: 'ğŸ‡ªğŸ‡¸', label: 'ES' },
-    };
 
     function setLang(lang) {
       if (!LANGS.includes(lang)) lang = 'en';
-      // ãƒ†ã‚­ã‚¹ãƒˆå·®ã—æ›¿ãˆ
       document.querySelectorAll('[data-en]').forEach(el => {
         const text = el.dataset[lang] || el.dataset['en'];
         if (text) el.innerHTML = text;
       });
-      // ãƒœã‚¿ãƒ³è¡¨ç¤ºæ›´æ–°
-      const meta = LANG_META[lang];
-      const flagEl = document.getElementById('lang-flag');
-      const lblEl  = document.getElementById('lang-label');
-      if (flagEl) flagEl.textContent = meta.flag;
-      if (lblEl)  lblEl.textContent  = meta.label;
-      // ã‚¢ã‚¯ãƒ†ã‚£ãƒ–çŠ¶æ…‹
-      document.querySelectorAll('.lang-option').forEach(opt => {
-        opt.classList.toggle('active', opt.dataset.lang === lang);
-      });
+      const sel = document.getElementById('lang-select');
+      if (sel) sel.value = lang;
       try { localStorage.setItem('jdh-lang', lang); } catch(e) {}
     }
 
-    // ã‚«ã‚¹ã‚¿ãƒ ãƒ‰ãƒ­ãƒƒãƒ—ãƒ€ã‚¦ãƒ³åˆ¶å¾¡
-    const langBtn      = document.getElementById('lang-btn');
-    const langDropdown = document.getElementById('lang-dropdown');
-
-    function closeLangDropdown() {
-      langBtn?.classList.remove('open');
-      langBtn?.setAttribute('aria-expanded', 'false');
-    }
-
-    langBtn?.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const isOpen = langBtn.classList.toggle('open');
-      langBtn.setAttribute('aria-expanded', String(isOpen));
-    });
-
-    document.querySelectorAll('.lang-option').forEach(opt => {
-      opt.addEventListener('click', () => {
-        setLang(opt.dataset.lang);
-        closeLangDropdown();
-      });
-    });
-
-    document.addEventListener('click', closeLangDropdown);
+    // selectã®changeã‚¤ãƒ™ãƒ³ãƒˆã‚’ã‚¹ã‚¯ãƒªãƒ—ãƒˆå†…ã§ãƒã‚¤ãƒ³ãƒ‰ï¼ˆAstroãƒ¢ã‚¸ãƒ¥ãƒ¼ãƒ«ã‚¹ã‚³ãƒ¼ãƒ—å¯¾å¿œï¼‰
+    const langSel = document.getElementById('lang-select');
+    if (langSel) langSel.addEventListener('change', (e) => setLang(e.target.value));
 
     // ãƒšãƒ¼ã‚¸èª­ã¿è¾¼ã¿æ™‚ã«ä¿å­˜æ¸ˆã¿è¨€èªã‚’å¾©å…ƒ
     (function() {
@@ -1143,281 +925,28 @@ const base = import.meta.env.BASE_URL ?? '';
         let list = getWL();
         const exists = list.some(i => i.id === id);
         saveWL(exists ? list.filter(i => i.id !== id) : [...list, { id, title, price, img }]);
-        renderWLCount(); syncWLButtons();
+        renderWLCount(); syncWLButtonL();
       });
     });
 
     renderWLCount(); syncWLButtons();
 
-    // â”€â”€ ãƒ¡ãƒ¼ãƒ«ç™»éŒ²ï¼ˆMailchimp APIï¼‰ â”€â”€
-    document.getElementById('email-form')?.addEventListener('submit', async (e) => {
+    // â”€â”€ ãƒ¡ãƒ¼ãƒ«ç™»éŒ² â”€â”€
+    document.getElementById('email-form')?.addEventListener('submit', (e) => {
       e.preventDefault();
       const email = document.getElementById('email-input')?.value?.trim();
       if (!email) return;
-
-      const btn = e.target.querySelector('button[type="submit"]');
-      if (btn) { btn.disabled = true; btn.style.opacity = '.5'; }
-
-      const rawBase = document.getElementById('email-form')?.dataset.apiBase ?? '';
-      const apiBase = rawBase.replace(/\/$/, '');
-      const endpoint = apiBase + '/api/subscribe';
-
       try {
-        const res = await fetch(endpoint, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email }),
-        });
-        const data = await res.json();
-
-        if (data.success || res.ok) {
-          const form = document.getElementById('email-form');
-          const success = document.getElementById('email-success');
-          if (form) form.style.display = 'none';
-          if (success) success.style.display = 'block';
-        } else {
-          alert(data.error || 'Subscription failed. Please try again.');
-          if (btn) { btn.disabled = false; btn.style.opacity = ''; }
-        }
-      } catch (err) {
-        console.error('[subscribe]', err);
-        alert('Network error. Please try again.');
-        if (btn) { btn.disabled = false; btn.style.opacity = ''; }
-      }
+        const subs = JSON.parse(localStorage.getItem('jdh-subscribers') || '[]');
+        if (!subs.includes(email)) { subs.push(email); localStorage.setItem('jdh-subscribers', JSON.stringify(subs)); }
+      } catch {}
+      const form = document.getElementById('email-form');
+      const success = document.getElementById('email-success');
+      if (form) form.style.display = 'none';
+      if (success) success.style.display = 'block';
     });
   </script>
 
 </body>
 </html>
- + saved.toFixed(0) + ' vs import retail';
-          badge.style.display = '';
-        } else {
-          badge.style.display = 'none';
-        }
-      });
-    }
-
-
-    // â”€â”€ ã‚¿ãƒ– (client-side filter) â”€â”€
-    const TAB_LABELS = {
-      all:     { en:'All Products',   ja:'ã™ã¹ã¦ã®å•†å“', zh:'å…¨éƒ¨å•†å“', zhtw:'å…¨éƒ¨å•†å“', ko:'ì „ì²´ ìƒí’ˆ',    fr:'Tous les Produits',  de:'Alle Produkte',  es:'Todos los Productos' },
-      food:    { en:'Food & Drink',   ja:'é£²é£Ÿãƒ»é£Ÿå“',   zh:'é£Ÿå“é¥®æ–™', zhtw:'é£Ÿå“é£²æ–™', ko:'ì‹í’ˆÂ·ìŒë£Œ',    fr:'Alimentation',       de:'Essen & Trinken', es:'Comida y Bebida' },
-      daily:   { en:'Daily Goods',    ja:'æ—¥ç”¨é›‘è²¨',     zh:'æ—¥ç”¨å“',   zhtw:'æ—¥ç”¨å“',   ko:'ìƒí™œìš©í’ˆ',     fr:'Articles Quotidiens', de:'Alltagswaren',   es:'ArtÃ­culos Diarios' },
-      fashion: { en:'Fashion',        ja:'ãƒ•ã‚¡ãƒƒã‚·ãƒ§ãƒ³', zh:'æ—¶å°š',     zhtw:'æ™‚å°š',     ko:'íŒ¨ì…˜',         fr:'Mode',               de:'Mode',           es:'Moda' },
-    };
-
-    function applyTab(tab) {
-      document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
-      const cards = document.querySelectorAll('.product-card');
-      let visible = 0;
-      cards.forEach(card => {
-        const show = tab === 'all' || card.dataset.tab === tab;
-        card.style.display = show ? '' : 'none';
-        if (show) visible++;
-      });
-      const lbl = document.getElementById('section-lbl-text');
-      if (lbl) {
-        const lang = document.getElementById('lang-select')?.value || 'en';
-        lbl.textContent = TAB_LABELS[tab]?.[lang] || TAB_LABELS[tab]?.en || tab;
-      }
-      const cnt = document.getElementById('product-count');
-      if (cnt) cnt.textContent = visible + ' items';
-    }
-
-    document.querySelectorAll('.tab-btn').forEach(btn => {
-      btn.addEventListener('click', () => applyTab(btn.dataset.tab));
-    });
-    applyTab('all');
-
-    // â”€â”€ è¨€èªåˆ‡æ›¿ â”€â”€
-    const LANGS = ['en','ja','zh','zhtw','ko','fr','de','es'];
-    const LANG_META = {
-      en:   { flag: 'ğŸŒ', label: 'EN' },
-      ja:   { flag: 'ğŸ‡¯ğŸ‡µ', label: 'JA' },
-      zh:   { flag: 'ğŸ‡¨ğŸ‡³', label: 'ZH' },
-      zhtw: { flag: 'ğŸ‡¹ğŸ‡¼', label: 'TW' },
-      ko:   { flag: 'ğŸ‡°ğŸ‡·', label: 'KO' },
-      fr:   { flag: 'ğŸ‡«ğŸ‡·', label: 'FR' },
-      de:   { flag: 'ğŸ‡©ğŸ‡ª', label: 'DE' },
-      es:   { flag: 'ğŸ‡ªğŸ‡¸', label: 'ES' },
-    };
-
-    function setLang(lang) {
-      if (!LANGS.includes(lang)) lang = 'en';
-      // ãƒ†ã‚­ã‚¹ãƒˆå·®ã—æ›¿ãˆ
-      document.querySelectorAll('[data-en]').forEach(el => {
-        const text = el.dataset[lang] || el.dataset['en'];
-        if (text) el.innerHTML = text;
-      });
-      // ãƒœã‚¿ãƒ³è¡¨ç¤ºæ›´æ–°
-      const meta = LANG_META[lang];
-      const flagEl = document.getElementById('lang-flag');
-      const lblEl  = document.getElementById('lang-label');
-      if (flagEl) flagEl.textContent = meta.flag;
-      if (lblEl)  lblEl.textContent  = meta.label;
-      // ã‚¢ã‚¯ãƒ†ã‚£ãƒ–çŠ¶æ…‹
-      document.querySelectorAll('.lang-option').forEach(opt => {
-        opt.classList.toggle('active', opt.dataset.lang === lang);
-      });
-      try { localStorage.setItem('jdh-lang', lang); } catch(e) {}
-    }
-
-    // ã‚«ã‚¹ã‚¿ãƒ ãƒ‰ãƒ­ãƒƒãƒ—ãƒ€ã‚¦ãƒ³åˆ¶å¾¡
-    const langBtn      = document.getElementById('lang-btn');
-    const langDropdown = document.getElementById('lang-dropdown');
-
-    function closeLangDropdown() {
-      langBtn?.classList.remove('open');
-      langBtn?.setAttribute('aria-expanded', 'false');
-    }
-
-    langBtn?.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const isOpen = langBtn.classList.toggle('open');
-      langBtn.setAttribute('aria-expanded', String(isOpen));
-    });
-
-    document.querySelectorAll('.lang-option').forEach(opt => {
-      opt.addEventListener('click', () => {
-        setLang(opt.dataset.lang);
-        closeLangDropdown();
-      });
-    });
-
-    document.addEventListener('click', closeLangDropdown);
-
-    // ãƒšãƒ¼ã‚¸èª­ã¿è¾¼ã¿æ™‚ã«ä¿å­˜æ¸ˆã¿è¨€èªã‚’å¾©å…ƒ
-    (function() {
-      try {
-        const saved = localStorage.getItem('jdh-lang');
-        if (saved && LANGS.includes(saved)) setLang(saved);
-      } catch(e) {}
-    })();
-
-    loadRates();
-    setInterval(loadRates, 5 * 60 * 1000);
-
-    // â”€â”€ ã‚¦ã‚£ãƒƒã‚·ãƒ¥ãƒªã‚¹ãƒˆ â”€â”€
-    const WL_KEY = 'jdh-wishlist';
-
-    function getWL() {
-      try { return JSON.parse(localStorage.getItem(WL_KEY) || '[]'); } catch { return []; }
-    }
-    function saveWL(list) {
-      try { localStorage.setItem(WL_KEY, JSON.stringify(list)); } catch {}
-    }
-
-    function renderWLCount() {
-      const list = getWL();
-      const countEl = document.getElementById('wl-count');
-      if (!countEl) return;
-      countEl.textContent = list.length;
-      countEl.classList.toggle('visible', list.length > 0);
-    }
-
-    function renderWLBody() {
-      const list = getWL();
-      const body = document.getElementById('wl-body');
-      if (!body) return;
-      if (list.length === 0) {
-        body.innerHTML = '<div class="wl-empty">Your wishlist is empty</div>';
-        return;
-      }
-      body.innerHTML = list.map(item => `
-        <div class="wl-item">
-          <img class="wl-item-img" src="${item.img || 'https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=120&q=60'}" alt="${item.title}" loading="lazy" />
-          <div class="wl-item-info">
-            <div class="wl-item-name">${item.title}</div>
-            <div class="wl-item-price">&#165;${Number(item.price).toLocaleString()}</div>
-          </div>
-          <button class="wl-item-remove" data-id="${item.id}" aria-label="Remove">&#215;</button>
-        </div>
-      `).join('');
-      body.querySelectorAll('.wl-item-remove').forEach(btn => {
-        btn.addEventListener('click', () => {
-          saveWL(getWL().filter(i => i.id !== btn.dataset.id));
-          renderWLBody(); renderWLCount(); syncWLButtons();
-        });
-      });
-    }
-
-    function syncWLButtons() {
-      const ids = new Set(getWL().map(i => i.id));
-      document.querySelectorAll('.wl-btn').forEach(btn => {
-        const saved = ids.has(btn.dataset.id);
-        btn.classList.toggle('saved', saved);
-        btn.textContent = saved ? 'â™¥' : 'â™¡';
-      });
-    }
-
-    function openDrawer() {
-      renderWLBody();
-      document.getElementById('wl-drawer')?.classList.add('open');
-      document.getElementById('wl-overlay')?.classList.add('open');
-      document.body.style.overflow = 'hidden';
-    }
-    function closeDrawer() {
-      document.getElementById('wl-drawer')?.classList.remove('open');
-      document.getElementById('wl-overlay')?.classList.remove('open');
-      document.body.style.overflow = '';
-    }
-
-    document.getElementById('wl-open-btn')?.addEventListener('click', openDrawer);
-    document.getElementById('wl-close-btn')?.addEventListener('click', closeDrawer);
-    document.getElementById('wl-overlay')?.addEventListener('click', closeDrawer);
-    document.getElementById('wl-clear-btn')?.addEventListener('click', () => {
-      saveWL([]); renderWLBody(); renderWLCount(); syncWLButtons();
-    });
-
-    document.querySelectorAll('.wl-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const { id, title, price, img } = btn.dataset;
-        let list = getWL();
-        const exists = list.some(i => i.id === id);
-        saveWL(exists ? list.filter(i => i.id !== id) : [...list, { id, title, price, img }]);
-        renderWLCount(); syncWLButtons();
-      });
-    });
-
-    renderWLCount(); syncWLButtons();
-
-    // â”€â”€ ãƒ¡ãƒ¼ãƒ«ç™»éŒ²ï¼ˆMailchimp APIï¼‰ â”€â”€
-    document.getElementById('email-form')?.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const email = document.getElementById('email-input')?.value?.trim();
-      if (!email) return;
-
-      const btn = e.target.querySelector('button[type="submit"]');
-      if (btn) { btn.disabled = true; btn.style.opacity = '.5'; }
-
-      const rawBase = document.getElementById('email-form')?.dataset.apiBase ?? '';
-      const apiBase = rawBase.replace(/\/$/, '');
-      const endpoint = apiBase + '/api/subscribe';
-
-      try {
-        const res = await fetch(endpoint, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email }),
-        });
-        const data = await res.json();
-
-        if (data.success || res.ok) {
-          const form = document.getElementById('email-form');
-          const success = document.getElementById('email-success');
-          if (form) form.style.display = 'none';
-          if (success) success.style.display = 'block';
-        } else {
-          alert(data.error || 'Subscription failed. Please try again.');
-          if (btn) { btn.disabled = false; btn.style.opacity = ''; }
-        }
-      } catch (err) {
-        console.error('[subscribe]', err);
-        alert('Network error. Please try again.');
-        if (btn) { btn.disabled = false; btn.style.opacity = ''; }
-      }
-    });
-  </script>
-
-</body>
-</html>
+          
