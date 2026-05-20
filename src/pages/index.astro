@@ -9,16 +9,16 @@ const base = import.meta.env.BASE_URL ?? '';
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Japan Daily Hub | Authentic Japanese Products</title>
-  <meta name="description" content="Handpicked Japanese products at unbeatable prices thanks to the weak yen. Save up to 28% vs 2021 prices. Ships worldwide." />
+  <meta name="description" content="Authentic Japanese products at Japanese market prices. Direct from Tokyo — without the import markup. Ships worldwide." />
   <meta property="og:title" content="Japan Daily Hub | Authentic Japanese Products" />
-  <meta property="og:description" content="Handpicked Japanese products — weak yen means you save up to 28% vs 2021 prices. Ships worldwide." />
+  <meta property="og:description" content="Curated Japanese products at genuine local prices. The same items found in Tokyo — delivered to your door." />
   <meta property="og:image" content="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=1200&q=80" />
   <meta property="og:url" content="https://japandaily-hub.github.io/japandaily-hub/" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Japan Daily Hub" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Japan Daily Hub | Authentic Japanese Products" />
-  <meta name="twitter:description" content="Weak yen = you save up to 28% on authentic Japanese products. Ships worldwide." />
+  <meta name="twitter:description" content="Authentic Japanese products at genuine local prices. Direct from Tokyo, without the import markup." />
   <meta name="twitter:image" content="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=1200&q=80" />
   <link rel="canonical" href="https://japandaily-hub.github.io/japandaily-hub/" />
   <!-- WebSite 構造化データ (Google サイトリンク検索ボックス対応) -->
@@ -27,7 +27,7 @@ const base = import.meta.env.BASE_URL ?? '';
     "@type": "WebSite",
     "name": "Japan Daily Hub",
     "url": "https://japandaily-hub.github.io/japandaily-hub/",
-    "description": "Handpicked Japanese products at unbeatable prices thanks to the weak yen. Ships worldwide.",
+    "description": "Authentic Japanese products at Japanese market prices — curated for quality, delivered from the source.",
     "inLanguage": ["en", "ja", "zh", "ko", "fr", "de", "es"]
   }</script>
   <!-- Google Analytics 4 — replace G-XXXXXXXXXX with your Measurement ID -->
@@ -209,7 +209,15 @@ const base = import.meta.env.BASE_URL ?? '';
       font-size: clamp(2rem, 4.5vw, 3.6rem);
       font-weight: 300;
       letter-spacing: .16em;
-      margin-bottom: 3rem;
+      margin-bottom: 1.2rem;
+    }
+    .yen-body {
+      max-width: 560px;
+      margin: 0 auto 2.5rem;
+      font-size: .88rem;
+      line-height: 2;
+      color: rgba(255,255,255,.5);
+      letter-spacing: .04em;
     }
     .rate-cards {
       display: flex;
@@ -682,7 +690,7 @@ const base = import.meta.env.BASE_URL ?? '';
     <span>EUR <span class="ticker-rate" id="t-eur">…</span></span>
     <span>GBP <span class="ticker-rate" id="t-gbp">…</span></span>
     <span>AUD <span class="ticker-rate" id="t-aud">…</span></span>
-    <span class="ticker-save" id="t-save">↓ weak yen = you save</span>
+    <span class="ticker-save" id="t-save">Live JPY Rate</span>
   </div>
 
   <!-- HEADER -->
@@ -755,18 +763,28 @@ const base = import.meta.env.BASE_URL ?? '';
     </div>
   </section>
 
-  <!-- YEN ADVANTAGE -->
+  <!-- SOURCE PRICING -->
   <section class="yen-section">
     <p class="yen-eye"
-      data-en="Why buy from Japan now?" data-ja="今、日本から買うべき理由"
-      data-zh="为什么现在要从日本购买？" data-zhtw="為什麼現在要從日本購買？"
-      data-ko="지금 일본에서 구매해야 하는 이유" data-fr="Pourquoi acheter du Japon maintenant ?"
-      data-de="Warum jetzt aus Japan kaufen?" data-es="¿Por qué comprar de Japón ahora?">Why buy from Japan now?</p>
+      data-en="Source Intelligence" data-ja="産地直送の価値"
+      data-zh="产地直送" data-zhtw="產地直送"
+      data-ko="산지 직배송" data-fr="Intelligence Marché"
+      data-de="Direktbezug" data-es="Precios de Origen">Source Intelligence</p>
     <h2 class="yen-title"
-      data-en="The Weak Yen Advantage" data-ja="円安で得するチャンス"
-      data-zh="日元贬值带来的优势" data-zhtw="日圓貶值帶來的優勢"
-      data-ko="엔화 약세의 이점" data-fr="L'Avantage du Yen Faible"
-      data-de="Der Vorteil des schwachen Yen" data-es="La Ventaja del Yen Débil">The Weak Yen Advantage</h2>
+      data-en="Japanese Market Price. Delivered Worldwide."
+      data-ja="日本の市場価格で。世界へ。"
+      data-zh="日本市场价格。全球配送。" data-zhtw="日本市場價格。全球配送。"
+      data-ko="일본 현지 가격. 전 세계 배송." data-fr="Prix japonais. Livraison mondiale."
+      data-de="Japanischer Preis. Weltweit geliefert." data-es="Precio japonés. Entrega mundial.">Japanese Market Price. Delivered Worldwide.</h2>
+    <p class="yen-body"
+      data-en="The same products sold abroad at a 2–3× import premium — available here at authentic Japanese retail price. Not a sale. Just the source."
+      data-ja="海外では2〜3倍の輸入価格がつく商品も、ここでは日本の正規小売価格でお届けします。セールではなく、産地直送です。"
+      data-zh="在国外以2-3倍进口溢价出售的商品——在这里以正宗的日本零售价提供。不是促销，而是直接从源头获取。"
+      data-zhtw="在國外以2-3倍進口溢價出售的商品——在這裡以正宗的日本零售價提供。不是促銷，而是直接從源頭獲取。"
+      data-ko="해외에서 2~3배의 수입 프리미엄으로 판매되는 제품들 — 여기서는 일본 현지 소매 가격으로 제공됩니다."
+      data-fr="Les mêmes produits vendus à l'étranger avec une prime d'importation de 2 à 3× — disponibles ici au prix de détail japonais authentique."
+      data-de="Dieselben Produkte, die im Ausland mit einem 2–3-fachen Aufschlag verkauft werden — hier zum authentischen japanischen Einzelhandelspreis."
+      data-es="Los mismos productos vendidos en el extranjero con un recargo de 2–3× — disponibles aquí al precio minorista japonés auténtico.">The same products sold abroad at a 2–3× import premium — available here at authentic Japanese retail price. Not a sale. Just the source.</p>
     <div class="rate-cards">
       <div class="rate-card"><div class="rate-flag">🇺🇸</div><div class="rate-cur">USD</div><div class="rate-val" id="r-usd">…</div><div class="rate-badge" id="b-usd"></div></div>
       <div class="rate-card"><div class="rate-flag">🇪🇺</div><div class="rate-cur">EUR</div><div class="rate-val" id="r-eur">…</div><div class="rate-badge" id="b-eur"></div></div>
@@ -918,10 +936,10 @@ const base = import.meta.env.BASE_URL ?? '';
           const bEl = document.getElementById('b-' + c.toLowerCase());
           if (rEl) rEl.textContent = '¥' + rates[c];
           const p = Math.round(((rates[c] - BASE[c]) / rates[c]) * 100);
-          if (bEl) bEl.textContent = p > 0 ? '↓ ' + p + '% cheaper than 2021' : '';
+          if (bEl) bEl.textContent = '';
         });
 
-        document.getElementById('t-save').textContent = '↓ USD buyers save ~' + pct + '% vs 2021';
+        document.getElementById('t-save').textContent = 'Live rate · Updated ' + new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
         updateSaveBadges();
       } catch(e) {
         rates = { USD: 155, EUR: 168, GBP: 196, AUD: 100 };
@@ -939,7 +957,239 @@ const base = import.meta.env.BASE_URL ?? '';
         const saved  = usdWas - usdNow;
         const pct    = Math.round((saved / usdWas) * 100);
         if (pct > 0) {
-          badge.textContent = '↓ Save $' + saved.toFixed(0) + ' (' + pct + '% vs 2021)';
+          badge.textContent = '↓ ;
+          badge.style.display = '';
+        } else {
+          badge.style.display = 'none';
+        }
+      });
+    }
+
+
+    // ── タブ (client-side filter) ──
+    const TAB_LABELS = {
+      all:     { en:'All Products',   ja:'すべての商品', zh:'全部商品', zhtw:'全部商品', ko:'전체 상품',    fr:'Tous les Produits',  de:'Alle Produkte',  es:'Todos los Productos' },
+      food:    { en:'Food & Drink',   ja:'飲食・食品',   zh:'食品饮料', zhtw:'食品飲料', ko:'식품·음료',    fr:'Alimentation',       de:'Essen & Trinken', es:'Comida y Bebida' },
+      daily:   { en:'Daily Goods',    ja:'日用雑貨',     zh:'日用品',   zhtw:'日用品',   ko:'생활용품',     fr:'Articles Quotidiens', de:'Alltagswaren',   es:'Artículos Diarios' },
+      fashion: { en:'Fashion',        ja:'ファッション', zh:'时尚',     zhtw:'時尚',     ko:'패션',         fr:'Mode',               de:'Mode',           es:'Moda' },
+    };
+
+    function applyTab(tab) {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
+      const cards = document.querySelectorAll('.product-card');
+      let visible = 0;
+      cards.forEach(card => {
+        const show = tab === 'all' || card.dataset.tab === tab;
+        card.style.display = show ? '' : 'none';
+        if (show) visible++;
+      });
+      const lbl = document.getElementById('section-lbl-text');
+      if (lbl) {
+        const lang = document.getElementById('lang-select')?.value || 'en';
+        lbl.textContent = TAB_LABELS[tab]?.[lang] || TAB_LABELS[tab]?.en || tab;
+      }
+      const cnt = document.getElementById('product-count');
+      if (cnt) cnt.textContent = visible + ' items';
+    }
+
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => applyTab(btn.dataset.tab));
+    });
+    applyTab('all');
+
+    // ── 言語切替 ──
+    const LANGS = ['en','ja','zh','zhtw','ko','fr','de','es'];
+    const LANG_META = {
+      en:   { flag: '🌐', label: 'EN' },
+      ja:   { flag: '🇯🇵', label: 'JA' },
+      zh:   { flag: '🇨🇳', label: 'ZH' },
+      zhtw: { flag: '🇹🇼', label: 'TW' },
+      ko:   { flag: '🇰🇷', label: 'KO' },
+      fr:   { flag: '🇫🇷', label: 'FR' },
+      de:   { flag: '🇩🇪', label: 'DE' },
+      es:   { flag: '🇪🇸', label: 'ES' },
+    };
+
+    function setLang(lang) {
+      if (!LANGS.includes(lang)) lang = 'en';
+      // テキスト差し替え
+      document.querySelectorAll('[data-en]').forEach(el => {
+        const text = el.dataset[lang] || el.dataset['en'];
+        if (text) el.innerHTML = text;
+      });
+      // ボタン表示更新
+      const meta = LANG_META[lang];
+      const flagEl = document.getElementById('lang-flag');
+      const lblEl  = document.getElementById('lang-label');
+      if (flagEl) flagEl.textContent = meta.flag;
+      if (lblEl)  lblEl.textContent  = meta.label;
+      // アクティブ状態
+      document.querySelectorAll('.lang-option').forEach(opt => {
+        opt.classList.toggle('active', opt.dataset.lang === lang);
+      });
+      try { localStorage.setItem('jdh-lang', lang); } catch(e) {}
+    }
+
+    // カスタムドロップダウン制御
+    const langBtn      = document.getElementById('lang-btn');
+    const langDropdown = document.getElementById('lang-dropdown');
+
+    function closeLangDropdown() {
+      langBtn?.classList.remove('open');
+      langBtn?.setAttribute('aria-expanded', 'false');
+    }
+
+    langBtn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = langBtn.classList.toggle('open');
+      langBtn.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    document.querySelectorAll('.lang-option').forEach(opt => {
+      opt.addEventListener('click', () => {
+        setLang(opt.dataset.lang);
+        closeLangDropdown();
+      });
+    });
+
+    document.addEventListener('click', closeLangDropdown);
+
+    // ページ読み込み時に保存済み言語を復元
+    (function() {
+      try {
+        const saved = localStorage.getItem('jdh-lang');
+        if (saved && LANGS.includes(saved)) setLang(saved);
+      } catch(e) {}
+    })();
+
+    loadRates();
+    setInterval(loadRates, 5 * 60 * 1000);
+
+    // ── ウィッシュリスト ──
+    const WL_KEY = 'jdh-wishlist';
+
+    function getWL() {
+      try { return JSON.parse(localStorage.getItem(WL_KEY) || '[]'); } catch { return []; }
+    }
+    function saveWL(list) {
+      try { localStorage.setItem(WL_KEY, JSON.stringify(list)); } catch {}
+    }
+
+    function renderWLCount() {
+      const list = getWL();
+      const countEl = document.getElementById('wl-count');
+      if (!countEl) return;
+      countEl.textContent = list.length;
+      countEl.classList.toggle('visible', list.length > 0);
+    }
+
+    function renderWLBody() {
+      const list = getWL();
+      const body = document.getElementById('wl-body');
+      if (!body) return;
+      if (list.length === 0) {
+        body.innerHTML = '<div class="wl-empty">Your wishlist is empty</div>';
+        return;
+      }
+      body.innerHTML = list.map(item => `
+        <div class="wl-item">
+          <img class="wl-item-img" src="${item.img || 'https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=120&q=60'}" alt="${item.title}" loading="lazy" />
+          <div class="wl-item-info">
+            <div class="wl-item-name">${item.title}</div>
+            <div class="wl-item-price">&#165;${Number(item.price).toLocaleString()}</div>
+          </div>
+          <button class="wl-item-remove" data-id="${item.id}" aria-label="Remove">&#215;</button>
+        </div>
+      `).join('');
+      body.querySelectorAll('.wl-item-remove').forEach(btn => {
+        btn.addEventListener('click', () => {
+          saveWL(getWL().filter(i => i.id !== btn.dataset.id));
+          renderWLBody(); renderWLCount(); syncWLButtons();
+        });
+      });
+    }
+
+    function syncWLButtons() {
+      const ids = new Set(getWL().map(i => i.id));
+      document.querySelectorAll('.wl-btn').forEach(btn => {
+        const saved = ids.has(btn.dataset.id);
+        btn.classList.toggle('saved', saved);
+        btn.textContent = saved ? '♥' : '♡';
+      });
+    }
+
+    function openDrawer() {
+      renderWLBody();
+      document.getElementById('wl-drawer')?.classList.add('open');
+      document.getElementById('wl-overlay')?.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeDrawer() {
+      document.getElementById('wl-drawer')?.classList.remove('open');
+      document.getElementById('wl-overlay')?.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    document.getElementById('wl-open-btn')?.addEventListener('click', openDrawer);
+    document.getElementById('wl-close-btn')?.addEventListener('click', closeDrawer);
+    document.getElementById('wl-overlay')?.addEventListener('click', closeDrawer);
+    document.getElementById('wl-clear-btn')?.addEventListener('click', () => {
+      saveWL([]); renderWLBody(); renderWLCount(); syncWLButtons();
+    });
+
+    document.querySelectorAll('.wl-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const { id, title, price, img } = btn.dataset;
+        let list = getWL();
+        const exists = list.some(i => i.id === id);
+        saveWL(exists ? list.filter(i => i.id !== id) : [...list, { id, title, price, img }]);
+        renderWLCount(); syncWLButtons();
+      });
+    });
+
+    renderWLCount(); syncWLButtons();
+
+    // ── メール登録（Mailchimp API） ──
+    document.getElementById('email-form')?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('email-input')?.value?.trim();
+      if (!email) return;
+
+      const btn = e.target.querySelector('button[type="submit"]');
+      if (btn) { btn.disabled = true; btn.style.opacity = '.5'; }
+
+      const rawBase = document.getElementById('email-form')?.dataset.apiBase ?? '';
+      const apiBase = rawBase.replace(/\/$/, '');
+      const endpoint = apiBase + '/api/subscribe';
+
+      try {
+        const res = await fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email }),
+        });
+        const data = await res.json();
+
+        if (data.success || res.ok) {
+          const form = document.getElementById('email-form');
+          const success = document.getElementById('email-success');
+          if (form) form.style.display = 'none';
+          if (success) success.style.display = 'block';
+        } else {
+          alert(data.error || 'Subscription failed. Please try again.');
+          if (btn) { btn.disabled = false; btn.style.opacity = ''; }
+        }
+      } catch (err) {
+        console.error('[subscribe]', err);
+        alert('Network error. Please try again.');
+        if (btn) { btn.disabled = false; btn.style.opacity = ''; }
+      }
+    });
+  </script>
+
+</body>
+</html>
+ + saved.toFixed(0) + ' vs import retail';
           badge.style.display = '';
         } else {
           badge.style.display = 'none';
