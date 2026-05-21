@@ -679,7 +679,7 @@ const base = import.meta.env.BASE_URL ?? '';
   <div class="drawer" id="wl-drawer" role="dialog" aria-label="Wishlist">
     <div class="drawer-head">
       <div class="drawer-title"
-        data-en="My Wishlist" data-ja="ウィッシヮリスト"
+        data-en="My Wishlist" data-ja="ウィッシュリスト"
         data-zh="我的心愿单" data-zhtw="我的心願單"
         data-ko="위시리스트" data-fr="Ma Liste de Souhaits"
         data-de="Wunschliste" data-es="Mi Lista de Deseos">My Wishlist</div>
@@ -710,7 +710,7 @@ const base = import.meta.env.BASE_URL ?? '';
         data-ko="카테고리별 쇼핑" data-fr="Acheter par Catégorie"
         data-de="Nach Kategorie stöbern" data-es="Comprar por Categoría">Shop by Category</p>
       <h2 class="cat-title"
-        data-en="Find What You Love" data-ja="お気に入りのカテゴリを探す"
+        data-en="Find What You Love" data-ja="お気に入りのカヅゴリを探す"
         data-zh="找到您喜欢的" data-zhtw="找到您喜歡的"
         data-ko="마음에 드는 것을 찾아보세요" data-fr="Trouvez Ce Que Vous Aimez"
         data-de="Finden Sie, Was Sie Lieben" data-es="Encuentra Lo Que Te Gusta">Find What You Love</h2>
@@ -943,4 +943,36 @@ const base = import.meta.env.BASE_URL ?? '';
     document.getElementById('wl-close-btn')?.addEventListener('click', closeDrawer);
     document.getElementById('wl-overlay')?.addEventListener('click', closeDrawer);
     document.getElementById('wl-clear-btn')?.addEventListener('click', () => {
-      saveWL([])
+      saveWL([]); renderWLBody(); renderWLCount(); syncWLButtons();
+    });
+
+    document.querySelectorAll('.wl-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const { id, title, price, img } = btn.dataset;
+        let list = getWL();
+        const exists = list.some(i => i.id === id);
+        saveWL(exists ? list.filter(i => i.id !== id) : [...list, { id, title, price, img }]);
+        renderWLCount(); syncWLButtons();
+      });
+    });
+
+    renderWLCount(); syncWLButtons();
+
+    // ── メール登録 ──
+    document.getElementById('email-form')?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email = document.getElementById('email-input')?.value?.trim();
+      if (!email) return;
+      try {
+        const subs = JSON.parse(localStorage.getItem('jdh-subscribers') || '[]');
+        if (!subs.includes(email)) { subs.push(email); localStorage.setItem('jdh-subscribers', JSON.stringify(subs)); }
+      } catch {}
+      const form = document.getElementById('email-form');
+      const success = document.getElementById('email-success');
+      if (form) form.style.display = 'none';
+      if (success) success.style.display = 'block';
+    });
+  </script>
+
+</body>
+</html>
