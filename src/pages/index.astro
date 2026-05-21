@@ -218,7 +218,7 @@ const base = import.meta.env.BASE_URL ?? '';
     .calc-input {
       flex: 1;
       min-width: 120px;
-  #   background: rgba(255,255,255,.06);
+      background: rgba(255,255,255,.06);
       border: 1px solid rgba(184,150,62,.3);
       color: #fff;
       padding: .6rem .8rem;
@@ -678,7 +678,7 @@ const base = import.meta.env.BASE_URL ?? '';
         data-zhtw="æ—¥æœ¬ä¹‹ç¾ï¼Œ<br/>èå…¥æ‚¨çš„ç”Ÿæ´»"
         data-ko="ì¼ë³¸ì˜ ì•„ë¦„ë‹¤ì›€ì„<br/>ë‹¹ì‹ ì˜ ì‚¶ìœ¼ë¡œ"
         data-fr="La BeautÃ© Japonaise,<br/>Dans Votre Vie"
-        data-de="Japanische SchÃ¶nheit<br/>in Ihrem Leben"
+        data-de="Japanische ScN[¶nheit<br/>in Ihrem Leben"
         data-es="La Belleza Japonesa,<br/>en Tu Vida">
         Japanese Beauty,<br/>Into Your Life
       </h1>
@@ -713,75 +713,188 @@ const base = import.meta.env.BASE_URL ?? '';
     <p class="yen-body"
       data-en="The same products sold abroad at a 2â€“3Ã— import premium â€” available here at authentic Japanese retail price. Not a sale. Just the source."
       data-ja="æµ·å¤–ã§ã¯2ã€œ3å€ã®è¼¸å…¥ä¾¡æ ¼ãŒã¤ãå•†å“ã‚‚ã€ã“ã“ã§ã¯æ—¥æœ¬ã®æ­£è¦å°å£²ä¾¡æ ¼ã§ãŠå±Šã‘ã—ã¾ã™ã€‚ã‚»ãƒ¼ãƒ«ã§ã¯ãªãã€ç”£åœ°ç›´é€ã§ã™ã€‚"
-      data-zh="åœ¨å›½å¤–ä»¥2-ä½2å€è¿›å£æº¢ä»·å‡ºå”®çš„å•†å“â€”â€”åœ¨è¿™é‡Œä»¥æ­£å®—çš„æ—¥æœ¬é›¶å”®ä»·æä¾›ã€‚ä¸æ˜¯ä¿ƒé”€ï¼Œè€Œæ˜¯ç›´æ¥ä»æºå¤´è·å–ã€‚"
+      data-zh="åœ¨å›½å¤–ä»¥2-3å€è¿›å£æº¢ä»·å‡ºå”®çš„å•†å“â€”â€”åœ¨è¿™é‡Œä»¥æ­£å®—çš„æ—¥æœ¬é›¶å”®ä»·æä¾›ã€‚ä¸æ˜¯ä¿ƒé”€ï¼Œè€Œæ˜¯ç›´æ¥ä»æºå¤´è·å–ã€‚"
       data-zhtw="åœ¨åœ‹å¤–ä»¥2-3å€é€²å£æº¢åƒ¹å‡ºå”®çš„å•†å“â€”â€”åœ¨é€™è£¡ä»¥æ­£å®—çš„æ—¥æœ¬é›¶å”®åƒ¹æä¾›ã€‚ä¸æ˜¯ä¿ƒéŠ·ï¼Œè€Œæ˜¯ç›´æ¥å¾æºé ­ç²å–ã€‚"
-      data-ko="í•´ì™¸ì—ì„œ 2~3ë°°ì˜ ìˆ˜ì… í”„ë¦¬ë¯¸ì—„ìœ¼ë¡œ íŒë§¤ë˜â¥;(';d¢:äé8 %;%ë:®,;!':â¥;'o:ìî;f!;)à;!£:éé:¬ :¬ª{'/:èg;(':¬ízä*zââ:âéˆ‚ˆ]KYœH“\Èpê›Y\È›ÙZ]È™[™\È0è	ğê]˜[™Ù\ˆ]™XÈ[™Hš[YH	Ú[\Ü][ÛˆHˆ0èğåÈ8 %\ÜÛšX›\ÈXÚH]Hš^H0ê]Z[˜\Û˜Z\È]][\]YKˆ‚ˆ]KYOH‘Y\Ù[™[ˆ›ÙZİKYH[H]\Û[™Z]Z[™[H¸ $ÌËY˜XÚ[ˆ]YœØÚYÈ™\šØ]YÙ\™[ˆ8 %Y\ˆ[H]][\ØÚ[ˆ˜\[š\ØÚ[ˆZ[™[[™[Ü™Z\Ëˆ‚ˆ]KY\ÏH“ÜÈZ\Û[ÜÈ›ÙXİÜÈ™[™YÜÈ[ˆ[^˜[š™\›ÈÛÛˆ[ˆ™XØ\™ÛÈH¸ $ÌğåÈ8 %\ÜÛšX›\È\]pëH[™XÚ[ÈZ[›Üš\İH˜\Û°ê\È]]0ê[XÛËˆ•HØ[YH›ÙXİÈÛÛXœ›ØY]H¸ $ÌğåÈ[\Ü™[Z][H8 %]˜Z[X›H\™H]]][XÈ˜\[™\ÙH™]Z[šXÙKˆ›İHØ[Kˆ\İHÛİ\˜ÙKÜ‚ˆ]ˆÛ\ÜÏHœ˜]KXØ\™È‚ˆ]ˆÛ\ÜÏHœ˜]KXØ\™]ˆÛ\ÜÏHœ˜]KY›YÈ¼'áî¼'áîÙ]]ˆÛ\ÜÏHœ˜]KXİ\ˆ•TÑÙ]]ˆÛ\ÜÏHœ˜]K]˜[ˆYHœ‹]\Ù¸ )Ù]]ˆÛ\ÜÏHœ˜]KX˜YÙHˆYH˜‹]\ÙÙ]Ù]‚ˆ]ˆÛ\ÜÏHœ˜]KXØ\™]ˆÛ\ÜÏHœ˜]KY›YÈ¼'áê¼'áîÙ]]ˆÛ\ÜÏHœ˜]KXİ\ˆ‘UTÙ]]ˆÛ\ÜÏHœ˜]K]˜[ˆYHœ‹Y]\ˆ¸ )Ù]]ˆÛ\ÜÏHœ˜]KX˜YÙHˆYH˜‹Y]\ˆÙ]Ù]‚ˆ]ˆÛ\ÜÏHœ˜]KXØ\™]ˆÛ\ÜÏHœ˜]KY›YÈ¼'áë<'áéÏÙ]]ˆÛ\ÜÏHœ˜]KXİ\ˆ‘Ğ”Ù]]ˆÛ\ÜÏHœ˜]K]˜[ˆYHœ‹YØœ¸ )Ù]]ˆÛ\ÜÏHœ˜]KX˜YÙHˆYH˜‹YØœÙ]Ù]‚ˆ]ˆÛ\ÜÏHœ˜]KXØ\™]ˆÛ\ÜÏHœ˜]KY›YÈ¼'áé¼'áîÙ]]ˆÛ\ÜÏHœ˜]KXİ\ˆUQÙ]]ˆÛ\ÜÏHœ˜]K]˜[ˆYHœ‹X]Y¸ )Ù]]ˆÛ\ÜÏHœ˜]KX˜YÙHˆYH˜‹X]YÙ]Ù]‚ˆÙ]‚ˆÜÙXİ[Û‚‚‚‚‚ˆKKHÒTÒTÕUÑTˆKO‚ˆ]ˆÛ\ÜÏH™˜]Ù\‹[İ™\›^HˆYHÛ[İ™\›^HÙ]‚ˆ]ˆÛ\ÜÏH™˜]Ù\ˆˆYHÛY˜]Ù\ˆˆ›ÛOH™X[ÙÈˆ\šXK[X™[H•Ú\Ú\İ‚ˆ]ˆÛ\ÜÏH™˜]Ù\‹ZXY‚ˆ]ˆÛ\ÜÏH™˜]Ù\‹]]H‚ˆ]KY[H“^HÚ\Ú\İˆ]KZ˜OH¸à©¸à¨øààøà­øàéxàêˆ8à®xàâ‚ˆ]K^šH¹¢$yæ¡9oàù¡/ùceHˆ]K^šÏH¹¢$yæ¡9oàúhf9e«ˆ‚ˆ]KZÛÏH»'!;"ç:é«;");b®ˆ]KYœH“XH\İHHÛİZZ]È‚ˆ]KYOH•ı[œØÚ\İHˆ]KY\ÏH“ZH\İHH\Ù[ÜÈ“^HÚ\Ú\İÙ]‚ˆ]ÛˆÛ\ÜÏH™˜]Ù\‹XÛÜÙHˆYHÛXÛÜÙKXˆˆ\šXK[X™[HÛÜÙH¸§%OØ]Û‚ˆÙ]‚ˆ]ˆÛ\ÜÏH™˜]Ù\‹X›ÙHˆYHÛX›ÙH‚ˆ]ˆÛ\ÜÏHÛY[\H‚ˆ]KY[H–[İ\ˆÚ\Ú\İ\È[\Hˆ]KZ˜OH¸àê¸à®xàâ8àkùên¹.®.8 (ˆ‚ˆ]K^šH¹oàù¡/ùcey..¹ânˆˆ]K^šÏH¹oàúhf9e«¹ïl¹ênˆ‚ˆ]KZÛÏH»'!;"ç:é«;"©;b®:¬ :îa;%­;'¢;"­zââ:âéˆ]KYœH•›İ™H\İH\İšYH‚ˆ]KYOH’Z™Hİ[œØÚ\İH\İY\ˆˆ]KY\ÏH•H\İH\İ0èH˜XğëXH–[İ\ˆÚ\Ú\İ\È[\OÙ]‚ˆÙ]‚ˆ]ˆÛ\ÜÏH™˜]Ù\‹Y›Ûİ\ˆ‚ˆ]ÛˆÛ\ÜÏH˜‹]ÛXÛX\ˆˆYHÛXÛX\‹Xˆ‚ˆ]KY[HÛX\ˆ[ˆ]KZ˜OH¸àfxànxàiˆ¹bªzfi‚ˆ]K^šH¹®!yên¹aj:`êˆ]K^šÏH¹®!yên¹aj:`ê‚ˆ]KZÛÏH»(!;,­; «{('ˆ]KYœH•İ]İ\š[Y\ˆ‚ˆ]KYOH[\È0íœØÚ[ˆˆ]KY\ÏH›Üœ˜\ˆÙÈÛX\ˆ[Ø]Û‚ˆÙ]‚ˆÙ]‚‚ˆKKHĞUQÓÔ–HÔ’QKO‚ˆÙXİ[ÛˆÛ\ÜÏH˜Ø]\ÙXİ[Ûˆ‚ˆ]ˆÛ\ÜÏH˜Ø]Z[›™\ˆ‚ˆÛ\ÜÏH˜Ø]Y^YH‚ˆ]KY[H”ÚÜHØ]YÛÜHˆ]KZ˜OH¸àªøàá¸à­8àê¸àbøà¢y£¨¸àfH‚ˆ]K^šH¹£"yìnùb*ù­cú)âˆ]K^šÏH¹£"zhg¹b)yà#ú)¯H‚ˆ]KZÛÏH».m;ac:¬è:é«:ìá;!ï;edHˆ]KYœHXÚ]\ˆ\ˆØ]0êYÛÜšYH‚ˆ]KYOH“˜XÚØ]YÛÜšYHİ0í˜™\›ˆˆ]KY\ÏHÛÛ\˜\ˆÜˆØ]YÛÜ°ëXH”ÚÜHØ]YÛÜOÜ‚ˆˆÛ\ÜÏH˜Ø]]]H‚ˆ]KY[H‘š[™Ú][İHİ™Hˆ]KZ˜OH¸àb¹¬%øàjùaixà¢¸àk¸àªøàá¸à­8àê¸à¤¹£¨¸àfH‚ˆ]K^šH¹¢o¹b,9 ª9e§9«(¹æ¡ˆ]K^šÏH¹¢o¹b,9 ª9e§9«hyæ¡‚ˆ]KZÛÏHºéâ;'c;%ä:äç:â¥:¬ û'a;,/»%a:ìí;!.;&¥ˆ]KYœH•›İ]™^ˆÙH]YH›İ\ÈZ[Y^ˆ‚ˆ]KYOH‘š[™[ˆÚYKØ\ÈÚYHYX™[ˆˆ]KY\ÏH‘[˜İY[˜HÈ]YHHİ\İH‘š[™Ú][İHİ™OÚ‚ˆ]ˆÛ\ÜÏH˜Ø]YÜšY‚ˆØØ]YÛÜšY\Ë›X\
-Ø]Oˆ
-ˆH™Y^Ø	Ø˜\Ù_KØØ]YÛÜKÉØØ]œÛYßKØHÛ\ÜÏH˜Ø]XØ\™‚ˆÜ[ˆÛ\ÜÏH˜Ø]ZXÛÛˆØ]YÛÜRXÛÛˆ]^ØØ]šXÛÛ”]HÚ^™O^Ì‹ŒŸHÏÜÜ[‚ˆÜ[ˆÛ\ÜÏH˜Ø][˜[YHØØ]›˜[YR˜_OÜÜ[‚ˆÜ[ˆÛ\ÜÏH˜Ø]Y\ØÈØØ]™\ØÒ˜_OÜÜ[‚ˆÜ[ˆÛ\ÜÏH˜Ø]X\œ›İÈ¸¡¤ÜÜ[‚ˆØO‚ˆ
-J_BˆÙ]‚ˆÙ]‚ˆÜÙXİ[Û‚‚ˆKKHSPRSÑPÕSÓˆKO‚ˆÙXİ[ÛˆÛ\ÜÏH™[XZ[\ÙXİ[Ûˆ‚ˆÛ\ÜÏH™[XZ[Y^YH‚ˆ]KY[H”İ^HZXYÙˆHX\šÙ]ˆ]KZ˜OH¹n ¹h-8àk¹båyd$xà¤¸àa8àhy¥êxàcøà«xàèøààøààH‚ˆ]K^šH¹¢¨¹ab9££9£èyn ¹g.¹bª9  Hˆ]K^šÏH¹¤-¹ab9££9£èyn ¹h-9båy¡bÈ‚ˆ]KZÛÏH»"ç;'©H:ãæ{e©{'a:ê/;( ;c#;%a{ef;!.;&¥ˆ]KYœH‘Ø\™^ˆ[™HÛ™İY]\ˆ	Ø]˜[˜ÙH‚ˆ]KYOH’[[Y\ˆZ[™[ˆØÚš]›Ü˜]\Èˆ]KY\ÏHY[0è[]H[Y\˜ØYÈ”İ^HZXYÙˆHX\šÙ]Ü‚ˆˆÛ\ÜÏH™[XZ[]]H‚ˆ]KY[H‘Ù]Ø[H[\Èˆ]KZ˜OH¸à®øàï8àêùea¹dàxà¤¹k¦¹§'ùæ¡8àjùcåøàdycå¸à¢È‚ˆ]K^šHº#­ùcå¹ânyce¹/&9 è9£ä:a¤ˆˆ]K^šÏH¹ãl¹cå¹ânz,èùa*¹ è9£ä:a¤ˆ‚ˆ]KZÛÏH»eh;'n;%c:é¯:ì&ú®,ˆ]KYœH”™XÙ]›Ú\ˆ\È[\\È›Û[ÜÈ‚ˆ]KYOH[™ÙX›İËP™[˜XÚšXÚYİ[™Ù[ˆˆ]KY\ÏH”™XÚX™H[\\ÈHÙ™\\È‘Ù]Ø[H[\ÏÚ‚ˆÛ\ÜÏH™[XZ[Y\ØÈ‚ˆ]KY[H”ÚYÛˆ\È™XÙZ]™H[Z]Y][YHX[È[™^Û\Ú]™H˜\[™\ÙH›ÙXİÈ\™XİHÈ[İ\ˆ[˜›Şˆ‚ˆ]KZ˜OH¹§'úe¤úfd9k¦¸à®øàï8àêøà¡8àb¹o¥øàj¹¥éy§+9ea¹dày áyh,xà¤¸àèxàï8àêøàiøàb¹lb¸àdxàeøào¸àfxà ˆ‚ˆ]K^šHº+¨ºf!yd#¹k¦¹§'ù¥-¹b,:fd9¥í¹ânyce¹d£9ì¯º`"y¥éy§+9ea¹dày/èy køà ˆ‚ˆ]K^šÏHº* ºe¬yo£9k¦¹§'ù¥-¹b,:fd9¦`¹ânz,èùd£9ì¯º`n9¥éy§+9ea¹dàz,áú*"¸à ˆ‚ˆ]KZÛÏH»eg;(%H;eh;'n:ì#È;%á;!(:ä';'o:ìî; à{d¢;(%zìí:éo:êe;'o:èg:ì&û%a:ìí;!.;&¥ˆ‚ˆ]KYœH’[œØÜš]™^‹]›İ\Èİ\ˆ™XÙ]›Ú\ˆ\ÈÙ™œ™\È[Z]0êY\È]\È›ÙZ]È˜\Û˜Z\È^Û\ÚYœËˆ‚ˆ]KYOH“Y[[ˆÚYHÚXÚ[ˆ[™\š[[ˆÚYH™Z]XÚ™YÜ™[H[™ÙX›İH[™^Û\Ú]™H˜\[š\ØÚH›ÙZİKˆ‚ˆ]KY\ÏH”İ\ØÜ°ëX™]H\˜H™XÚXš\ˆÙ™\\È[Z]Y\ÈH›ÙXİÜÈ˜\Û™\Ù\È^Û\Ú]›ÜËˆ‚ˆÚYÛˆ\È™XÙZ]™H[Z]Y][YHX[È[™^Û\Ú]™H˜\[™\ÙH›ÙXİÈ\™XİHÈ[İ\ˆ[˜›Ş‚ˆÜ‚ˆ›Ü›HÛ\ÜÏH™[XZ[Y›Ü›HˆYH™[XZ[Y›Ü›H‚ˆ[œ]Û\ÜÏH™[XZ[Z[œ]ˆYH™[XZ[Z[œ]ˆ\OH™[XZ[ˆ™\]Z\™YˆXÙZÛ\H[İ\[XZ[˜ÛÛHˆ]]ØÛÛ\]OH™[XZ[ˆÏ‚ˆ]ÛˆÛ\ÜÏH˜‹Y[XZ[ˆ\OHœİX›Z]‚ˆ]KY[H“›İYHYHˆ]KZ˜OHº`&¹çéxà¤¹cåøàdycå¸à¢È‚ˆ]K^šHº`&¹çéy¢$Hˆ]K^šÏHº`&¹çéy¢$H‚ˆ]KZÛÏH»%c:é¯:ì&ú®,ˆ]KYœH“YH›İYšY\ˆ‚ˆ]KYOH™[˜XÚšXÚYÙHZXÚˆ]KY\ÏH“›İY°ëXØ[YH“›İYHYOØ]Û‚ˆÙ›Ü›O‚ˆÛ\ÜÏH™[XZ[\İXØÙ\ÜÈˆYH™[XZ[\İXØÙ\ÜÈ‚ˆ]KY[H¸§$ÈİXœØÜšX™YH[İIÛ™XÙZ]™HØ[H[\È[™ÜXÚX[X[È™Yİ[\›Kˆ‚ˆ]KZ˜OH¸§$È9ænúc,¹k£9.¡»ï xà®øàï8àêù áyh,xà¡8àb¹o¥øàj¹ea¹dàxà¤¹k¦¹§'ùæ¡8àjøàb¹lb¸àdxàeøào¸àfxà ˆ‚ˆ]K^šH¸§$È9mìº+¨ºf!{ï y ª9l!¹k¦¹§'ù¥-¹b,9ânyce¹/&9 è9d£9ì¯º`"yea¹dày/èy køà ˆ‚ˆ]K^šÏH¸§$È9mìº* ºe¬{ï y ª9l!ùk¦¹§'ù¥-¹b,9ânz,èùa*¹ è9d£9ì¯º`n9ea¹dàz,áú*"¸à ˆ‚ˆ]KZÛÏH¸§$È:äìzègH;&a:èãH;eh;'n;(%zìí;&`;b®zìá; à{d¢;'a;(%z®,;( {'/:èg:ì&û%a:ìí;"é;"&;'¢;"­zââ:âéˆ‚ˆ]KYœH¸§$È[œØÜš]
-JHH›İ\È™XÙ]œ™^ˆ°êYİ[pê™[Y[\ÈÙ™œ™\È]›ÙZ]È^Û\ÚYœËˆ‚ˆ]KYOH¸§$È[™Ù[Y[]HÚYH\š[[ˆ™YÙ[pé0çÚYÈ[™ÙX›İH[™^Û\Ú]™H›ÙZİKˆ‚ˆ]KY\ÏH¸§$È0¨Tİ\ØÜš]ÈH™XÚXš\°è\ÈÙ™\\ÈH›ÙXİÜÈ\ÜXÚX[\È™Yİ[\›Y[Kˆ‚ˆ8§$ÈİXœØÜšX™YH[İIÛ™XÙZ]™HØ[H[\È[™ÜXÚX[X[È™Yİ[\›K‚ˆÜ‚ˆÜÙXİ[Û‚‚ˆ›Ûİ\‚ˆ	˜ÛÜNÈŒH˜\[ˆZ[HXˆ	›˜œÜß	›˜œÜÂˆÜ[‚ˆ]KY[H]][XÈ˜\[™\ÙH›ÙXİË[]™\™YÛÜ›ÚYH‚ˆ]KZ˜OH¹¥éy§+8àkº`.9dàxà y.%¹åc8àn‚ˆ]K^šH¹«hùk¥ù¥éy§+9ea¹dà{ï#9aj9ä úacz` H‚ˆ]K^šÏH¹«hùk¥ù¥éy§+9ea¹dà{ï#9aj9ä úacz` H‚ˆ]KZÛÏH»(%{d¢;'o:ìî; à{d¢;(!;!.:¬á:ì,;!¨H‚ˆ]KYœH”›ÙZ]È˜\Û˜Z\È]][\]Y\Ë]œ°ê\È\İ]‚ˆ]KYOH]][\ØÚH˜\[š\ØÚH›ÙZİKÙ[ÙZ]Ù[YY™\‚ˆ]KY\ÏH”›ÙXİÜÈ˜\Û™\Ù\È]]0ê[XÛÜË[™YØYÜÈ[ˆÙÈ[][™È]][XÈ˜\[™\ÙH›ÙXİË[]™\™YÛÜ›ÚYOÜÜ[‚ˆÙ›Ûİ\‚‚ˆØÜš\\Îš[›[™O‚ˆËÈ8¥ 8¥ 9à®¹¦ïøàë8àï8àâ8¥ 8¥ ˆÛÛœİTÑHHÈTÑˆLUTˆLĞ”ˆM‹UQˆNÂˆÛÛœİÖSHHÈTÑˆ	É	ËUTˆ	ø «	ËĞ”ˆ	ğ¨ÉËUQˆ	ĞI	ÈNÂˆ]˜]\ÈHßNÂ‚ˆ\Ş[˜È[˜İ[ÛˆØY˜]\Ê
-HÂˆHÂˆÛÛœİ™\ÈH]ØZ]™]Ú
-	ÚÎ‹ËÛÜ[‹™\‹X\K˜ÛÛKİ‹Û]\İÒ”IÊNÂˆÛÛœİ]HH]ØZ]™\ËšœÛÛŠ
-NÂˆ˜]\ÈHÂˆTÑˆX]œ›İ[™
-HÈ]Kœ˜]\Ë•TÑ
-KˆUTˆX]œ›İ[™
-HÈ]Kœ˜]\Ë‘UTŠKˆĞ”ˆX]œ›İ[™
-HÈ]Kœ˜]\Ë‘Ğ”
-KˆUQˆX]œ›İ[™
-HÈ]Kœ˜]\ËUQ
-KˆNÂˆËÈXÚÙ\‚ˆØİ[Y[™Ù][[Y[RY
-	İ]\Ù	ÊK^ÛÛ[H	ğ©IÈ
-È˜]\Ë•TÑÂˆØİ[Y[™Ù][[Y[RY
-	İY]\‰ÊK^ÛÛ[H	ğ©IÈ
-È˜]\Ë‘UTÂˆØİ[Y[™Ù][[Y[RY
-	İYØœ	ÊK^ÛÛ[H	ğ©IÈ
-È˜]\Ë‘Ğ”ÂˆØİ[Y[™Ù][[Y[RY
-	İX]Y	ÊK^ÛÛ[H	ğ©IÈ
-È˜]\ËUQÂ‚ˆËÈ˜]HØ\™ÂˆÛÛœİİHX]œ›İ[™
+      data-ko="í•´ì™¸ì—ì„œ 2~3ë°°ì˜ ìˆ˜ì… í”„ë¦¬ë¯¸ì—„ìœ¼ë¡œ íŒë§¤ë˜ëŠ” ì œí’ˆë“¤ â€” ì—¬ê¸°ì„œëŠ” ì¼ë³¸ í˜„ì§€ ì†Œë§¤ ê°€ê²©ìœ¼ë¡œ ì œê³µë©ë‹ˆë‹¤."
+      data-fr="Les mÃªmes produits vendus Ã  l'Ã©tranger avec une prime d'importation de 2 Ã  3Ã— â€” disponibles ici au prix de dÃ©tail japonais authentique."
+      data-de="Dieselben Produkte, die im Ausland mit einem 2â€“3-fachen Aufschlag verkauft werden â€” hier zum authentischen japanischen Einzelhandelspreis."
+      data-es="Los mismos productos vendidos en el extranjero con un recargo de 2â€“3Ã— â€” disponibles aquÃ­ al precio minorista japonÃ©s autÃ©ntico.">The same products sold abroad at a 2â€“3Ã— import premium â€” available here at authentic Japanese retail price. Not a sale. Just the source.</p>
+    <div class="rate-cards">
+      <div class="rate-card"><div class="rate-flag">ğŸ‡ºğŸ‡¸</div><div class="rate-cur">USD</div><div class="rate-val" id="r-usd">â€¦</div><div class="rate-badge" id="b-usd"></div></div>
+      <div class="rate-card"><div class="rate-flag">ğŸ‡ªğŸ‡º</div><div class="rate-cur">EUR</div><div class="rate-val" id="r-eur">â€¦</div><div class="rate-badge" id="b-eur"></div></div>
+      <div class="rate-card"><div class="rate-flag">ğŸ‡¬ğŸ‡§</div><div class="rate-cur">GBP</div><div class="rate-val" id="r-gbp">â€¦</div><div class="rate-badge" id="b-gbp"></div></div>
+      <div class="rate-card"><div class="rate-flag">ğŸ‡¦ğŸ‡º</div><div class="rate-cur">AUD</div><div class="rate-val" id="r-aud">â€¦</div><div class="rate-badge" id="b-aud"></div></div>
+    </div>
+  </section>
 
 
-˜]\Ë•TÑHTÑK•TÑ
-HÈ˜]\Ë•TÑ
-H
-ˆL
-NÂˆÉÕTÑ	Ë	ÑUT‰Ë	ÑĞ”	Ë	ĞUQ	×K™›Ü‘XXÚ
-ÈOˆÂˆÛÛœİ‘[HØİ[Y[™Ù][[Y[RY
-	Ü‹IÈ
-ÈËÓİÙ\Ø\ÙJ
-JNÂˆÛÛœİ‘[HØİ[Y[™Ù][[Y[RY
-	Ø‹IÈ
-ÈËÓİÙ\Ø\ÙJ
-JNÂˆYˆ
-‘[
-H‘[^ÛÛ[H	ğ©IÈ
-È˜]\ÖØ×NÂˆÛÛœİHX]œ›İ[™
 
 
-˜]\ÖØ×HHTÑVØ×JHÈ˜]\ÖØ×JH
-ˆL
-NÂˆYˆ
-‘[
-H‘[^ÛÛ[H	ÉÎÂˆJNÂ‚ˆØİ[Y[™Ù][[Y[RY
-	İ\Ø]™IÊK^ÛÛ[H	Ó]™H˜]H0­È\]Y	È
-È™]È]J
-KÓØØ[U[YTİš[™Ê×KÚİ\‰Ì‹YYÚ]	ËZ[]N‰Ì‹YYÚ]	ßJNÂˆ\]TØ]™P˜YÙ\Ê
-NÂˆHØ]Ú
-JHÂˆ˜]\ÈHÈTÑˆMMKUTˆMĞ”ˆNM‹UQˆLNÂˆ\]TØ]™P˜YÙ\Ê
-NÂˆBˆB‚ˆ[˜İ[Ûˆ\]TØ]™P˜YÙ\Ê
-HÂˆÛÛœİ\Ù˜]HH˜]\Ë•TÑMMNÂˆØİ[Y[œ]Y\TÙ[XİÜ[
-	ËœØ]™KX˜YÙVÙ]K\šXÙWIÊK™›Ü‘XXÚ
-˜YÙHOˆÂˆÛÛœİšXÙHH[X™\Š˜YÙK™]\Ù]œšXÙJHÂˆYˆ
-\šXÙJHÈ˜YÙK^ÛÛ[H	ÉÎÈ™]\›ÈBˆÛÛœİ\Ù›İÈHšXÙHÈ\Ù˜]NÂˆÛÛœİ\ÙØ\ÈHšXÙHÈLÂˆÛÛœİØ]™YH\ÙØ\ÈH\Ù›İÎÂˆÛÛœİİHX]œ›İ[™
+  <!-- WISHLIST DRAWER -->
+  <div class="drawer-overlay" id="wl-overlay"></div>
+  <div class="drawer" id="wl-drawer" role="dialog" aria-label="Wishlist">
+    <div class="drawer-head">
+      <div class="drawer-title"
+        data-en="My Wishlist" data-ja="ã‚¦ã‚£ãƒƒã‚·ãƒ¥ãƒªã‚¹ãƒˆ"
+        data-zh="æˆ‘çš„å¿ƒæ„¿å•" data-zhtw="æˆ‘çš„å¿ƒé¡˜å–®"
+        data-ko="ìœ„ì‹œë¦¬ìŠ¤íŠ¸" data-fr="Ma Liste de Souhaits"
+        data-de="Wunschliste" data-es="Mi Lista de Deseos">My Wishlist</div>
+      <button class="drawer-close" id="wl-close-btn" aria-label="Close">âœ•</button>
+    </div>
+    <div class="drawer-body" id="wl-body">
+      <div class="wl-empty"
+        data-en="Your wishlist is empty" data-ja="ãƒªã‚¹ãƒˆã¯ç©ºã§ã™"
+        data-zh="å¿ƒæ„¿å•ä¸ºç©º" data-zhtw="å¿ƒé¡˜å–®ç‚ºç©º"
+        data-ko="ìœ„ì‹œë¦¬ìŠ¤íŠ¸ê°€ ë¹„ì–´ ìˆìŠµë‹ˆë‹¤" data-fr="Votre liste est vide"
+        data-de="Ihre Wunschliste ist leer" data-es="Tu lista estË¡ vacÃ­a">Your wishlist is empty</div>
+    </div>
+    <div class="drawer-footer">
+      <button class="btn-wl-clear" id="wl-clear-btn"
+        data-en="Clear all" data-ja="ã™ã¹ã¦å‰Šé™¤"
+        data-zh="æ¸…ç©ºå…¨éƒ¨" data-zhtw="æ¸…ç©ºå…¨éƒ¨"
+        data-ko="ì „ì²´ ì‚­ì œ" data-fr="Tout supprimer"
+        data-de="Alles lÃ¶schen" data-es="Borrar todo">Clear all</button>
+    </div>
+  </div>
 
-Ø]™YÈ\ÙØ\ÊH
-ˆL
-NÂˆYˆ
-İˆ
-HÂˆ˜YÙK^ÛÛ[H	ø¡¤È		È
-ÈØ]™YÑš^Y
-
-H
-È	ÈœÈ[\Ü™]Z[	ÎÂˆ˜YÙKœİ[K™\Ü^HH	ÉÎÂˆH[ÙHÂˆ˜YÙKœİ[K™`= 'none';
+  <!-- CATEGORY GRID -->
+  <section class="cat-section">
+    <div class="cat-inner">
+      <p class="cat-eye"
+        data-en="Shop by Category" data-ja="ã‚«ãƒ†ã‚´ãƒªã‹ã‚‰æ¢ã™"
+        data-zh="æŒ‰ç±»åˆ«æµè§ˆ" data-zhtw="æŒ‰é¡åˆ¥ç€è¦½"
+        data-ko="ì¹´í…Œê³ ë¦¬ë³„ ì‡¼í•‘" data-fr="Acheter par CatÃ©gorie"
+        data-de="Nach Kategorie stÃ¶bern" data-es="Comprar por CategorÃ­a">Shop by Category</p>
+      <h2 class="cat-title"
+        data-en="Find What You Love" data-ja="ãŠæ°—ã«å…¥ã‚Šã®ã‚«ãƒ†ã‚´ãƒªã‚’æ¢ã™"
+        data-zh="æ‰¾åˆ°æ‚¨å–œæ¬¢çš„" data-zhtw="æ‰¾åˆ°æ‚¨å–œæ­¡çš„"
+        data-ko="ë§ˆìŒì— ë“œëŠ” ê²ƒì„ ì°¾ì•„ë³´ì„¸ìš”" data-fr="Trouvez Ce Que Vous Aimez"
+        data-de="Finden Sie, Was Sie Lieben" data-es="Encuentra Lo Que Te Gusta">Find What You Love</h2>
+      <div class="cat-grid">
+        {categories.map(cat => (
+          <a href={`${base}/category/${cat.slug}/`} class="cat-card">
+            <span class="cat-icon"><CategoryIcon path={cat.iconPath} size={2.2} /></span>
+            <span class="cat-name">{cat.nameJa}</span>
+            <span class="cat-desc">{cat.descJa}</span>
+            <span class="cat-arrow">â†’</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- EMAIL SECTION -->
+  <section class="email-section">
+    <p class="email-eye"
+      data-en="Stay ahead of the market" data-ja="å¸‚å ´ã®å‹•å‘ã‚’ã„ã¡æ—©ãã‚­ãƒ£ãƒƒãƒ"
+      data-zh="æŠ¢å…ˆæŒæ¡å¸‚åœºåŠ¨æ€" data-zhtw="æ¶å…ˆæŒæ¡å¸‚å ´å‹•æ…‹"
+      data-ko="ì‹œì¥ ë™í–¥ì„ ë¨¼ì € íŒŒì•…í•˜ì„¸ìš”" data-fr="Gardez une longueur d'avance"
+      data-de="Immer einen Schritt voraus" data-es="AdelÃ¡ntate al mercado">Stay ahead of the market</p>
+    <h2 class="email-title"
+      data-en="Get Sale Alerts" data-ja="ã‚»ãƒ¼ãƒ«å•†å“ã‚’å®šæœŸçš„ã«å—ã‘å–ã‚‹"
+      data-zh="è·å–ç‰¹å–ä¼˜æƒ æé†’" data-zhtw="ç²å–ç‰¹è³£å„ªæƒ æé†’"
+      data-ko="í• ì¸ ì•Œë¦¼ ë°›ê¸°" data-fr="Recevoir les Alertes Promos"
+      data-de="Angebots-Benachrichtigungen" data-es="Recibe Alertas de Ofertas">Get Sale Alerts</h2>
+    <p class="email-desc"
+  2   data-en="Sign up to receive limited-time deals and exclusive Japanese products directly to your inbox."
+      data-ja="æœŸé–“é™å®šã‚»ãƒ¼ãƒ«ã‚„ãŠå¾—ãªæ—¥æœ¬å•†å“æƒ…å ±ã‚’ãƒ¡ãƒ¼ãƒ«ã§ãŠå±Šã‘ã—ã¾ã™ã€‚"
+      data-zh="è®¢é˜…åå®šæœŸæ”¶åˆ°é™æ—¶ç‰¹å–å’Œç²¾é€‰æ—¥æœ¬å•†å“ä¿¡æ¯ã€‚"
+      data-zhtw="è¨‚é–±å¾Œå®šæœŸæ”¶åˆ°é™æ™‚ç‰¹è³£å’Œç²¾é¸æ—¥æœ¬å•†å“è³‡è¨Šã€‚"
+      data-ko="í•œì • í• ì¸ ë° ì—„ì„ ëœ ì¼ë³¸ ìƒí’ˆ ì •ë³´ë¥¼ ë©”ì¼ë¡œ ë°›ì•„ë³´ì„¸ìš”."
+      data-fr="Inscrivez-vous pour recevoir des offres limitÃ©es et des produits japonais exclusifs."
+      data-de="Melden Sie sich an und erhalten Sie zeitlich begrenzte Angebote und exklusive japanische Produkte."
+      data-es="SuscrÃ­bete para recibir ofertas limitadas y productos japoneses exclusivos.">
+      Sign up to receive limited-time deals and exclusive Japanese products directly to your inbox.
+    </p>
+    <form class="email-form" id="email-form">
+      <input class="email-input" id="email-input" type="email" required
+        placeholder="your@email.com" autocomplete="email" />
+      <button class="btn-email" type="submit"
+        data-en="Notify Me" data-ja="é€šçŸ¥ã‚’å—ã‘å–ã‚‹"
+        data-zh="é€šçŸ¥æˆ‘" data-zhtw="é€šçŸ¥æˆ‘"
+        data-ko="ì•Œë¦¼ ë°›ê¸°" data-fr="Me Notifier"
+        data-de="Benachrichtige mich" data-es="NotifÃ­came">Notify Me</button>
+    </form>
+    <p class="email-success" id="email-success"
+      data-en="âœ“ Subscribed! You'll receive sale alerts and special deals regularly."
+      data-ja="âœ“ ç™»éŒ²å®Œäº†ï¼ã‚»ãƒ¼ãƒ«æƒ…å ±ã‚„ãŠå¾—ãªå•†å“ã‚’å®šæœŸçš„ã«ãŠå±Šã‘ã—ã¾ã™ã€‚"
+      data-zh="âœ“ å·²è®¢é˜…ï¼æ‚¨å°†å®šæœŸæ”¶åˆ°ç‰¹å–ä¼˜æƒ å’Œç²¾é€‰å•†å“ä¿¡æ¯ã€‚"
+      data-zhtw="âœ“ å·²è¨‚é–±ï¼æ‚¨å°‡å®šæœŸæ”¶åˆ°ç‰¹è³£å„ªæƒ å’Œç²¾é¸å•†å“è³‡è¨Šã€‚"
+      data-ko="âœ“ ë“±ë¡ ì™„ë£Œ! í• ì¸ ì •ë³´ì™€ íŠ¹ë³„ ìƒí’ˆì„ ì •ê¸°ì ìœ¼ë¡œ ë°›ì•„ë³´ì‹¤ ìˆ˜ ìˆìŠµë‹ˆë‹¤."
+      data-fr="âœ“ Inscrit(e) ! Vous recevrez rÃ©guliÃ¨rement des offres et produits exclusifs."
+      data-de="âœ“ Angemeldet! Sie erhalten regelmÃ¤ÃŸig Angebote und exklusive Produkte."
+      data-es="âœ“ Â¡Suscrito! RecibirÃ¡s ofertas y productos especiales regularmente.">
+      âœ“ Subscribed! You'll receive sale alerts and special deals regularly.
+    </p>
+  </section>
+
+  <footer>
+    &copy; 2025 Japan Daily Hub &nbsp;|&nbsp;
+    <span
+      data-en="Authentic Japanese Products, Delivered Worldwide"
+      data-ja="æ—¥æœ¬ã®é€¸å“ã€ä¸–ç•Œã¸"
+      data-zh="æ­£å®—æ—¥æœ¬å•†å“ï¼Œå…¨çƒé…é€"
+      data-zhtw="æ­£å®—æ—¥æœ¬å•†å“ï¼Œå…¨çƒé…é€"
+      data-ko="ì •í’ˆ ì¼ë³¸ ìƒí’ˆ, ì „ ì„¸ê³„ ë°°ì†¡"
+      data-fr="Produits Japonais Authentiques, LivrÃ©s Partout"
+      data-de="Authentische Japanische Produkte, Weltweit Geliefert"
+      data-es="Productos Japoneses AutÃ©nticos, Entregados en Todo el Mundo">Authentic Japanese Products, Delivered Worldwide</span>
+  </footer>
+
+  <script is:inline>
+    // â”€â”€ ç‚ºæ›¿ãƒ¬ãƒ¼ãƒˆ â”€â”€
+    const BASE = { USD: 108, EUR: 128, GBP: 142, AUD: 80 };
+    const SYM  = { USD: '$', EUR: 'â‚¬', GBP: 'Â£', AUD: 'A$' };
+    let rates  = {};
+
+    async function loadRates() {
+      try {
+        const res  = await fetch('https://open.er-api.com/v6/latest/JPY');
+        const data = await res.json();
+        rates = {
+          USD: Math.round(1 / data.rates.USD),
+          EUR: Math.round(1 / data.rates.EUR),
+          GBP: Math.round(1 / data.rates.GBP),
+          AUD: Math.round(1 / data.rates.AUD),
+        };
+        // ticker
+        document.getElementById('t-usd').textContent = 'Â¥' + rates.USD;
+        document.getElementById('t-eur').textContent = 'Â¥' + rates.EUR;
+        document.getElementById('t-gbp').textContent = 'Â¥' + rates.GBP;
+        document.getElementById('t-aud').textContent = 'Â¥' + rates.AUD;
+
+        // rate cards
+        const pct = Math.round(((rates.USD - BASE.USD) / rates.USD) * 100);
+        ['USD','EUR','GBP','AUD'].forEach(c => {
+          const rEl = document.getElementById('r-' + c.toLowerCase());
+          const bEl = document.getElementById('b-' + c.toLowerCase());
+          if (rEl) rEl.textContent = 'Â¥' + rates[c];
+          const p = Math.round(((rates[c] - BASE[c]) / rates[c]) * 100);
+          if (bEl) bEl.textContent = '';
+        });
+
+        document.getElementById('t-save').textContent = 'Live rate Â· Updated ' + new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
+        updateSaveBadges();
+      } catch(e) {
+        rates = { USD: 155, EUR: 168, GBP: 196, AUD: 100 };
+        updateSaveBadges();
+      }
+    }
+
+    function updateSaveBadges() {
+      const usdRate = rates.USD || 155;
+      document.querySelectorAll('.save-badge[data-price]').forEach(badge => {
+        const price = Number(badge.dataset.price) || 0;
+        if (!price) { badge.textContent = ''; return; }
+        const usdNow = price / usdRate;
+        const usdWas = price / 108;
+        const saved  = usdWas - usdNow;
+        const pct    = Math.round((saved / usdWas) * 100);
+        if (pct > 0) {
+          badge.textContent = 'â†“ $' + saved.toFixed(0) + ' vs import retail';
+          badge.style.display = '';
+        } else {
+          badge.style.display = 'none';
         }
       });
     }
@@ -925,7 +1038,7 @@ H
         let list = getWL();
         const exists = list.some(i => i.id === id);
         saveWL(exists ? list.filter(i => i.id !== id) : [...list, { id, title, price, img }]);
-        renderWLCount(); syncWLButtonL();
+        renderWLCount(); syncWLButtons();
       });
     });
 
