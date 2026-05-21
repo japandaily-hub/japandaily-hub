@@ -612,7 +612,11 @@ const base = import.meta.env.BASE_URL ?? '';
     <div class="header-inner">
       <div class="logo">Japan<em>Daily</em> Hub</div>
       <div style="display:flex;gap:1.5rem;align-items:center;">
-        <a href="/japandaily-hub/about/" style="font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(18,16,14,.5);text-decoration:none;transition:color .2s;" onmouseover="this.style.color='#b8963e'" onmouseout="this.style.color='rgba(18,16,14,.5)'">About</a>
+        <a href="/japandaily-hub/about/" style="font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(18,16,14,.5);text-decoration:none;transition:color .2s;" onmouseover="this.style.color='#b8963e'" onmouseout="this.style.color='rgba(18,16,14,.5)'"
+          data-en="About" data-ja="について"
+          data-zh="关于我们" data-zhtw="關於我們"
+          data-ko="소개" data-fr="À propos"
+          data-de="Über uns" data-es="Acerca de">About</a>
         <button class="wl-header-btn" id="wl-open-btn" aria-label="Wishlist">
           ♡ <span class="wl-count" id="wl-count">0</span>
         </button>
@@ -675,7 +679,7 @@ const base = import.meta.env.BASE_URL ?? '';
   <div class="drawer" id="wl-drawer" role="dialog" aria-label="Wishlist">
     <div class="drawer-head">
       <div class="drawer-title"
-        data-en="My Wishlist" data-ja="ウィッシュリスト"
+        data-en="My Wishlist" data-ja="ウィッシヮリスト"
         data-zh="我的心愿单" data-zhtw="我的心願單"
         data-ko="위시리스트" data-fr="Ma Liste de Souhaits"
         data-de="Wunschliste" data-es="Mi Lista de Deseos">My Wishlist</div>
@@ -714,8 +718,16 @@ const base = import.meta.env.BASE_URL ?? '';
         {categories.map(cat => (
           <a href={`${base}/category/${cat.slug}/`} class="cat-card">
             <span class="cat-icon"><CategoryIcon path={cat.iconPath} size={2.2} /></span>
-            <span class="cat-name">{cat.nameJa}</span>
-            <span class="cat-desc">{cat.descJa}</span>
+            <span class="cat-name"
+              data-en={cat.nameEn} data-ja={cat.nameJa}
+              data-zh={cat.nameZh} data-zhtw={cat.nameZhtw}
+              data-ko={cat.nameKo} data-fr={cat.nameFr}
+              data-de={cat.nameDe} data-es={cat.nameEs}>{cat.nameEn}</span>
+            <span class="cat-desc"
+              data-en={cat.descEn} data-ja={cat.descJa}
+              data-zh={cat.descZh} data-zhtw={cat.descZhtw}
+              data-ko={cat.descKo} data-fr={cat.descFr}
+              data-de={cat.descDe} data-es={cat.descEs}>{cat.descEn}</span>
             <span class="cat-arrow">→</span>
           </a>
         ))}
@@ -785,9 +797,9 @@ const base = import.meta.env.BASE_URL ?? '';
     // ── タブ (client-side filter) ──
     const TAB_LABELS = {
       all:     { en:'All Products',   ja:'すべての商品', zh:'全部商品', zhtw:'全部商品', ko:'전체 상품',    fr:'Tous les Produits',  de:'Alle Produkte',  es:'Todos los Productos' },
-      food:    { en:'Food & Drink',   ja:'飲食・食品',   zh:'食品饮料', zhtw:'食品飲料', ko:'식품·음료',     fr:'Alimentation',       de:'Essen & Trinken', es:'Comida y Bebida' },
-      daily:   { en:'Daily Goods',    ja:'日眺雳賢',     zh:'日用品',   zhtw:'昵用品',   ko:'생활왩품,     fr:'Articles Quotidiens', de:'Alltagswaren',   es:'Artículos Diarios' },
-      fashion: { en:'Fashion',        ja:'日ゥッシェび', zh:'时尚',      zhtw:'時尚',      ko:'���션',         fr:'Mode',               de:'Mode',           es:'Moda' },
+      food:    { en:'Food & Drink',   ja:'飲食・食品',   zh:'食品饮料', zhtw:'食品飲料', ko:'식품·음료',    fr:'Alimentation',       de:'Essen & Trinken', es:'Comida y Bebida' },
+      daily:   { en:'Daily Goods',    ja:'日用雑貨',     zh:'日用品',   zhtw:'日用品',   ko:'생활용품',     fr:'Articles Quotidiens', de:'Alltagswaren',   es:'Artículos Diarios' },
+      fashion: { en:'Fashion',        ja:'ファッション', zh:'时尚',     zhtw:'時尚',     ko:'패션',         fr:'Mode',               de:'Mode',           es:'Moda' },
     };
 
     function applyTab(tab) {
@@ -825,12 +837,16 @@ const base = import.meta.env.BASE_URL ?? '';
       const sel = document.getElementById('lang-select');
       if (sel) sel.value = lang;
       try { localStorage.setItem('jdh-lang', lang); } catch(e) {}
+      // ウィッシュリストドロワーが開いていれば空状態テキストを再描画
+      if (document.getElementById('wl-drawer')?.classList.contains('open')) {
+        renderWLBody();
+      }
       // タブラベルを現在のアクティブタブで再描画（全セクション反映）
       const activeTab = document.querySelector('.tab-btn.active')?.dataset.tab || 'all';
       applyTab(activeTab);
     }
 
-    // selectのchangeイベントをスクリプト内でバインド（Astroモジュールスコープ対応）
+    // select܁�changeイベントをスクリプト内でバインド（Astroモジュールスコープ対応）
     const langSel = document.getElementById('lang-select');
     if (langSel) langSel.addEventListener('change', (e) => setLang(e.target.value));
 
@@ -879,7 +895,9 @@ const base = import.meta.env.BASE_URL ?? '';
       const body = document.getElementById('wl-body');
       if (!body) return;
       if (list.length === 0) {
-        body.innerHTML = '<div class="wl-empty">Your wishlist is empty</div>';
+        const lang = document.getElementById('lang-select')?.value || 'en';
+        const emptyMsgs = { en:'Your wishlist is empty', ja:'リストは空です', zh:'心愿单为空', zhtw:'心願單為空', ko:'위시리스트가 비어 있습니다', fr:'Votre liste est vide', de:'Ihre Wunschliste ist leer', es:'Tu lista está vacía' };
+        body.innerHTML = `<div class="wl-empty">${emptyMsgs[lang] || emptyMsgs.en}</div>`;
         return;
       }
       body.innerHTML = list.map(item => `
@@ -925,36 +943,4 @@ const base = import.meta.env.BASE_URL ?? '';
     document.getElementById('wl-close-btn')?.addEventListener('click', closeDrawer);
     document.getElementById('wl-overlay')?.addEventListener('click', closeDrawer);
     document.getElementById('wl-clear-btn')?.addEventListener('click', () => {
-      saveWL([]); renderWLBody(); renderWLCount(); syncWLButtons();
-    });
-
-    document.querySelectorAll('.wl-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const { id, title, price, img } = btn.dataset;
-        let list = getWL();
-        const exists = list.some(i => i.id === id);
-        saveWL(exists ? list.filter(i => i.id !== id) : [...list, { id, title, price, img }]);
-        renderWLCount(); syncWLButtons();
-      });
-    });
-
-    renderWLCount(); syncWLButtons();
-
-    // ── メール登録 ──
-    document.getElementById('email-form')?.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const email = document.getElementById('email-input')?.value?.trim();
-      if (!email) return;
-      try {
-        const subs = JSON.parse(localStorage.getItem('jdh-subscribers') || '[]');
-        if (!subs.includes(email)) { subs.push(email); localStorage.setItem('jdh-subscribers', JSON.stringify(subs)); }
-      } catch { }
-      const form = document.getElementById('email-form');
-      const success = document.getElementById('email-success');
-      if (form) form.style.display = 'none';
-      if (success) success.style.display = 'block';
-    });
-  </script>
-
-</body>
-</html>
+      saveWL([])
