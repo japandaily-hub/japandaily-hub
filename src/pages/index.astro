@@ -1,7 +1,4 @@
 ---
-import { categories } from '../data/categories.ts';
-import CategoryIcon from '../components/CategoryIcon.astro';
-const base = import.meta.env.BASE_URL ?? '';
 ---
 <!DOCTYPE html>
 <html lang="en">
@@ -142,169 +139,6 @@ const base = import.meta.env.BASE_URL ?? '';
       letter-spacing: .07em;
       margin-bottom: 2.5rem;
     }
-    .hero-cta {
-      display: inline-block;
-      padding: .95rem 2.6rem;
-      background: var(--gold);
-      color: #fff;
-      text-decoration: none;
-      font-size: .65rem;
-      letter-spacing: .4em;
-      text-transform: uppercase;
-      border-radius: var(--radius);
-      transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
-      box-shadow: 0 4px 20px rgba(184,150,62,.4);
-    }
-    .hero-cta:hover {
-      background: var(--gold-l);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 28px rgba(184,150,62,.45);
-    }
-
-    /* TABS */
-    .tab-nav {
-      background: rgba(246,241,233,.98);
-      border-bottom: 1px solid rgba(184,150,62,.18);
-      position: sticky;
-      top: 68px;
-      z-index: 90;
-      box-shadow: 0 2px 8px rgba(18,16,14,.04);
-    }
-    .tab-list {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 1.5rem;
-      display: flex;
-      overflow-x: auto;
-      scrollbar-width: none;
-    }
-    .tab-list::-webkit-scrollbar { display: none; }
-    .tab-btn {
-      flex-shrink: 0;
-      padding: .9rem 1.6rem;
-      font-size: .68rem;
-      letter-spacing: .22em;
-      color: var(--ink-40);
-      border: none;
-      background: none;
-      cursor: pointer;
-      border-bottom: 2px solid transparent;
-      transition: color var(--transition), border-color var(--transition);
-      font-family: inherit;
-      white-space: nowrap;
-      text-transform: uppercase;
-    }
-    .tab-btn:hover { color: var(--ink); }
-    .tab-btn.active { color: var(--gold); border-bottom-color: var(--gold); font-weight: 500; }
-
-    /* PRODUCTS */
-    .section-wrap {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 4.5rem 1.5rem 5.5rem;
-    }
-    .section-head {
-      display: flex;
-      align-items: center;
-      gap: 1.2rem;
-      margin-bottom: 2.8rem;
-    }
-    .section-lbl {
-      font-size: .65rem;
-      letter-spacing: .48em;
-      color: var(--gold);
-      text-transform: uppercase;
-      white-space: nowrap;
-    }
-    .section-rule {
-      flex: 1;
-      height: 1px;
-      background: linear-gradient(to right, rgba(184,150,62,.35), transparent);
-    }
-    .product-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 2rem;
-    }
-    .product-card {
-      background: #fff;
-      border: 1px solid rgba(184,150,62,.12);
-      border-radius: var(--radius);
-      display: flex;
-      flex-direction: column;
-      transition: box-shadow var(--transition), transform var(--transition);
-      overflow: hidden;
-    }
-    .product-card:hover {
-      box-shadow: var(--shadow-md);
-      transform: translateY(-5px);
-    }
-    .product-img-wrap {
-      aspect-ratio: 4/3;
-      overflow: hidden;
-      background: #f0ece4;
-      display: block;
-      text-decoration: none;
-    }
-    .product-img-wrap img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      padding: 1rem;
-      transition: transform .5s ease;
-    }
-    .product-card:hover .product-img-wrap img { transform: scale(1.06); }
-    .product-body {
-      padding: 1.4rem;
-      display: flex;
-      flex-direction: column;
-      flex: 1;
-    }
-    .product-cat {
-      font-size: .56rem;
-      letter-spacing: .38em;
-      color: var(--gold);
-      text-transform: uppercase;
-      margin-bottom: .55rem;
-    }
-    .product-name {
-      font-size: .87rem;
-      line-height: 1.85;
-      color: var(--ink);
-      flex: 1;
-      margin-bottom: .9rem;
-      text-decoration: none;
-    }
-    .product-price {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.6rem;
-      color: var(--ink);
-      margin-bottom: 1.1rem;
-      letter-spacing: .02em;
-    }
-    .product-price small { font-size: .88rem; color: var(--ink-40); }
-    .btn-buy {
-      display: block;
-      text-align: center;
-      padding: .9rem 1rem;
-      background: var(--ink);
-      color: #fff;
-      text-decoration: none;
-      font-size: .6rem;
-      letter-spacing: .4em;
-      text-transform: uppercase;
-      border-radius: var(--radius);
-      transition: background var(--transition), box-shadow var(--transition);
-      font-family: inherit;
-    }
-    .btn-buy:hover {
-      background: var(--gold);
-      box-shadow: 0 4px 16px rgba(184,150,62,.3);
-    }
-
-    /* PANEL */
-    .tab-panel { display: none; }
-    .tab-panel.active { display: block; }
 
     /* WISHLIST BUTTON (header) */
     .wl-header-btn {
@@ -323,17 +157,6 @@ const base = import.meta.env.BASE_URL ?? '';
       display: none; align-items: center; justify-content: center;
     }
     .wl-count.visible { display: flex; }
-
-    /* WISHLIST HEART on card */
-    .wl-btn {
-      position: absolute; top: .6rem; right: .6rem;
-      background: rgba(255,255,255,.85); border: none;
-      width: 32px; height: 32px; border-radius: 50%;
-      font-size: 1rem; cursor: pointer; line-height: 1;
-      transition: background .2s, transform .2s;
-    }
-    .wl-btn:hover { background: #fff; transform: scale(1.15); }
-    .wl-btn.saved { color: #e63946; }
 
     /* DRAWER */
     .drawer-overlay {
@@ -483,90 +306,6 @@ const base = import.meta.env.BASE_URL ?? '';
       margin-top: 1.2rem;
     }
 
-    /* CATEGORY GRID */
-    .cat-section {
-      background: var(--washi-dark);
-      padding: 5rem 1.5rem 6rem;
-    }
-    .cat-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    .cat-eye {
-      font-size: .63rem;
-      letter-spacing: .48em;
-      color: var(--gold);
-      text-transform: uppercase;
-      text-align: center;
-      margin-bottom: .7rem;
-    }
-    .cat-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(1.5rem, 3vw, 2.4rem);
-      font-weight: 300;
-      letter-spacing: .1em;
-      text-align: center;
-      margin-bottom: 3rem;
-      color: var(--ink);
-    }
-    .cat-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
-      gap: 1.1rem;
-    }
-    .cat-card {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: .65rem;
-      padding: 1.8rem 1rem;
-      border: 1px solid rgba(184,150,62,.16);
-      background: #fff;
-      text-decoration: none;
-      color: var(--ink);
-      transition: box-shadow var(--transition), transform var(--transition), border-color var(--transition);
-      border-radius: var(--radius);
-    }
-    .cat-card:hover {
-      box-shadow: var(--shadow-md);
-      transform: translateY(-4px);
-      border-color: rgba(184,150,62,.42);
-    }
-    .cat-icon {
-      width: 2.6rem;
-      height: 2.6rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--ink-40);
-      transition: color var(--transition);
-    }
-    .cat-card:hover .cat-icon { color: var(--gold); }
-    .cat-name {
-      font-size: .8rem;
-      font-weight: 500;
-      letter-spacing: .06em;
-      text-align: center;
-      color: var(--ink);
-    }
-    .cat-desc {
-      font-size: .62rem;
-      color: var(--ink-40);
-      letter-spacing: .04em;
-      text-align: center;
-      line-height: 1.6;
-    }
-    .cat-arrow {
-      font-size: .62rem;
-      color: var(--gold);
-      letter-spacing: .12em;
-      margin-top: .15rem;
-      opacity: 0;
-      transition: opacity var(--transition), transform var(--transition);
-      transform: translateX(-4px);
-    }
-    .cat-card:hover .cat-arrow { opacity: 1; transform: translateX(0); }
-
     /* FOOTER */
     footer {
       border-top: 1px solid rgba(184,150,62,.16);
@@ -585,21 +324,12 @@ const base = import.meta.env.BASE_URL ?? '';
       .logo { font-size: 1.1rem; letter-spacing: .18em; }
       .hero { padding: 5rem 1.2rem 4.5rem; }
       .hero-title { letter-spacing: .06em; }
-      .hero-cta { padding: .85rem 2rem; font-size: .6rem; }
-      .tab-nav { top: 60px; }
-      .section-wrap { padding: 3rem 1.2rem 4rem; }
-      .product-grid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1.4rem; }
-      .cat-section { padding: 3.5rem 1.2rem 4.5rem; }
-      .cat-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: .85rem; }
-      .cat-card { padding: 1.4rem .8rem; }
       .email-section { padding: 4rem 1.2rem; }
       .email-form { flex-direction: column; align-items: stretch; }
       .email-input { min-width: auto; }
       .btn-email { width: 100%; }
     }
     @media (max-width: 480px) {
-      .product-grid { grid-template-columns: 1fr; }
-      .cat-grid { grid-template-columns: repeat(2, 1fr); }
       .hero-title { font-size: 2rem; }
       .header-inner { padding: 0 1rem; }
     }
@@ -666,11 +396,6 @@ const base = import.meta.env.BASE_URL ?? '';
         data-es="Productos japoneses seleccionados — donde la tradición se encuentra con la artesanía.">
         Handpicked Japanese products — where tradition meets craftsmanship.
       </p>
-      <a href="#categories" class="hero-cta"
-        data-en="Explore Products" data-ja="商品を探す"
-        data-zh="浏览商品" data-zhtw="瀏覽商品"
-        data-ko="상품 둘러보기" data-fr="Voir les Produits"
-        data-de="Produkte entdecken" data-es="Explorar Productos">Explore Products</a>
     </div>
   </section>
 
@@ -680,7 +405,7 @@ const base = import.meta.env.BASE_URL ?? '';
     <div class="drawer-head">
       <div class="drawer-title"
         data-en="My Wishlist" data-ja="ウィッシュリスト"
-        data-zh="我的心愿单" data-zhtw="我的心願單"
+        data-zh="我的心愿单" data-zhtw="我的心願単"
         data-ko="위시리스트" data-fr="Ma Liste de Souhaits"
         data-de="Wunschliste" data-es="Mi Lista de Deseos">My Wishlist</div>
       <button class="drawer-close" id="wl-close-btn" aria-label="Close">✕</button>
@@ -700,40 +425,6 @@ const base = import.meta.env.BASE_URL ?? '';
         data-de="Alles löschen" data-es="Borrar todo">Clear all</button>
     </div>
   </div>
-
-  <!-- CATEGORY GRID -->
-  <section class="cat-section" id="categories">
-    <div class="cat-inner">
-      <p class="cat-eye"
-        data-en="Shop by Category" data-ja="カテゴリから探す"
-        data-zh="按类别浏览" data-zhtw="按類別瀏覽"
-        data-ko="카테고리별 쇼핑" data-fr="Acheter par Catégorie"
-        data-de="Nach Kategorie stöbern" data-es="Comprar por Categoría">Shop by Category</p>
-      <h2 class="cat-title"
-        data-en="Find What You Love" data-ja="お気に入りのカヅゴリを探す"
-        data-zh="找到您喜欢的" data-zhtw="找到您喜歡的"
-        data-ko="마음에 드는 것을 찾아보세요" data-fr="Trouvez Ce Que Vous Aimez"
-        data-de="Finden Sie, Was Sie Lieben" data-es="Encuentra Lo Que Te Gusta">Find What You Love</h2>
-      <div class="cat-grid">
-        {categories.map(cat => (
-          <a href={`${base}/category/${cat.slug}/`} class="cat-card">
-            <span class="cat-icon"><CategoryIcon path={cat.iconPath} size={2.2} /></span>
-            <span class="cat-name"
-              data-en={cat.nameEn} data-ja={cat.nameJa}
-              data-zh={cat.nameZh} data-zhtw={cat.nameZhtw}
-              data-ko={cat.nameKo} data-fr={cat.nameFr}
-              data-de={cat.nameDe} data-es={cat.nameEs}>{cat.nameEn}</span>
-            <span class="cat-desc"
-              data-en={cat.descEn} data-ja={cat.descJa}
-              data-zh={cat.descZh} data-zhtw={cat.descZhtw}
-              data-ko={cat.descKo} data-fr={cat.descFr}
-              data-de={cat.descDe} data-es={cat.descEs}>{cat.descEn}</span>
-            <span class="cat-arrow">→</span>
-          </a>
-        ))}
-      </div>
-    </div>
-  </section>
 
   <!-- EMAIL SECTION -->
   <section class="email-section">
@@ -794,37 +485,6 @@ const base = import.meta.env.BASE_URL ?? '';
   </footer>
 
   <script is:inline>
-    // ── タブ (client-side filter) ──
-    const TAB_LABELS = {
-      all:     { en:'All Products',   ja:'すべての商品', zh:'全部商品', zhtw:'全部商品', ko:'전체 상품',    fr:'Tous les Produits',  de:'Alle Produkte',  es:'Todos los Productos' },
-      food:    { en:'Food & Drink',   ja:'飲食・食品',   zh:'食品饮料', zhtw:'食品飲料', ko:'식품·음료',    fr:'Alimentation',       de:'Essen & Trinken', es:'Comida y Bebida' },
-      daily:   { en:'Daily Goods',    ja:'日用雑貨',     zh:'日用品',   zhtw:'日用品',   ko:'생활용품',     fr:'Articles Quotidiens', de:'Alltagswaren',   es:'Artículos Diarios' },
-      fashion: { en:'Fashion',        ja:'ファッション', zh:'时尚',     zhtw:'時尚',     ko:'패션',         fr:'Mode',               de:'Mode',           es:'Moda' },
-    };
-
-    function applyTab(tab) {
-      document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
-      const cards = document.querySelectorAll('.product-card');
-      let visible = 0;
-      cards.forEach(card => {
-        const show = tab === 'all' || card.dataset.tab === tab;
-        card.style.display = show ? '' : 'none';
-        if (show) visible++;
-      });
-      const lbl = document.getElementById('section-lbl-text');
-      if (lbl) {
-        const lang = document.getElementById('lang-select')?.value || 'en';
-        lbl.textContent = TAB_LABELS[tab]?.[lang] || TAB_LABELS[tab]?.en || tab;
-      }
-      const cnt = document.getElementById('product-count');
-      if (cnt) cnt.textContent = visible + ' items';
-    }
-
-    document.querySelectorAll('.tab-btn').forEach(btn => {
-      btn.addEventListener('click', () => applyTab(btn.dataset.tab));
-    });
-    applyTab('all');
-
     // ── 言語切替 ──
     const LANGS = ['en','ja','zh','zhtw','ko','fr','de','es'];
 
@@ -841,12 +501,9 @@ const base = import.meta.env.BASE_URL ?? '';
       if (document.getElementById('wl-drawer')?.classList.contains('open')) {
         renderWLBody();
       }
-      // タブラベルを現在のアクティブタブで再描画（全セクション反映）
-      const activeTab = document.querySelector('.tab-btn.active')?.dataset.tab || 'all';
-      applyTab(activeTab);
     }
 
-    // select܁�changeイベントをスクリプト内でバインド（Astroモジュールスコープ対応）
+    // selectのchangeイベントをスクリプト内でバインド（Astroモジュールスコープ対応）
     const langSel = document.getElementById('lang-select');
     if (langSel) langSel.addEventListener('change', (e) => setLang(e.target.value));
 
@@ -913,17 +570,8 @@ const base = import.meta.env.BASE_URL ?? '';
       body.querySelectorAll('.wl-item-remove').forEach(btn => {
         btn.addEventListener('click', () => {
           saveWL(getWL().filter(i => i.id !== btn.dataset.id));
-          renderWLBody(); renderWLCount(); syncWLButtons();
+          renderWLBody(); renderWLCount();
         });
-      });
-    }
-
-    function syncWLButtons() {
-      const ids = new Set(getWL().map(i => i.id));
-      document.querySelectorAll('.wl-btn').forEach(btn => {
-        const saved = ids.has(btn.dataset.id);
-        btn.classList.toggle('saved', saved);
-        btn.textContent = saved ? '♥' : '♡';
       });
     }
 
@@ -943,20 +591,10 @@ const base = import.meta.env.BASE_URL ?? '';
     document.getElementById('wl-close-btn')?.addEventListener('click', closeDrawer);
     document.getElementById('wl-overlay')?.addEventListener('click', closeDrawer);
     document.getElementById('wl-clear-btn')?.addEventListener('click', () => {
-      saveWL([]); renderWLBody(); renderWLCount(); syncWLButtons();
+      saveWL([]); renderWLBody(); renderWLCount();
     });
 
-    document.querySelectorAll('.wl-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const { id, title, price, img } = btn.dataset;
-        let list = getWL();
-        const exists = list.some(i => i.id === id);
-        saveWL(exists ? list.filter(i => i.id !== id) : [...list, { id, title, price, img }]);
-        renderWLCount(); syncWLButtons();
-      });
-    });
-
-    renderWLCount(); syncWLButtons();
+    renderWLCount();
 
     // ── メール登録 ──
     document.getElementById('email-form')?.addEventListener('submit', (e) => {
