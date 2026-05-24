@@ -18,7 +18,6 @@
   <meta name="twitter:description" content="Authentic Japanese products at genuine local prices. Direct from Tokyo, without the import markup." />
   <meta name="twitter:image" content="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=1200&q=80" />
   <link rel="canonical" href="https://japandaily-hub.github.io/japandaily-hub/" />
-  <!-- Google Analytics 4 — replace G-XXXXXXXXXX with your Measurement ID -->
   <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
   <script is:inline>
     window.dataLayer = window.dataLayer || [];
@@ -53,7 +52,20 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* HEADER */
+    /* ── ANNOUNCEMENT BAR ── */
+    .announce-bar {
+      background: var(--ink);
+      color: rgba(255,255,255,.82);
+      font-size: .62rem;
+      letter-spacing: .24em;
+      text-transform: uppercase;
+      text-align: center;
+      padding: .52rem 1rem;
+      line-height: 1.5;
+    }
+    .announce-bar em { color: var(--gold-l); font-style: normal; }
+
+    /* ── HEADER ── */
     header {
       position: sticky;
       top: 0;
@@ -68,9 +80,9 @@
       margin: 0 auto;
       padding: 0 1.5rem;
       height: 68px;
-      display: flex;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
       align-items: center;
-      justify-content: space-between;
       gap: 1rem;
     }
     .logo {
@@ -83,6 +95,46 @@
       white-space: nowrap;
     }
     .logo em { color: var(--gold); font-style: normal; }
+
+    /* Category nav — center column */
+    .cat-nav {
+      display: flex;
+      align-items: center;
+      gap: .1rem;
+    }
+    .cat-tab {
+      background: none;
+      border: none;
+      padding: .35rem .75rem;
+      font-family: 'Noto Serif JP', serif;
+      font-size: .63rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--ink-60);
+      cursor: pointer;
+      border-radius: 2px;
+      transition: color var(--transition), background var(--transition);
+      white-space: nowrap;
+    }
+    .cat-tab:hover { color: var(--ink); background: var(--gold-subtle); }
+    .cat-tab.active { color: var(--gold); border-bottom: 1.5px solid var(--gold); }
+
+    /* Header utilities — right column */
+    .header-utils {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      justify-content: flex-end;
+    }
+    .header-about {
+      font-size: .62rem;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: rgba(18,16,14,.5);
+      text-decoration: none;
+      transition: color .2s;
+    }
+    .header-about:hover { color: var(--gold); }
     .lang-select {
       background: transparent;
       border: 1px solid rgba(184,150,62,.38);
@@ -98,7 +150,25 @@
     }
     .lang-select:hover, .lang-select:focus { border-color: var(--gold); }
 
-    /* HERO */
+    /* ── WISHLIST BUTTON ── */
+    .wl-header-btn {
+      background: none; border: 1px solid rgba(184,150,62,.35);
+      color: var(--ink); padding: .3rem .75rem;
+      font-size: .7rem; letter-spacing: .1em;
+      cursor: pointer; border-radius: 2px;
+      display: flex; align-items: center; gap: .4rem;
+      font-family: inherit; transition: border-color .2s;
+    }
+    .wl-header-btn:hover { border-color: var(--gold); }
+    .wl-count {
+      background: var(--gold); color: #fff;
+      font-size: .6rem; border-radius: 50%;
+      width: 16px; height: 16px;
+      display: none; align-items: center; justify-content: center;
+    }
+    .wl-count.visible { display: flex; }
+
+    /* ── HERO ── */
     .hero {
       background: var(--ink);
       color: #fff;
@@ -140,25 +210,320 @@
       margin-bottom: 2.5rem;
     }
 
-    /* WISHLIST BUTTON (header) */
-    .wl-header-btn {
-      background: none; border: 1px solid rgba(184,150,62,.35);
-      color: var(--ink); padding: .3rem .75rem;
-      font-size: .7rem; letter-spacing: .1em;
-      cursor: pointer; border-radius: 2px;
-      display: flex; align-items: center; gap: .4rem;
-      font-family: inherit; transition: border-color .2s;
+    /* ── TRUST STRIP ── */
+    .trust-strip {
+      background: var(--washi-dark);
+      border-bottom: 1px solid rgba(184,150,62,.18);
     }
-    .wl-header-btn:hover { border-color: var(--gold); }
-    .wl-count {
-      background: var(--gold); color: #fff;
-      font-size: .6rem; border-radius: 50%;
-      width: 16px; height: 16px;
-      display: none; align-items: center; justify-content: center;
+    .trust-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
     }
-    .wl-count.visible { display: flex; }
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: .9rem;
+      padding: 1.4rem 1.5rem;
+      border-right: 1px solid rgba(184,150,62,.18);
+    }
+    .trust-item:last-child { border-right: none; }
+    .trust-icon { font-size: 1.4rem; flex-shrink: 0; }
+    .trust-label {
+      font-size: .68rem;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--ink);
+      font-weight: 400;
+      line-height: 1.5;
+    }
+    .trust-sub {
+      font-size: .62rem;
+      color: var(--ink-60);
+      letter-spacing: .06em;
+      margin-top: .15rem;
+    }
 
-    /* DRAWER */
+    /* ── PRODUCTS SECTION ── */
+    .products-section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 4rem 1.5rem 5rem;
+    }
+    .section-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 2.5rem;
+      border-bottom: 1px solid rgba(184,150,62,.18);
+      padding-bottom: 1rem;
+    }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-weight: 300;
+      letter-spacing: .12em;
+    }
+    .section-eye {
+      font-size: .6rem;
+      letter-spacing: .4em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: .4rem;
+    }
+    .view-all-link {
+      font-size: .62rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(184,150,62,.35);
+      padding-bottom: 2px;
+      transition: border-color .2s;
+      white-space: nowrap;
+    }
+    .view-all-link:hover { border-color: var(--gold); }
+
+    /* Product grid */
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+    .product-card {
+      background: #fff;
+      border-radius: 4px;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      transition: box-shadow var(--transition), transform var(--transition);
+      position: relative;
+    }
+    .product-card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-3px);
+    }
+    .product-card.hidden { display: none; }
+
+    .product-badge {
+      position: absolute;
+      top: .7rem; left: .7rem;
+      background: var(--gold);
+      color: #fff;
+      font-size: .55rem;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      padding: .22rem .55rem;
+      border-radius: 2px;
+      z-index: 2;
+    }
+    .product-badge.sale { background: #c0392b; }
+
+    .product-img-wrap {
+      aspect-ratio: 1 / 1;
+      overflow: hidden;
+      background: var(--washi-dark);
+    }
+    .product-img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform .5s ease;
+    }
+    .product-card:hover .product-img { transform: scale(1.04); }
+
+    .product-body { padding: 1rem 1rem .8rem; flex: 1; display: flex; flex-direction: column; }
+    .product-cat {
+      font-size: .55rem;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: .4rem;
+    }
+    .product-name {
+      font-size: .82rem;
+      line-height: 1.55;
+      color: var(--ink);
+      margin-bottom: .6rem;
+      flex: 1;
+    }
+    .product-rating {
+      display: flex;
+      align-items: center;
+      gap: .4rem;
+      margin-bottom: .6rem;
+    }
+    .stars { color: var(--gold); font-size: .72rem; letter-spacing: -.05em; }
+    .rating-count { font-size: .6rem; color: var(--ink-60); }
+    .product-price-row {
+      display: flex;
+      align-items: baseline;
+      gap: .5rem;
+      margin-bottom: .9rem;
+      flex-wrap: wrap;
+    }
+    .product-price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      color: var(--ink);
+      letter-spacing: .02em;
+    }
+    .product-price-orig {
+      font-size: .75rem;
+      color: var(--ink-40);
+      text-decoration: line-through;
+    }
+    .product-save {
+      font-size: .58rem;
+      background: rgba(192,57,43,.1);
+      color: #c0392b;
+      padding: .12rem .35rem;
+      border-radius: 2px;
+      letter-spacing: .05em;
+    }
+
+    .product-actions {
+      display: flex;
+      gap: .5rem;
+    }
+    .btn-amazon {
+      flex: 1;
+      padding: .6rem .5rem;
+      background: var(--ink);
+      color: #fff;
+      border: none;
+      font-size: .58rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      cursor: pointer;
+      font-family: inherit;
+      border-radius: 2px;
+      text-align: center;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background var(--transition);
+    }
+    .btn-amazon:hover { background: var(--gold); }
+    .btn-wl {
+      width: 36px;
+      flex-shrink: 0;
+      background: none;
+      border: 1px solid rgba(184,150,62,.35);
+      color: var(--ink-60);
+      font-size: .95rem;
+      cursor: pointer;
+      border-radius: 2px;
+      transition: border-color .2s, color .2s, background .2s;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .btn-wl:hover, .btn-wl.active { border-color: var(--gold); color: var(--gold); background: var(--gold-subtle); }
+
+    /* ── SERVICE TILES ── */
+    .service-section {
+      background: var(--ink);
+      color: #fff;
+    }
+    .service-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+    }
+    .service-tile {
+      padding: 2.5rem 2rem;
+      border-right: 1px solid rgba(255,255,255,.08);
+      text-align: center;
+    }
+    .service-tile:last-child { border-right: none; }
+    .service-icon { font-size: 1.8rem; margin-bottom: .9rem; }
+    .service-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-weight: 300;
+      letter-spacing: .18em;
+      margin-bottom: .5rem;
+    }
+    .service-desc {
+      font-size: .7rem;
+      color: rgba(255,255,255,.45);
+      line-height: 1.9;
+      letter-spacing: .05em;
+    }
+
+    /* ── SPOTLIGHT SECTION ── */
+    .spotlight-section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 4.5rem 1.5rem;
+    }
+    .spotlight-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: center;
+    }
+    .spotlight-img-wrap {
+      aspect-ratio: 4/3;
+      overflow: hidden;
+      border-radius: 4px;
+    }
+    .spotlight-img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform .6s ease;
+    }
+    .spotlight-img-wrap:hover .spotlight-img { transform: scale(1.04); }
+    .spotlight-body { padding: 1rem 1.5rem; }
+    .spotlight-eye {
+      font-size: .6rem;
+      letter-spacing: .42em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: .7rem;
+    }
+    .spotlight-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      font-weight: 300;
+      letter-spacing: .1em;
+      margin-bottom: 1rem;
+      line-height: 1.3;
+    }
+    .spotlight-line {
+      width: 36px; height: 1px;
+      background: var(--gold);
+      margin-bottom: 1.2rem;
+    }
+    .spotlight-desc {
+      font-size: .82rem;
+      line-height: 2;
+      color: var(--ink-60);
+      letter-spacing: .04em;
+      margin-bottom: 1.8rem;
+    }
+    .btn-spotlight {
+      display: inline-block;
+      padding: .75rem 2rem;
+      border: 1px solid var(--gold);
+      color: var(--ink);
+      font-size: .62rem;
+      letter-spacing: .32em;
+      text-transform: uppercase;
+      text-decoration: none;
+      font-family: inherit;
+      border-radius: 2px;
+      transition: background var(--transition), color var(--transition);
+      cursor: pointer;
+      background: none;
+    }
+    .btn-spotlight:hover { background: var(--gold); color: #fff; }
+
+    /* ── DRAWER ── */
     .drawer-overlay {
       position: fixed; inset: 0; background: rgba(0,0,0,.4);
       z-index: 200; opacity: 0; pointer-events: none;
@@ -223,7 +588,7 @@
     }
     .btn-wl-clear:hover { border-color: var(--gold); color: var(--ink); }
 
-    /* EMAIL SECTION */
+    /* ── EMAIL SECTION ── */
     .email-section {
       background: var(--ink);
       color: #fff;
@@ -306,7 +671,7 @@
       margin-top: 1.2rem;
     }
 
-    /* FOOTER */
+    /* ── FOOTER ── */
     footer {
       border-top: 1px solid rgba(184,150,62,.16);
       padding: 2.5rem 1.5rem;
@@ -318,12 +683,30 @@
       background: var(--washi);
     }
 
-    /* MOBILE RESPONSIVE */
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      .product-grid { grid-template-columns: repeat(3, 1fr); }
+    }
     @media (max-width: 768px) {
-      .header-inner { height: 60px; }
+      .header-inner {
+        grid-template-columns: 1fr auto;
+        height: auto;
+        padding: .6rem 1rem;
+        gap: .5rem;
+      }
+      .cat-nav { display: none; }
       .logo { font-size: 1.1rem; letter-spacing: .18em; }
       .hero { padding: 5rem 1.2rem 4.5rem; }
       .hero-title { letter-spacing: .06em; }
+      .trust-inner { grid-template-columns: 1fr; }
+      .trust-item { border-right: none; border-bottom: 1px solid rgba(184,150,62,.18); }
+      .trust-item:last-child { border-bottom: none; }
+      .product-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+      .service-inner { grid-template-columns: 1fr; }
+      .service-tile { border-right: none; border-bottom: 1px solid rgba(255,255,255,.08); }
+      .service-tile:last-child { border-bottom: none; }
+      .spotlight-grid { grid-template-columns: 1fr; }
+      .spotlight-body { padding: 1rem 0; }
       .email-section { padding: 4rem 1.2rem; }
       .email-form { flex-direction: column; align-items: stretch; }
       .email-input { min-width: auto; }
@@ -331,18 +714,57 @@
     }
     @media (max-width: 480px) {
       .hero-title { font-size: 2rem; }
-      .header-inner { padding: 0 1rem; }
+      .header-inner { padding: .5rem .8rem; }
+      .product-grid { grid-template-columns: repeat(2, 1fr); gap: .75rem; }
+      .product-body { padding: .75rem .75rem .6rem; }
     }
   </style>
 </head>
 <body>
 
+  <!-- ANNOUNCEMENT BAR -->
+  <div class="announce-bar"
+    data-en="🎁 Free shipping via Amazon · Live ¥ prices · New arrivals every week"
+    data-ja="🎁 Amazonで送料無料 · 最新の円価格 · 毎週新着商品"
+    data-zh="🎁 Amazon免运费 · 实时日元价格 · 每周新品"
+    data-zhtw="🎁 Amazon免運費 · 即時日圓價格 · 每週新品"
+    data-ko="🎁 Amazon 무료배송 · 실시간 엔화 가격 · 매주 신상품"
+    data-fr="🎁 Livraison gratuite via Amazon · Prix en ¥ en temps réel · Nouveautés chaque semaine"
+    data-de="🎁 Kostenloser Versand via Amazon · Live ¥-Preise · Jede Woche Neuzugänge"
+    data-es="🎁 Envío gratis por Amazon · Precios en ¥ en tiempo real · Novedades cada semana">
+    🎁 Free shipping via Amazon · Live ¥ prices · New arrivals every week
+  </div>
+
   <!-- HEADER -->
   <header>
     <div class="header-inner">
       <div class="logo">Japan<em>Daily</em> Hub</div>
-      <div style="display:flex;gap:1.5rem;align-items:center;">
-        <a href="/japandaily-hub/about/" style="font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(18,16,14,.5);text-decoration:none;transition:color .2s;" onmouseover="this.style.color='#b8963e'" onmouseout="this.style.color='rgba(18,16,14,.5)'"
+
+      <!-- Category nav — center -->
+      <nav class="cat-nav" aria-label="Product categories">
+        <button class="cat-tab active" data-cat="all"
+          data-en="All" data-ja="すべて" data-zh="全部" data-zhtw="全部"
+          data-ko="전체" data-fr="Tout" data-de="Alle" data-es="Todo">All</button>
+        <button class="cat-tab" data-cat="stationery"
+          data-en="Stationery" data-ja="文房具" data-zh="文具" data-zhtw="文具"
+          data-ko="문구" data-fr="Papeterie" data-de="Schreibwaren" data-es="Papelería">Stationery</button>
+        <button class="cat-tab" data-cat="kitchen"
+          data-en="Kitchen" data-ja="キッチン" data-zh="厨房" data-zhtw="廚房"
+          data-ko="주방" data-fr="Cuisine" data-de="Küche" data-es="Cocina">Kitchen</button>
+        <button class="cat-tab" data-cat="beauty"
+          data-en="Beauty" data-ja="美容" data-zh="美妆" data-zhtw="美妝"
+          data-ko="뷰티" data-fr="Beauté" data-de="Beauty" data-es="Belleza">Beauty</button>
+        <button class="cat-tab" data-cat="food"
+          data-en="Food" data-ja="食品" data-zh="食品" data-zhtw="食品"
+          data-ko="식품" data-fr="Alimentation" data-de="Lebensmittel" data-es="Alimentación">Food</button>
+        <button class="cat-tab" data-cat="fashion"
+          data-en="Fashion" data-ja="ファッション" data-zh="时尚" data-zhtw="時尚"
+          data-ko="패션" data-fr="Mode" data-de="Mode" data-es="Moda">Fashion</button>
+      </nav>
+
+      <!-- Utilities — right -->
+      <div class="header-utils">
+        <a href="/japandaily-hub/about/" class="header-about"
           data-en="About" data-ja="について"
           data-zh="关于我们" data-zhtw="關於我們"
           data-ko="소개" data-fr="À propos"
@@ -351,15 +773,15 @@
           ♡ <span class="wl-count" id="wl-count">0</span>
         </button>
         <select class="lang-select" id="lang-select">
-        <option value="en">🌐 English</option>
-        <option value="ja">🇯🇵 日本語</option>
-        <option value="zh">🇨🇳 简体中文</option>
-        <option value="zhtw">🇹🇼 繁體中文</option>
-        <option value="ko">🇰🇷 한국어</option>
-        <option value="fr">🇫🇷 Français</option>
-        <option value="de">🇩🇪 Deutsch</option>
-        <option value="es">🇪🇸 Español</option>
-      </select>
+          <option value="en">🌐 English</option>
+          <option value="ja">🇯🇵 日本語</option>
+          <option value="zh">🇨🇳 简体中文</option>
+          <option value="zhtw">🇹🇼 繁體中文</option>
+          <option value="ko">🇰🇷 한국어</option>
+          <option value="fr">🇫🇷 Français</option>
+          <option value="de">🇩🇪 Deutsch</option>
+          <option value="es">🇪🇸 Español</option>
+        </select>
       </div>
     </div>
   </header>
@@ -399,13 +821,569 @@
     </div>
   </section>
 
+  <!-- TRUST STRIP -->
+  <div class="trust-strip">
+    <div class="trust-inner">
+      <div class="trust-item">
+        <div class="trust-icon">🌍</div>
+        <div>
+          <div class="trust-label"
+            data-en="Ships Worldwide" data-ja="全世界配送"
+            data-zh="全球配送" data-zhtw="全球配送"
+            data-ko="전 세계 배송" data-fr="Livraison mondiale"
+            data-de="Weltweiter Versand" data-es="Envío mundial">Ships Worldwide</div>
+          <div class="trust-sub"
+            data-en="Fulfilled by Amazon Japan" data-ja="Amazon Japan発送"
+            data-zh="由亚马逊日本发货" data-zhtw="由亞馬遜日本發貨"
+            data-ko="아마존 재팬 배송" data-fr="Expédié par Amazon Japon"
+            data-de="Versand durch Amazon Japan" data-es="Enviado por Amazon Japón">Fulfilled by Amazon Japan</div>
+        </div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">¥</div>
+        <div>
+          <div class="trust-label"
+            data-en="Live JPY Prices" data-ja="リアルタイム円価格"
+            data-zh="实时日元价格" data-zhtw="即時日圓價格"
+            data-ko="실시간 엔화 가격" data-fr="Prix en ¥ en temps réel"
+            data-de="Live JPY-Preise" data-es="Precios en ¥ en tiempo real">Live JPY Prices</div>
+          <div class="trust-sub"
+            data-en="No hidden import markups" data-ja="追加料金なし"
+            data-zh="无隐藏进口加价" data-zhtw="無隱藏進口加價"
+            data-ko="숨겨진 수입 마진 없음" data-fr="Sans frais d'importation cachés"
+            data-de="Keine versteckten Importaufschläge" data-es="Sin recargos de importación ocultos">No hidden import markups</div>
+        </div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">✦</div>
+        <div>
+          <div class="trust-label"
+            data-en="Independent Curation" data-ja="独立したセレクション"
+            data-zh="独立精选" data-zhtw="獨立精選"
+            data-ko="독립 큐레이션" data-fr="Sélection indépendante"
+            data-de="Unabhängige Kuratierung" data-es="Selección independiente">Independent Curation</div>
+          <div class="trust-sub"
+            data-en="Handpicked by Japan enthusiasts" data-ja="日本愛好家による厳選"
+            data-zh="由日本爱好者精心挑选" data-zhtw="由日本愛好者精心挑選"
+            data-ko="일본 애호가들이 엄선" data-fr="Sélectionnés par des passionnés du Japon"
+            data-de="Handverlesen von Japan-Enthusiasten" data-es="Seleccionados por entusiastas de Japón">Handpicked by Japan enthusiasts</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRODUCT GRID -->
+  <section class="products-section">
+    <div class="section-head">
+      <div>
+        <p class="section-eye"
+          data-en="Featured Items" data-ja="注目商品"
+          data-zh="精选商品" data-zhtw="精選商品"
+          data-ko="추천 상품" data-fr="Articles vedettes"
+          data-de="Ausgewählte Artikel" data-es="Artículos destacados">Featured Items</p>
+        <h2 class="section-title"
+          data-en="Curated Selection" data-ja="厳選コレクション"
+          data-zh="精选系列" data-zhtw="精選系列"
+          data-ko="엄선 컬렉션" data-fr="Sélection curatée"
+          data-de="Kuratierte Auswahl" data-es="Selección curada">Curated Selection</h2>
+      </div>
+      <a href="https://www.amazon.co.jp/" target="_blank" rel="noopener" class="view-all-link"
+        data-en="View All on Amazon →" data-ja="Amazonですべて見る →"
+        data-zh="在亚马逊查看全部 →" data-zhtw="在亞馬遜查看全部 →"
+        data-ko="아마존에서 전체 보기 →" data-fr="Voir tout sur Amazon →"
+        data-de="Alle auf Amazon ansehen →" data-es="Ver todo en Amazon →">View All on Amazon →</a>
+    </div>
+
+    <div class="product-grid" id="product-grid">
+
+      <!-- Card 1: Hobonichi Techo — Stationery -->
+      <article class="product-card" data-category="stationery">
+        <span class="product-badge">New</span>
+        <div class="product-img-wrap">
+          <img class="product-img" loading="lazy"
+            src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=600&q=75"
+            alt="Hobonichi Techo Planner" />
+        </div>
+        <div class="product-body">
+          <p class="product-cat"
+            data-en="Stationery" data-ja="文房具" data-zh="文具" data-zhtw="文具"
+            data-ko="문구" data-fr="Papeterie" data-de="Schreibwaren" data-es="Papelería">Stationery</p>
+          <p class="product-name"
+            data-en="Hobonichi Techo Planner A6 — Tomoe River Paper"
+            data-ja="ほぼ日手帳 A6 — トモエリバーペーパー"
+            data-zh="Hobonichi手账 A6 — 友江纸"
+            data-zhtw="Hobonichi手帳 A6 — 友江紙"
+            data-ko="호보니치 테초 A6 — 토모에 리버 용지"
+            data-fr="Agenda Hobonichi Techo A6 — Papier Tomoe River"
+            data-de="Hobonichi Techo Planer A6 — Tomoe River Papier"
+            data-es="Agenda Hobonichi Techo A6 — Papel Tomoe River">Hobonichi Techo Planner A6 — Tomoe River Paper</p>
+          <div class="product-rating">
+            <span class="stars">★★★★★</span>
+            <span class="rating-count">(2,847)</span>
+          </div>
+          <div class="product-price-row">
+            <span class="product-price">¥3,520</span>
+            <span class="product-price-orig">¥4,400</span>
+            <span class="product-save">-20%</span>
+          </div>
+          <div class="product-actions">
+            <a class="btn-amazon"
+              href="https://www.amazon.co.jp/s?k=hobonichi+techo&tag=japandailyhub-22"
+              target="_blank" rel="noopener sponsored"
+              data-en="Buy on Amazon" data-ja="Amazonで購入"
+              data-zh="在亚马逊购买" data-zhtw="在亞馬遜購買"
+              data-ko="아마존에서 구매" data-fr="Acheter sur Amazon"
+              data-de="Bei Amazon kaufen" data-es="Comprar en Amazon">Buy on Amazon</a>
+            <button class="btn-wl" aria-label="Add to wishlist"
+              data-wl-id="p001"
+              data-wl-title="Hobonichi Techo Planner A6"
+              data-wl-price="3520"
+              data-wl-img="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=120&q=60">♡</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 2: Gyuto Chef's Knife — Kitchen -->
+      <article class="product-card" data-category="kitchen">
+        <span class="product-badge sale">Sale</span>
+        <div class="product-img-wrap">
+          <img class="product-img" loading="lazy"
+            src="https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=600&q=75"
+            alt="Japanese Gyuto Chef Knife" />
+        </div>
+        <div class="product-body">
+          <p class="product-cat"
+            data-en="Kitchen" data-ja="キッチン" data-zh="厨房" data-zhtw="廚房"
+            data-ko="주방" data-fr="Cuisine" data-de="Küche" data-es="Cocina">Kitchen</p>
+          <p class="product-name"
+            data-en="Japanese Gyuto Chef's Knife 210mm — VG-10 Steel"
+            data-ja="牛刀 210mm — VG-10鋼"
+            data-zh="日式牛刀 210mm — VG-10钢"
+            data-zhtw="日式牛刀 210mm — VG-10鋼"
+            data-ko="일본 규토 주방칼 210mm — VG-10 강철"
+            data-fr="Couteau de chef japonais Gyuto 210mm — Acier VG-10"
+            data-de="Japanisches Gyuto-Küchenmesser 210mm — VG-10 Stahl"
+            data-es="Cuchillo de chef japonés Gyuto 210mm — Acero VG-10">Japanese Gyuto Chef's Knife 210mm — VG-10 Steel</p>
+          <div class="product-rating">
+            <span class="stars">★★★★★</span>
+            <span class="rating-count">(1,203)</span>
+          </div>
+          <div class="product-price-row">
+            <span class="product-price">¥8,800</span>
+            <span class="product-price-orig">¥12,000</span>
+            <span class="product-save">-27%</span>
+          </div>
+          <div class="product-actions">
+            <a class="btn-amazon"
+              href="https://www.amazon.co.jp/s?k=牛刀+VG10+210mm&tag=japandailyhub-22"
+              target="_blank" rel="noopener sponsored"
+              data-en="Buy on Amazon" data-ja="Amazonで購入"
+              data-zh="在亚马逊购买" data-zhtw="在亞馬遜購買"
+              data-ko="아마존에서 구매" data-fr="Acheter sur Amazon"
+              data-de="Bei Amazon kaufen" data-es="Comprar en Amazon">Buy on Amazon</a>
+            <button class="btn-wl" aria-label="Add to wishlist"
+              data-wl-id="p002"
+              data-wl-title="Japanese Gyuto Chef's Knife 210mm"
+              data-wl-price="8800"
+              data-wl-img="https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=120&q=60">♡</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 3: Shiseido Senka — Beauty -->
+      <article class="product-card" data-category="beauty">
+        <div class="product-img-wrap">
+          <img class="product-img" loading="lazy"
+            src="https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=600&q=75"
+            alt="Shiseido Senka Perfect Whip" />
+        </div>
+        <div class="product-body">
+          <p class="product-cat"
+            data-en="Beauty" data-ja="美容" data-zh="美妆" data-zhtw="美妝"
+            data-ko="뷰티" data-fr="Beauté" data-de="Beauty" data-es="Belleza">Beauty</p>
+          <p class="product-name"
+            data-en="Shiseido Senka Perfect Whip Cleansing Foam 120g"
+            data-ja="資生堂 専科 パーフェクトホイップ 洗顔料 120g"
+            data-zh="资生堂 专科 完美泡沫洗面奶 120g"
+            data-zhtw="資生堂 專科 完美泡沫洗面乳 120g"
+            data-ko="시세이도 센카 퍼펙트 휩 클렌징폼 120g"
+            data-fr="Mousse nettoyante Shiseido Senka Perfect Whip 120g"
+            data-de="Shiseido Senka Perfect Whip Reinigungsschaum 120g"
+            data-es="Espuma limpiadora Shiseido Senka Perfect Whip 120g">Shiseido Senka Perfect Whip Cleansing Foam 120g</p>
+          <div class="product-rating">
+            <span class="stars">★★★★☆</span>
+            <span class="rating-count">(5,621)</span>
+          </div>
+          <div class="product-price-row">
+            <span class="product-price">¥880</span>
+          </div>
+          <div class="product-actions">
+            <a class="btn-amazon"
+              href="https://www.amazon.co.jp/s?k=専科+パーフェクトホイップ&tag=japandailyhub-22"
+              target="_blank" rel="noopener sponsored"
+              data-en="Buy on Amazon" data-ja="Amazonで購入"
+              data-zh="在亚马逊购买" data-zhtw="在亞馬遜購買"
+              data-ko="아마존에서 구매" data-fr="Acheter sur Amazon"
+              data-de="Bei Amazon kaufen" data-es="Comprar en Amazon">Buy on Amazon</a>
+            <button class="btn-wl" aria-label="Add to wishlist"
+              data-wl-id="p003"
+              data-wl-title="Shiseido Senka Perfect Whip 120g"
+              data-wl-price="880"
+              data-wl-img="https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=120&q=60">♡</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 4: Tokyo Banana — Food -->
+      <article class="product-card" data-category="food">
+        <span class="product-badge">Popular</span>
+        <div class="product-img-wrap">
+          <img class="product-img" loading="lazy"
+            src="https://images.unsplash.com/photo-1563245372-f21724e3856d?w=600&q=75"
+            alt="Japanese Wagashi Sweets" />
+        </div>
+        <div class="product-body">
+          <p class="product-cat"
+            data-en="Food" data-ja="食品" data-zh="食品" data-zhtw="食品"
+            data-ko="식품" data-fr="Alimentation" data-de="Lebensmittel" data-es="Alimentación">Food</p>
+          <p class="product-name"
+            data-en="Tokyo Banana Original — Banana Custard Cake (8pcs)"
+            data-ja="東京ばな奈 オリジナル — バナナカスタードケーキ（8個入）"
+            data-zh="东京香蕉蛋糕 原味 — 香蕉卡仕达蛋糕（8个装）"
+            data-zhtw="東京香蕉蛋糕 原味 — 香蕉卡士達蛋糕（8個裝）"
+            data-ko="도쿄 바나나 오리지널 — 바나나 커스터드 케이크 (8개)"
+            data-fr="Gâteau Tokyo Banana Original — Custard Banane (8 pcs)"
+            data-de="Tokyo Banana Original — Bananenkuchen mit Vanillecreme (8 Stück)"
+            data-es="Pastel Tokyo Banana Original — Natilla de Plátano (8 uds)">Tokyo Banana Original — Banana Custard Cake (8pcs)</p>
+          <div class="product-rating">
+            <span class="stars">★★★★★</span>
+            <span class="rating-count">(3,180)</span>
+          </div>
+          <div class="product-price-row">
+            <span class="product-price">¥1,080</span>
+          </div>
+          <div class="product-actions">
+            <a class="btn-amazon"
+              href="https://www.amazon.co.jp/s?k=東京ばな奈&tag=japandailyhub-22"
+              target="_blank" rel="noopener sponsored"
+              data-en="Buy on Amazon" data-ja="Amazonで購入"
+              data-zh="在亚马逊购买" data-zhtw="在亞馬遜購買"
+              data-ko="아마존에서 구매" data-fr="Acheter sur Amazon"
+              data-de="Bei Amazon kaufen" data-es="Comprar en Amazon">Buy on Amazon</a>
+            <button class="btn-wl" aria-label="Add to wishlist"
+              data-wl-id="p004"
+              data-wl-title="Tokyo Banana Original (8pcs)"
+              data-wl-price="1080"
+              data-wl-img="https://images.unsplash.com/photo-1563245372-f21724e3856d?w=120&q=60">♡</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 5: Muji Acrylic Case — Stationery -->
+      <article class="product-card" data-category="stationery">
+        <div class="product-img-wrap">
+          <img class="product-img" loading="lazy"
+            src="https://images.unsplash.com/photo-1583485088034-697b5bc54ccd?w=600&q=75"
+            alt="Muji Stationery Set" />
+        </div>
+        <div class="product-body">
+          <p class="product-cat"
+            data-en="Stationery" data-ja="文房具" data-zh="文具" data-zhtw="文具"
+            data-ko="문구" data-fr="Papeterie" data-de="Schreibwaren" data-es="Papelería">Stationery</p>
+          <p class="product-name"
+            data-en="MUJI Gel Ink Pen 0.5mm — 10-Pack Assorted"
+            data-ja="無印良品 ゲルインクボールペン 0.5mm — 10本セット"
+            data-zh="无印良品 中性笔 0.5mm — 10支套装"
+            data-zhtw="無印良品 中性筆 0.5mm — 10支套裝"
+            data-ko="무지 젤잉크 볼펜 0.5mm — 10개 세트"
+            data-fr="Stylo gel MUJI 0.5mm — Lot de 10"
+            data-de="MUJI Gelschreiber 0,5mm — 10er-Set"
+            data-es="Bolígrafo de gel MUJI 0.5mm — Pack de 10">MUJI Gel Ink Pen 0.5mm — 10-Pack Assorted</p>
+          <div class="product-rating">
+            <span class="stars">★★★★★</span>
+            <span class="rating-count">(4,432)</span>
+          </div>
+          <div class="product-price-row">
+            <span class="product-price">¥2,490</span>
+            <span class="product-price-orig">¥2,900</span>
+            <span class="product-save">-14%</span>
+          </div>
+          <div class="product-actions">
+            <a class="btn-amazon"
+              href="https://www.amazon.co.jp/s?k=無印良品+ゲルインク+0.5&tag=japandailyhub-22"
+              target="_blank" rel="noopener sponsored"
+              data-en="Buy on Amazon" data-ja="Amazonで購入"
+              data-zh="在亚马逊购买" data-zhtw="在亞馬遜購買"
+              data-ko="아마존에서 구매" data-fr="Acheter sur Amazon"
+              data-de="Bei Amazon kaufen" data-es="Comprar en Amazon">Buy on Amazon</a>
+            <button class="btn-wl" aria-label="Add to wishlist"
+              data-wl-id="p005"
+              data-wl-title="MUJI Gel Ink Pen 0.5mm 10-Pack"
+              data-wl-price="2490"
+              data-wl-img="https://images.unsplash.com/photo-1583485088034-697b5bc54ccd?w=120&q=60">♡</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 6: IH Cast Iron Teapot — Kitchen -->
+      <article class="product-card" data-category="kitchen">
+        <div class="product-img-wrap">
+          <img class="product-img" loading="lazy"
+            src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=75"
+            alt="Japanese Cast Iron Teapot" />
+        </div>
+        <div class="product-body">
+          <p class="product-cat"
+            data-en="Kitchen" data-ja="キッチン" data-zh="厨房" data-zhtw="廚房"
+            data-ko="주방" data-fr="Cuisine" data-de="Küche" data-es="Cocina">Kitchen</p>
+          <p class="product-name"
+            data-en="Nambu Tekki Cast Iron Teapot 0.6L — Nanbu Style"
+            data-ja="南部鉄器 鉄瓶 0.6L — 南部スタイル"
+            data-zh="南部铁器 铸铁茶壶 0.6L"
+            data-zhtw="南部鐵器 鑄鐵茶壺 0.6L"
+            data-ko="남부 테키 무쇠 주전자 0.6L"
+            data-fr="Théière en fonte Nambu Tekki 0.6L"
+            data-de="Nambu Tekki Gusseisen-Teekanne 0,6L"
+            data-es="Tetera de hierro fundido Nambu Tekki 0.6L">Nambu Tekki Cast Iron Teapot 0.6L — Nanbu Style</p>
+          <div class="product-rating">
+            <span class="stars">★★★★★</span>
+            <span class="rating-count">(892)</span>
+          </div>
+          <div class="product-price-row">
+            <span class="product-price">¥12,500</span>
+          </div>
+          <div class="product-actions">
+            <a class="btn-amazon"
+              href="https://www.amazon.co.jp/s?k=南部鉄器+鉄瓶&tag=japandailyhub-22"
+              target="_blank" rel="noopener sponsored"
+              data-en="Buy on Amazon" data-ja="Amazonで購入"
+              data-zh="在亚马逊购买" data-zhtw="在亞馬遜購買"
+              data-ko="아마존에서 구매" data-fr="Acheter sur Amazon"
+              data-de="Bei Amazon kaufen" data-es="Comprar en Amazon">Buy on Amazon</a>
+            <button class="btn-wl" aria-label="Add to wishlist"
+              data-wl-id="p006"
+              data-wl-title="Nambu Tekki Cast Iron Teapot 0.6L"
+              data-wl-price="12500"
+              data-wl-img="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=120&q=60">♡</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 7: Tatcha Rice Wash — Beauty -->
+      <article class="product-card" data-category="beauty">
+        <span class="product-badge sale">Sale</span>
+        <div class="product-img-wrap">
+          <img class="product-img" loading="lazy"
+            src="https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=600&q=75"
+            alt="Japanese Skincare Rice Wash" />
+        </div>
+        <div class="product-body">
+          <p class="product-cat"
+            data-en="Beauty" data-ja="美容" data-zh="美妆" data-zhtw="美妝"
+            data-ko="뷰티" data-fr="Beauté" data-de="Beauty" data-es="Belleza">Beauty</p>
+          <p class="product-name"
+            data-en="Kose Softymo Speedy Cleansing Oil 230mL"
+            data-ja="コーセー ソフティモ スピーディ クレンジングオイル 230mL"
+            data-zh="Kose Softymo 速效卸妆油 230mL"
+            data-zhtw="Kose Softymo 速效卸妝油 230mL"
+            data-ko="코세 소프티모 스피디 클렌징 오일 230mL"
+            data-fr="Huile démaquillante Kose Softymo Speedy 230mL"
+            data-de="Kose Softymo Speedy Reinigungsöl 230mL"
+            data-es="Aceite desmaquillante Kose Softymo Speedy 230mL">Kose Softymo Speedy Cleansing Oil 230mL</p>
+          <div class="product-rating">
+            <span class="stars">★★★★☆</span>
+            <span class="rating-count">(7,213)</span>
+          </div>
+          <div class="product-price-row">
+            <span class="product-price">¥1,280</span>
+            <span class="product-price-orig">¥1,650</span>
+            <span class="product-save">-22%</span>
+          </div>
+          <div class="product-actions">
+            <a class="btn-amazon"
+              href="https://www.amazon.co.jp/s?k=ソフティモ+クレンジングオイル&tag=japandailyhub-22"
+              target="_blank" rel="noopener sponsored"
+              data-en="Buy on Amazon" data-ja="Amazonで購入"
+              data-zh="在亚马逊购买" data-zhtw="在亞馬遜購買"
+              data-ko="아마존에서 구매" data-fr="Acheter sur Amazon"
+              data-de="Bei Amazon kaufen" data-es="Comprar en Amazon">Buy on Amazon</a>
+            <button class="btn-wl" aria-label="Add to wishlist"
+              data-wl-id="p007"
+              data-wl-title="Kose Softymo Speedy Cleansing Oil 230mL"
+              data-wl-price="1280"
+              data-wl-img="https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=120&q=60">♡</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 8: Uniqlo Heattech — Fashion -->
+      <article class="product-card" data-category="fashion">
+        <span class="product-badge">Best Seller</span>
+        <div class="product-img-wrap">
+          <img class="product-img" loading="lazy"
+            src="https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?w=600&q=75"
+            alt="Japanese Fashion Clothing" />
+        </div>
+        <div class="product-body">
+          <p class="product-cat"
+            data-en="Fashion" data-ja="ファッション" data-zh="时尚" data-zhtw="時尚"
+            data-ko="패션" data-fr="Mode" data-de="Mode" data-es="Moda">Fashion</p>
+          <p class="product-name"
+            data-en="UNIQLO HEATTECH Extra Warm Turtleneck T-Shirt"
+            data-ja="ユニクロ ヒートテック エクストラウォーム タートルネックT"
+            data-zh="优衣库 HEATTECH超暖高领T恤"
+            data-zhtw="優衣庫 HEATTECH超暖高領T恤"
+            data-ko="유니클로 히트텍 엑스트라 웜 터틀넥 티셔츠"
+            data-fr="T-shirt col roulé UNIQLO HEATTECH Extra Warm"
+            data-de="UNIQLO HEATTECH Extra Warm Rollkragen-T-Shirt"
+            data-es="Camiseta cuello alto UNIQLO HEATTECH Extra Warm">UNIQLO HEATTECH Extra Warm Turtleneck T-Shirt</p>
+          <div class="product-rating">
+            <span class="stars">★★★★★</span>
+            <span class="rating-count">(9,045)</span>
+          </div>
+          <div class="product-price-row">
+            <span class="product-price">¥1,990</span>
+          </div>
+          <div class="product-actions">
+            <a class="btn-amazon"
+              href="https://www.amazon.co.jp/s?k=ユニクロ+ヒートテック+タートルネック&tag=japandailyhub-22"
+              target="_blank" rel="noopener sponsored"
+              data-en="Buy on Amazon" data-ja="Amazonで購入"
+              data-zh="在亚马逊购买" data-zhtw="在亞馬遜購買"
+              data-ko="아마존에서 구매" data-fr="Acheter sur Amazon"
+              data-de="Bei Amazon kaufen" data-es="Comprar en Amazon">Buy on Amazon</a>
+            <button class="btn-wl" aria-label="Add to wishlist"
+              data-wl-id="p008"
+              data-wl-title="UNIQLO HEATTECH Extra Warm Turtleneck"
+              data-wl-price="1990"
+              data-wl-img="https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?w=120&q=60">♡</button>
+          </div>
+        </div>
+      </article>
+
+    </div><!-- /product-grid -->
+  </section>
+
+  <!-- SERVICE TILES -->
+  <div class="service-section">
+    <div class="service-inner">
+      <div class="service-tile">
+        <div class="service-icon">📦</div>
+        <h3 class="service-title"
+          data-en="Worldwide Shipping" data-ja="全世界配送"
+          data-zh="全球配送" data-zhtw="全球配送"
+          data-ko="전 세계 배송" data-fr="Livraison mondiale"
+          data-de="Weltweiter Versand" data-es="Envío mundial">Worldwide Shipping</h3>
+        <p class="service-desc"
+          data-en="Amazon Japan ships to 130+ countries. Tracking provided on all orders."
+          data-ja="Amazon Japanは130カ国以上に発送可能。全注文に追跡番号付き。"
+          data-zh="Amazon Japan发货至130多个国家，全程追踪。"
+          data-zhtw="Amazon Japan發貨至130多個國家，全程追蹤。"
+          data-ko="아마존 재팬은 130개국 이상에 배송. 전 주문 추적 제공."
+          data-fr="Amazon Japon expédie dans plus de 130 pays. Suivi inclus."
+          data-de="Amazon Japan liefert in über 130 Länder. Sendungsverfolgung für alle Bestellungen."
+          data-es="Amazon Japón envía a más de 130 países. Seguimiento incluido.">Amazon Japan ships to 130+ countries. Tracking provided on all orders.</p>
+      </div>
+      <div class="service-tile">
+        <div class="service-icon">🎁</div>
+        <h3 class="service-title"
+          data-en="Gift Ready" data-ja="ギフト対応"
+          data-zh="礼品包装" data-zhtw="禮品包裝"
+          data-ko="선물 포장" data-fr="Prêt à offrir"
+          data-de="Geschenkfertig" data-es="Listo para regalo">Gift Ready</h3>
+        <p class="service-desc"
+          data-en="Select gift wrapping at checkout on Amazon. Perfect for any occasion."
+          data-ja="Amazon注文時にギフト包装を選択可能。あらゆるシーンに最適。"
+          data-zh="结账时可选礼品包装，适合各种场合。"
+          data-zhtw="結帳時可選禮品包裝，適合各種場合。"
+          data-ko="아마존 결제 시 선물 포장 선택 가능. 모든 상황에 완벽."
+          data-fr="Choisissez le papier cadeau lors du paiement sur Amazon."
+          data-de="Wählen Sie beim Bezahlen auf Amazon die Geschenkverpackung."
+          data-es="Selecciona el envoltorio de regalo al pagar en Amazon.">Select gift wrapping at checkout on Amazon. Perfect for any occasion.</p>
+      </div>
+      <div class="service-tile">
+        <div class="service-icon">🔒</div>
+        <h3 class="service-title"
+          data-en="Secure Payment" data-ja="安全決済"
+          data-zh="安全支付" data-zhtw="安全支付"
+          data-ko="안전 결제" data-fr="Paiement sécurisé"
+          data-de="Sichere Zahlung" data-es="Pago seguro">Secure Payment</h3>
+        <p class="service-desc"
+          data-en="Pay safely through Amazon's trusted checkout. All major cards accepted."
+          data-ja="Amazonの安全な決済システムでお支払い。主要カード対応。"
+          data-zh="通过亚马逊安全结账，接受所有主要信用卡。"
+          data-zhtw="透過亞馬遜安全結帳，接受所有主要信用卡。"
+          data-ko="아마존의 안전한 결제 시스템. 주요 카드 모두 지원."
+          data-fr="Payez en toute sécurité via Amazon. Toutes les principales cartes acceptées."
+          data-de="Bezahlen Sie sicher über Amazons vertrauenswürdiges Kassensystem."
+          data-es="Paga de forma segura a través de Amazon. Se aceptan todas las tarjetas principales.">Pay safely through Amazon's trusted checkout. All major cards accepted.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CATEGORY SPOTLIGHT — Stationery -->
+  <section class="spotlight-section">
+    <div class="section-head" style="margin-bottom:2rem;">
+      <div>
+        <p class="section-eye"
+          data-en="Category Spotlight" data-ja="カテゴリー特集"
+          data-zh="类别精选" data-zhtw="類別精選"
+          data-ko="카테고리 스포트라이트" data-fr="Coup de projecteur"
+          data-de="Kategorie-Spotlight" data-es="Categoría destacada">Category Spotlight</p>
+        <h2 class="section-title"
+          data-en="Japanese Stationery" data-ja="日本の文房具"
+          data-zh="日本文具" data-zhtw="日本文具"
+          data-ko="일본 문구" data-fr="Papeterie Japonaise"
+          data-de="Japanisches Schreibwaren" data-es="Papelería Japonesa">Japanese Stationery</h2>
+      </div>
+    </div>
+    <div class="spotlight-grid">
+      <div class="spotlight-img-wrap">
+        <img class="spotlight-img" loading="lazy"
+          src="https://images.unsplash.com/photo-1527689368864-3a821dbccc34?w=900&q=75"
+          alt="Japanese stationery flat lay" />
+      </div>
+      <div class="spotlight-body">
+        <p class="spotlight-eye"
+          data-en="Craft · Precision · Design" data-ja="工芸・精密さ・デザイン"
+          data-zh="工艺·精密·设计" data-zhtw="工藝·精密·設計"
+          data-ko="공예 · 정밀함 · 디자인" data-fr="Artisanat · Précision · Design"
+          data-de="Handwerk · Präzision · Design" data-es="Artesanía · Precisión · Diseño">Craft · Precision · Design</p>
+        <h3 class="spotlight-title"
+          data-en="The Art of<br/>Japanese Stationery"
+          data-ja="日本の文房具が持つ<br/>美しさと機能性"
+          data-zh="日本文具的<br/>艺术与精工"
+          data-zhtw="日本文具的<br/>藝術與精工"
+          data-ko="일본 문구의<br/>예술과 정밀함"
+          data-fr="L'art de la<br/>papeterie japonaise"
+          data-de="Die Kunst des<br/>japanischen Schreibwarens"
+          data-es="El arte de la<br/>papelería japonesa">The Art of<br/>Japanese Stationery</h3>
+        <div class="spotlight-line"></div>
+        <p class="spotlight-desc"
+          data-en="From Hobonichi's legendary Tomoe River paper to MUJI's iconic minimalist pens — Japanese stationery blends function and beauty like nowhere else. Each piece is engineered to a standard the rest of the world aspires to."
+          data-ja="ほぼ日のトモエリバーペーパーから無印良品の定番ミニマルペンまで。日本の文房具は機能と美しさを唯一無二の形で融合させています。"
+          data-zh="从Hobonichi传奇的友江纸到无印良品标志性简约钢笔，日本文具以无与伦比的方式融合功能与美感。"
+          data-zhtw="從Hobonichi傳奇的友江紙到無印良品標誌性簡約鋼筆，日本文具以無與倫比的方式融合功能與美感。"
+          data-ko="호보니치의 전설적인 토모에 리버 용지부터 무지의 상징적인 미니멀 펜까지 — 일본 문구는 기능과 아름다움을 독보적으로 결합합니다."
+          data-fr="De l'emblématique papier Tomoe River de Hobonichi aux stylos minimalistes de MUJI — la papeterie japonaise allie fonction et beauté comme nulle part ailleurs."
+          data-de="Vom legendären Tomoe River Papier von Hobonichi bis zu MUJIs ikonischen minimalistischen Stiften — japanische Schreibwaren verbinden Funktion und Schönheit wie nirgendwo sonst."
+          data-es="Desde el legendario papel Tomoe River de Hobonichi hasta los icónicos bolígrafos minimalistas de MUJI — la papelería japonesa combina función y belleza como en ningún otro lugar.">From Hobonichi's legendary Tomoe River paper to MUJI's iconic minimalist pens — Japanese stationery blends function and beauty like nowhere else. Each piece is engineered to a standard the rest of the world aspires to.</p>
+        <button class="btn-spotlight" onclick="document.querySelector('[data-cat=stationery]').click();document.getElementById('product-grid').scrollIntoView({behavior:'smooth'})"
+          data-en="Explore Stationery" data-ja="文房具を探す"
+          data-zh="探索文具" data-zhtw="探索文具"
+          data-ko="문구 탐색하기" data-fr="Explorer la papeterie"
+          data-de="Schreibwaren erkunden" data-es="Explorar papelería">Explore Stationery</button>
+      </div>
+    </div>
+  </section>
+
   <!-- WISHLIST DRAWER -->
   <div class="drawer-overlay" id="wl-overlay"></div>
   <div class="drawer" id="wl-drawer" role="dialog" aria-label="Wishlist">
     <div class="drawer-head">
       <div class="drawer-title"
         data-en="My Wishlist" data-ja="ウィッシュリスト"
-        data-zh="我的心愿单" data-zhtw="我的心願単"
+        data-zh="我的心愿单" data-zhtw="我的心願單"
         data-ko="위시리스트" data-fr="Ma Liste de Souhaits"
         data-de="Wunschliste" data-es="Mi Lista de Deseos">My Wishlist</div>
       <button class="drawer-close" id="wl-close-btn" aria-label="Close">✕</button>
@@ -497,23 +1475,19 @@
       const sel = document.getElementById('lang-select');
       if (sel) sel.value = lang;
       try { localStorage.setItem('jdh-lang', lang); } catch(e) {}
-      // ウィッシュリストドロワーが開いていれば空状態テキストを再描画
       if (document.getElementById('wl-drawer')?.classList.contains('open')) {
         renderWLBody();
       }
     }
 
-    // selectのchangeイベントをスクリプト内でバインド（Astroモジュールスコープ対応）
     const langSel = document.getElementById('lang-select');
     if (langSel) langSel.addEventListener('change', (e) => setLang(e.target.value));
 
-    // ページ読み込み時に保存済み言語を復元（なければIPジオロケーションで自動検出）
     (async function() {
       try {
         const saved = localStorage.getItem('jdh-lang');
         if (saved && LANGS.includes(saved)) { setLang(saved); return; }
       } catch(e) {}
-      // 保存済み設定なし → IPで国を検出して言語を推定
       try {
         const r = await fetch('https://ipapi.co/json/');
         const d = await r.json();
@@ -529,6 +1503,23 @@
       } catch(e) { setLang('en'); }
     })();
 
+    // ── カテゴリフィルター ──
+    const catTabs = document.querySelectorAll('.cat-tab');
+    catTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        catTabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        const cat = tab.dataset.cat;
+        document.querySelectorAll('.product-card').forEach(card => {
+          if (cat === 'all' || card.dataset.category === cat) {
+            card.classList.remove('hidden');
+          } else {
+            card.classList.add('hidden');
+          }
+        });
+      });
+    });
+
     // ── ウィッシュリスト ──
     const WL_KEY = 'jdh-wishlist';
 
@@ -537,6 +1528,18 @@
     }
     function saveWL(list) {
       try { localStorage.setItem(WL_KEY, JSON.stringify(list)); } catch {}
+    }
+
+    function addToWL(id, title, price, img) {
+      const list = getWL();
+      if (!list.find(i => i.id === id)) {
+        list.push({ id, title, price, img });
+        saveWL(list);
+      }
+      renderWLCount();
+      // highlight button
+      const btn = document.querySelector(`.btn-wl[data-wl-id="${id}"]`);
+      if (btn) { btn.classList.add('active'); btn.textContent = '♥'; }
     }
 
     function renderWLCount() {
@@ -569,11 +1572,35 @@
       `).join('');
       body.querySelectorAll('.wl-item-remove').forEach(btn => {
         btn.addEventListener('click', () => {
-          saveWL(getWL().filter(i => i.id !== btn.dataset.id));
+          const removedId = btn.dataset.id;
+          saveWL(getWL().filter(i => i.id !== removedId));
+          // reset card button
+          const cardBtn = document.querySelector(`.btn-wl[data-wl-id="${removedId}"]`);
+          if (cardBtn) { cardBtn.classList.remove('active'); cardBtn.textContent = '♡'; }
           renderWLBody(); renderWLCount();
         });
       });
     }
+
+    // Bind wishlist card buttons
+    document.querySelectorAll('.btn-wl').forEach(btn => {
+      // restore active state from localStorage
+      const id = btn.dataset.wlId;
+      if (getWL().find(i => i.id === id)) {
+        btn.classList.add('active'); btn.textContent = '♥';
+      }
+      btn.addEventListener('click', () => {
+        const list = getWL();
+        if (list.find(i => i.id === id)) {
+          // toggle off
+          saveWL(list.filter(i => i.id !== id));
+          btn.classList.remove('active'); btn.textContent = '♡';
+          renderWLCount();
+        } else {
+          addToWL(id, btn.dataset.wlTitle, btn.dataset.wlPrice, btn.dataset.wlImg);
+        }
+      });
+    });
 
     function openDrawer() {
       renderWLBody();
@@ -591,7 +1618,9 @@
     document.getElementById('wl-close-btn')?.addEventListener('click', closeDrawer);
     document.getElementById('wl-overlay')?.addEventListener('click', closeDrawer);
     document.getElementById('wl-clear-btn')?.addEventListener('click', () => {
-      saveWL([]); renderWLBody(); renderWLCount();
+      saveWL([]);
+      document.querySelectorAll('.btn-wl').forEach(b => { b.classList.remove('active'); b.textContent = '♡'; });
+      renderWLBody(); renderWLCount();
     });
 
     renderWLCount();
